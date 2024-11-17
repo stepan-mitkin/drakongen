@@ -1,27 +1,26 @@
 function treeMaker(nodes, nodeId, body, stopId) {
     while (nodeId) {
-        // Stop processing if the node ID matches the stopping condition
+        // Step 1: Check if we reached the stop condition
         if (nodeId === stopId) return;
 
         const node = nodes[nodeId];
         if (!node) {
-            throw new Error(`Node with ID ${nodeId} does not exist in the graph.`);
+            throw new Error(`Node with ID ${nodeId} does not exist.`);
         }
 
         let transformed;
         let next;
 
+        // Step 2: Process question nodes
         if (node.type === "question") {
-            // Get the next target node and manage the targetTaken property
             const target = nodes[node.next];
-            if (target?.targetTaken) {
+            if (target.targetTaken) {
                 next = undefined;
             } else {
                 next = node.next;
-                target.targetTaken = true; // Mark the target node as taken
+                target.targetTaken = true;
             }
 
-            // Transform the question node
             transformed = {
                 id: node.id,
                 type: "question",
@@ -30,15 +29,32 @@ function treeMaker(nodes, nodeId, body, stopId) {
                 no: []
             };
 
-            // Determine the yes and no branches based on the flag1 property
             const yesNodeId = node.flag1 === 1 ? node.one : node.two;
             const noNodeId = node.flag1 === 1 ? node.two : node.one;
 
-            // Recursively process the branches
+            // Recursive calls for yes and no branches
             treeMaker(nodes, yesNodeId, transformed.yes, node.next);
             treeMaker(nodes, noNodeId, transformed.no, node.next);
-        } else {
-            // Transform a normal node
+        }
+        // Step 3: Process loop nodes
+        else if (node.type === "loopbegin") {
+            transformed = {
+                id: node.id,
+                type: "loop",
+                content: node.content || "",
+                body: []
+            };
+
+            next = node.next;
+
+            // Recursive call for the loop body
+            treeMaker(nodes, node.one, transformed.body, node.end);
+        }
+        else if (node.type === "loopend") {
+            return
+        }        
+        // Step 4: Process other nodes
+        else {
             transformed = {
                 id: node.id,
                 type: node.type,
@@ -46,10 +62,11 @@ function treeMaker(nodes, nodeId, body, stopId) {
                 message: node.message || "",
                 secondary: node.secondary || ""
             };
+
             next = node.one; // Continue to the next node
         }
 
-        // Add the transformed node to the output array
+        // Step 5: Add transformed node to the tree
         body.push(transformed);
 
         // Move to the next node

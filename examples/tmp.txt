@@ -1,0 +1,13 @@
+Start with an empty list
+
+If node.prev
+    get the prev node by id
+
+    If not (prev node is poisoned)
+        If The parent loop of prev node == parent loop
+            add prev node to list
+
+            If not (list length > 10)
+                write to log
+
+Return the list

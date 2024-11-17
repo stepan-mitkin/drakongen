@@ -1,12 +1,13 @@
-function structFlow(nodes, nodeId, branchingStack) {
+function structFlow(nodes, nodeId, branchingStack, filename) {    
     // Step 1: Check for end
     if (!nodeId) return;
 
     const node = nodes[nodeId];
 
     // Step 2: Detect cycles
-    if (branchingStack.includes(nodeId)) {
-        return; // Loop detected
+    if (branchingStack.indexOf(nodeId) !== -1) {
+        // Cycle detected, return
+        return;
     }
 
     // Step 3: Can we continue?
@@ -16,10 +17,13 @@ function structFlow(nodes, nodeId, branchingStack) {
             node.remaining = node.prev.length;
         }
         node.remaining--;
-        mergeBranchingStack(nodes, node, branchingStack);
+
+        // Merge the branching stack into node.stack
+        mergeBranchingStack(nodes, node, branchingStack, filename);
+
         if (node.remaining > 0) return;
     } else {
-        node.stack = branchingStack.slice(); // Shallow copy of branching stack
+        node.stack = branchingStack.slice();
     }
 
     // Step 4: Proceed
@@ -30,54 +34,56 @@ function structFlow(nodes, nodeId, branchingStack) {
             question.branching++;
         }
 
-        const firstCopy = node.stack.slice();
-        const secondCopy = node.stack.slice();
-        firstCopy.push(nodeId);
-        secondCopy.push(nodeId);
+        const stackOne = node.stack.slice();
+        const stackTwo = node.stack.slice();
+        stackOne.push(nodeId);
+        stackTwo.push(nodeId);
 
-        structFlow(nodes, node.one, firstCopy);
-        structFlow(nodes, node.two, secondCopy);
+        structFlow(nodes, node.one, stackOne, filename);
+        structFlow(nodes, node.two, stackTwo, filename);
     } else {
-        structFlow(nodes, node.one, node.stack);
+        structFlow(nodes, node.one, node.stack, filename);
     }
 }
 
-function mergeBranchingStack(nodes, node, branchingStack) {
+function mergeBranchingStack(nodes, node, branchingStack, filename) {
     // Append all elements of the branching stack to node.stack
     for (let i = 0; i < branchingStack.length; i++) {
         node.stack.push(branchingStack[i]);
     }
 
-    // Build a dictionary to count occurrences of each ID in node.stack
+    // Build a dictionary of occurrences
     const dictionary = {};
     for (let i = 0; i < node.stack.length; i++) {
         const id = node.stack[i];
         dictionary[id] = (dictionary[id] || 0) + 1;
     }
 
-    // Merge all elements in the stack using the dictionary
-    mergeAll(nodes, node, dictionary);
+    // Merge all nodes
+    mergeAll(nodes, node, dictionary, filename);
 
-    // Rebuild node.stack from the dictionary
-    const newStack = [];
+    // Rebuild the stack
+    const rebuiltStack = [];
     for (const id in dictionary) {
-        const count = dictionary[id];
-        for (let i = 0; i < count; i++) {
-            newStack.push(id);
+        if (dictionary[id] > 0) {
+            rebuiltStack.push(id);
         }
     }
-    node.stack = newStack;
+    node.stack = rebuiltStack;
 }
 
-function mergeAll(nodes, node, dictionary) {
+function mergeAll(nodes, node, dictionary, filename) {
     for (const id in dictionary) {
-        let occurrences = dictionary[id];
+        const occurrences = dictionary[id];
         if (occurrences > 1) {
             const question = nodes[id];
             question.branching--;
             if (question.branching === 1) {
                 dictionary[id] = 0;
                 question.next = node.id;
+                if (question.parentLoopId && node.parentLoopId !== question.parentLoopId) {
+                    markBreak(nodes, node, question, filename)                   
+                }                
             } else {
                 dictionary[id] = occurrences - 1;
             }
@@ -85,17 +91,128 @@ function mergeAll(nodes, node, dictionary) {
     }
 }
 
-function prepareQuestions(nodes) {
-    for (const nodeId in nodes) {
-        const node = nodes[nodeId];
-        if (node.type === "question") {
-            node.branching = 2; // Initialize branching for "question" nodes
+function markBreak(nodes, node, question, filename) {
+    const parentLoopId = question.parentLoopId
+    const start = nodes[parentLoopId];
+    const end = nodes[start.end];
+    if (end.one === node.id) {
+        if (!node.breakingLoops) {
+            node.breakingLoops = {}
+        }        
+        node.breakingLoops[question.parentLoopId] = true
+    } else {
+        throw new Error(
+            `An exit from the loop points too far away, node id = ${node.id}, filename: ${filename}`
+        );
+    }
+}
+
+function makeBreak(nodes, node, pn) {
+    const id = makeRandomId(nodes);
+    const breakNode = {
+        id: id,
+        type: "break"
+    };
+    nodes[id] = breakNode;    
+    redirectNode(nodes, pn, node.id, id)
+}
+
+function handleBreak(nodes, node, startId) {
+    var questions = {}
+    var start = nodes[startId]
+    const pointingNodes = findPointingNodes(nodes, node, startId, questions);
+    for (var qid in questions) {
+        var question = nodes[qid]
+        if (question.next === node.id) {
+            question.next = start.end
+        }
+    }
+    for (var pn of pointingNodes) {
+        makeBreak(nodes, node, pn)
+    }
+}
+
+
+
+function findPointingNodes(nodes, node, parentLoopId, questions) {
+    const result = [];
+    for (let prevId of node.prev) {
+        const prev = nodes[prevId];
+        if (prev.type === "loopend" && prev.start === parentLoopId) {continue}
+        if (tryReachSourceQuestion(nodes, prevId, parentLoopId, questions)) {
+            result.push(prev)
+        }
+    }
+    return result;
+}
+
+function tryReachSourceQuestion(nodes, nodeId, parentLoopId, questions) {
+    const node = nodes[nodeId]
+    if (node.type === "branch") {
+        return false
+    }
+    var found = false
+    if (node.parentLoopId && node.parentLoopId === parentLoopId) {
+        found = true
+    } else {
+        for (var prevId of node.prev) {
+            var foundHere = tryReachSourceQuestion(nodes, prevId, parentLoopId, questions)
+            if (foundHere) {found = foundHere}
+        }
+    }
+    if (found && (node.type === "question")) {
+        questions[nodeId] = true
+    }
+    return found
+}
+
+function redirectNode(nodes, node, from, to) {
+    if (node.one === from) {
+        node.one = to;
+    }
+    if (node.two === from) {
+        node.two = to;
+    }
+    if (node.start && node.type === "loopend") {
+        start = nodes[node.start]
+        if (start.next === from) {
+            start.next = to
         }
     }
 }
 
-// Export functions in CommonJS format
-module.exports = {
-    structFlow,
-    prepareQuestions,
-};
+function makeRandomId(nodes) {
+    while (true) {
+        const id = generateId();
+        if (!nodes[id]) {
+            return id;
+        }
+    }
+}
+
+function generateId() {
+    return "break-" + Math.floor(Math.random() * (10000 - 1000) + 1000);
+}
+
+function prepareQuestions(nodes) {
+    for (const nodeId in nodes) {
+        const node = nodes[nodeId];
+        if (node.type === "question") {
+            node.branching = 2;
+        }
+    }
+}
+
+function handleBreaks(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.breakingLoops) {
+            for (var startId in node.breakingLoops) {
+                handleBreak(nodes, node, startId)
+            }            
+        }
+    }
+}
+
+
+module.exports = { structFlow, prepareQuestions, handleBreaks };

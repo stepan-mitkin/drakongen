@@ -1,4 +1,4 @@
-const { structFlow, prepareQuestions } = require("./structFlow")
+const { handleBreaks, structFlow, prepareQuestions } = require("./structFlow")
 const { treeMaker } = require("./treeMaker")
 
 function drakonToStruct(drakonJson, name, filename) {
@@ -55,8 +55,9 @@ function parseDrakon(drakonJson, name, filename) {
     rewireSelects(nodes, filename)
     rewireShortcircuit(nodes, filename)
 
-    prepareQuestions(nodes)
-    structFlow(nodes, firstNodeId, [])
+    prepareQuestions(nodes)    
+    structFlow(nodes, firstNodeId, [], filename)
+    handleBreaks(nodes)
 
     var result = {
         name: name,
@@ -275,6 +276,7 @@ function markLoopBody(nodes, start, filename) {
             nextNodeId = markLoopBody(nodes, current, filename)
         } else if (current.type === "loopend") {
             start.end = current.id
+            start.next = current.one
             current.start = start.id
             return nextNodeId
         }

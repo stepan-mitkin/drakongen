@@ -122,7 +122,7 @@ function printPseudo(algorithm, translations, output) {
             if (step.type === "question") {
                 printQuestion(step, depth, output)
             } else if (step.type === "loop") {
-                printLoop(step, indent, output)                     
+                printLoop(step, depth, output)                     
             } else if (step.type === "error") {
                 printError(step, indent, output)
             } else if (step.type === "break") {

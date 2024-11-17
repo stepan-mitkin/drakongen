@@ -1,0 +1,154 @@
+{
+    "name": "Find pointing nodes",
+    "params": "",
+    "body": [
+        {
+            "id": "2",
+            "type": "branch",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "3",
+            "type": "action",
+            "content": "<p>Start with an empty list</p>",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "11",
+            "type": "question",
+            "content": "<p>node.prev</p>",
+            "yes": [
+                {
+                    "id": "5",
+                    "type": "loop",
+                    "content": "<p>For each id in node.prev</p>",
+                    "body": [
+                        {
+                            "id": "7",
+                            "type": "action",
+                            "content": "<p>get the prev node by id</p>",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "12",
+                            "type": "question",
+                            "content": "<p>prev node is poisoned</p>",
+                            "yes": [
+                                {
+                                    "id": "break-6307",
+                                    "type": "break",
+                                    "content": "",
+                                    "message": "",
+                                    "secondary": ""
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "8",
+                                    "type": "question",
+                                    "content": "<p>The parent loop of prev node == parent loop</p>",
+                                    "yes": [
+                                        {
+                                            "id": "9",
+                                            "type": "action",
+                                            "content": "<p>add prev node to list</p>",
+                                            "message": "",
+                                            "secondary": ""
+                                        },
+                                        {
+                                            "id": "10",
+                                            "type": "question",
+                                            "content": "<p>list length &gt; 10</p>",
+                                            "yes": [
+                                                {
+                                                    "id": "13",
+                                                    "type": "question",
+                                                    "content": "<p>extra check</p>",
+                                                    "yes": [
+                                                        {
+                                                            "id": "14",
+                                                            "type": "action",
+                                                            "content": "<p>fine</p>",
+                                                            "message": "",
+                                                            "secondary": ""
+                                                        },
+                                                        {
+                                                            "id": "break-9209",
+                                                            "type": "break",
+                                                            "content": "",
+                                                            "message": "",
+                                                            "secondary": ""
+                                                        }
+                                                    ],
+                                                    "no": [
+                                                        {
+                                                            "id": "16",
+                                                            "type": "loop",
+                                                            "content": "<p>for each hair</p>",
+                                                            "body": [
+                                                                {
+                                                                    "id": "17",
+                                                                    "type": "action",
+                                                                    "content": "<p>raise the hair</p>",
+                                                                    "message": "",
+                                                                    "secondary": ""
+                                                                },
+                                                                {
+                                                                    "id": "18",
+                                                                    "type": "question",
+                                                                    "content": "<p>raised?</p>",
+                                                                    "yes": [],
+                                                                    "no": [
+                                                                        {
+                                                                            "id": "break-6018",
+                                                                            "type": "break",
+                                                                            "content": "",
+                                                                            "message": "",
+                                                                            "secondary": ""
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "break-9300",
+                                                            "type": "break",
+                                                            "content": "",
+                                                            "message": "",
+                                                            "secondary": ""
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "no": []
+                                        }
+                                    ],
+                                    "no": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "no": []
+        },
+        {
+            "id": "6",
+            "type": "action",
+            "content": "<p>Return the list</p>",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "1",
+            "type": "end",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        }
+    ]
+}
