@@ -1,0 +1,190 @@
+{
+    "name": "Adaptive design",
+    "params": "",
+    "body": [
+        {
+            "id": "111",
+            "type": "branch",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "5",
+            "type": "question",
+            "content": {
+                "operator": "equal",
+                "left": "<p>The device type</p>",
+                "right": "Large screen"
+            },
+            "yes": [
+                {
+                    "id": "55",
+                    "type": "action",
+                    "content": "Use large background image",
+                    "message": "",
+                    "secondary": ""
+                },
+                {
+                    "id": "67",
+                    "type": "action",
+                    "content": "Use grid layout",
+                    "message": "",
+                    "secondary": ""
+                },
+                {
+                    "id": "77",
+                    "type": "action",
+                    "content": "Use small UI elements",
+                    "message": "",
+                    "secondary": ""
+                },
+                {
+                    "id": "38",
+                    "type": "action",
+                    "content": "Put full main menu",
+                    "message": "",
+                    "secondary": ""
+                }
+            ],
+            "no": [
+                {
+                    "id": "8",
+                    "type": "question",
+                    "content": {
+                        "operator": "equal",
+                        "left": "<p>The device type</p>",
+                        "right": "Laptop"
+                    },
+                    "yes": [
+                        {
+                            "id": "58",
+                            "type": "action",
+                            "content": "Use medium background image",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "102",
+                            "type": "action",
+                            "content": "Use grid layout",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "70",
+                            "type": "action",
+                            "content": "Use small UI elements",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "38",
+                            "type": "action",
+                            "content": "Put full main menu",
+                            "message": "",
+                            "secondary": ""
+                        }
+                    ],
+                    "no": [
+                        {
+                            "id": "27",
+                            "type": "question",
+                            "content": {
+                                "operator": "equal",
+                                "left": "<p>The device type</p>",
+                                "right": "Tablet"
+                            },
+                            "yes": [
+                                {
+                                    "id": "61",
+                                    "type": "action",
+                                    "content": "Use medium background image",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "105",
+                                    "type": "action",
+                                    "content": "Use plain layout",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "83",
+                                    "type": "action",
+                                    "content": "Use large UI elements",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "38",
+                                    "type": "action",
+                                    "content": "Put full main menu",
+                                    "message": "",
+                                    "secondary": ""
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "9",
+                                    "type": "question",
+                                    "content": {
+                                        "operator": "equal",
+                                        "left": "<p>The device type</p>",
+                                        "right": "Phone"
+                                    },
+                                    "yes": [],
+                                    "no": [
+                                        {
+                                            "id": "9-unexpected",
+                                            "type": "error",
+                                            "content": "<p>The device type</p>",
+                                            "message": "Unexpected case value",
+                                            "secondary": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "64",
+                                    "type": "action",
+                                    "content": "Use small background image",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "108",
+                                    "type": "action",
+                                    "content": "Use plain layout",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "80",
+                                    "type": "action",
+                                    "content": "Use large UI elements",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "99",
+                                    "type": "action",
+                                    "content": "Put minimal main menu",
+                                    "message": "",
+                                    "secondary": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "type": "end",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        }
+    ]
+}

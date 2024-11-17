@@ -1,0 +1,103 @@
+Write a JavaScript function structFlow(nodes, nodeId, branchingStack) which will traverse a directed graph.
+Do not use the ... operator
+
+The structure of the graph:
+"nodes" is a map - node ids to nodes.
+A node has two optional properties, "one" and "two" that contain the ids of its adjacent nodes.
+A node has a property "prev" which is an array with the ids of the nodes that point to this node.
+
+structFlow must do the graph traversal depth-first
+structFlow is recursive
+structFlow has an argument - the branching stack (an array)
+The first call to structFlow is provided with an empty branching stack
+
+Step 1. Check for end
+if nodeId is falsish, return
+
+Step 2. Detect cycles
+If node.id in the branching stack, we have a loop. Return.
+
+Step 3. Can we continue?
+If the node.prev.length > 1
+    If the node is visited for the first time, set node.stack = [], node.remaining = node.prev.length
+    node.remaining--
+    to merge the branching stack in node.stack
+    if node.remaining > 0, return
+Else
+    node.stack = branchingStack
+
+Step 4. Proceed 
+If node.type === "question":
+    for each questionId in the node.stack
+        question = nodes[node id]
+        question.branching++
+    
+    make two copies of node.stack
+    add node.id to each of the copies
+    call recursively structFlow(nodes, node.one, first copy of the branching stack)    
+    call recursively structFlow(nodes, node.two, second copy of the branching stack)
+Else:
+    call recursively structFlow for node.one, pass node.stack
+
+Here is how to merge the branching stack in node.stack:
+    append all elements of the branching stack to node.stack
+    build an dictionary that maps node.stack elements to the number of their occurences in node.stack
+    mergeAll(nodes, node, dictionary)
+    node.stack = rebuild the stack from the dictionary:
+        start with an empty array
+        for each id in dictionary
+            add the id to the stack where dictionary[id] > 0
+
+
+function mergeAll(nodes, node, dictionary)
+    for each id in dictionary.keys
+        occurences = dictionary[id]
+        if (occurences > 1)            
+            question = nodes[id]
+            question.branching--
+            if (question.branching === 1)
+                dictionary[id] = 0
+                question.next = node.id
+                handleBreak(nodes, node, question)
+            Else
+                dictionary[id] = occurences - 1
+
+function handleBreak(nodes, node, question)
+    if question.parentLoopId and node.parentLoopId != question.parentLoopId
+        start = nodes[question.parentLoopId]
+        end = nodes[start.end]
+        if end.one == node.id
+            makeBreak(nodes, node, question, end)
+        Else
+            throw error: An exit from the loop points too far away, node id = node.id
+
+function makeBreak(nodes, node, question, end)
+    id = makeRandomId()
+    breakNode = {
+        id: id,
+        type: "break"
+    }
+    nodes[id] = breakNode
+    pointingNodes = findPointingNodes(nodes, node, question.parentLoopId)
+    for each pn in pointingNodes
+        redirectNode(pn, node.id, id)
+    question.next = end.id
+
+function findPointingNodes(nodes, node, parentLoopId)
+    result = []
+    for each prevId in node.prev
+        prev = nodes[prevId]
+        if prev.parentLoopId == parentLoopId
+            result.push(prev)
+    return result
+
+function redirectNode(node, from, to)
+    if node.one == from
+        node.one = to
+    if node.two == from
+        node.two = to
+
+In the same module, write a function prepareQuestions(nodes)
+It will set node.branching = 2 for all nodes where type === "question"
+
+Export prepareQuestions and structFlow in CommonJs format.

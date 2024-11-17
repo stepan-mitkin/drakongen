@@ -1,0 +1,26 @@
+Find an existing connection in context.connections by URL
+
+If not (Connection found?)
+    Create a new MSAL connection object.
+    Use the following information to initialize the object:
+    
+    - context.config.redirectUri is the redirect URI
+    - context.config.authority is the authority
+    - context.config.clientId is the client id
+    
+
+    Put the connection in context.connections using the URL as the key.
+
+Try to get an access token using the connection in non-interactive mode.
+
+If Got exception?
+    Get a token in interactive mode.
+
+    If Did the user cancel the logon?
+        Return an empty string
+
+    Else
+        Return the access token
+
+Else
+    Return the access token

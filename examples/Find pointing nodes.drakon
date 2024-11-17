@@ -1,0 +1,57 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "3"
+        },
+        "3": {
+            "type": "action",
+            "content": "<p>Start with an empty list</p>",
+            "one": "5"
+        },
+        "4": {
+            "type": "loopend",
+            "one": "6"
+        },
+        "5": {
+            "type": "loopbegin",
+            "one": "7",
+            "content": "<p>For each id in node.prev</p>"
+        },
+        "6": {
+            "type": "action",
+            "content": "<p>Return the list</p>",
+            "one": "1"
+        },
+        "7": {
+            "type": "action",
+            "content": "<p>get the prev node by id</p>",
+            "one": "8"
+        },
+        "8": {
+            "type": "question",
+            "content": "<p>The parent loop of prev node == parent loop</p>",
+            "one": "4",
+            "two": "9",
+            "flag1": 0
+        },
+        "9": {
+            "type": "action",
+            "content": "<p>add prev node to list</p>",
+            "one": "10"
+        },
+        "10": {
+            "type": "question",
+            "content": "<p>list length &gt; 10</p>",
+            "one": "4",
+            "two": "6",
+            "flag1": 0
+        }
+    },
+    "type": "drakon",
+    "id": "Find pointing nodes.drakon"
+}

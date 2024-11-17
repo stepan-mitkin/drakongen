@@ -1,0 +1,64 @@
+Write a JavaScript function treeMaker(nodes, nodeId, body, stopId) that produces a tree from a graph.
+
+"body" paramters is a reference to the output array. treeMaker will push tranformed nodes to "body".
+
+The structure of the graph:
+"nodes" is a map - node ids to nodes.
+Normal nodes have the id of the next node in the "one" property.
+
+Question nodes (where node.type === "question") have 3 properties that have ids of other nodes:
+1. "one" - the next node below.
+2. "two" - the next node to the right.
+3. "next" - the node that both of the above branches converge to.
+
+"next" always has a value and points to a valid node.
+"one", "two", when not empty, point to a valid node.
+
+The algorithm traverses the graph depth-first.
+It's okay to visit a node twice or more. There is a guarantee that there are no cycles.
+
+Transform every visited node and put it in the tree under construction.
+
+while nodeId
+    if nodeId === stopId
+        return
+
+    node = nodes[nodeId]  
+
+    if node.type === "question"
+        target = nodes[node.next]
+        if target.targetTaken
+            next = undefined
+        Else
+            next = node.next
+            target.targetTaken = true
+        transformed = {
+            id: node.id,
+            type: "question",
+            content: node.content || "",
+            yes: [],
+            no: []
+        }
+        if node.flag1 === 1
+            yesNodeId = node.one
+            noNodeId = node.two
+        Else
+            yesNodeId = node.two
+            noNodeId = node.one
+        
+        treeMaker(nodes, yesNodeId, transformed.yes, node.next)
+        treeMaker(nodes, noNodeId, transformed.no, node.next)
+    Else
+        transformed = {
+            id: node.id,
+            type: node.type,
+            content: node.content || "",
+            message: node.message || "",
+            secondary: node.secondary || ""
+        }
+        next = node.one
+    
+    body.push(transformed)
+    nodeId = next
+
+Export the function in CommonJs format.

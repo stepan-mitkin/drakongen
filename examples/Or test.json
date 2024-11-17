@@ -1,0 +1,54 @@
+{
+    "name": "Or test",
+    "params": "",
+    "body": [
+        {
+            "id": "2",
+            "type": "branch",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "3",
+            "type": "question",
+            "content": {
+                "operator": "or",
+                "left": {
+                    "operator": "or",
+                    "left": "<p>One</p>",
+                    "right": {
+                        "operator": "not",
+                        "operand": "<p>Two</p>"
+                    }
+                },
+                "right": "<p>Three</p>"
+            },
+            "yes": [
+                {
+                    "id": "6",
+                    "type": "action",
+                    "content": "<p>Do it!</p>",
+                    "message": "",
+                    "secondary": ""
+                }
+            ],
+            "no": [
+                {
+                    "id": "10",
+                    "type": "action",
+                    "content": "<p>Do not do it</p>",
+                    "message": "",
+                    "secondary": ""
+                }
+            ]
+        },
+        {
+            "id": "1",
+            "type": "end",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        }
+    ]
+}
