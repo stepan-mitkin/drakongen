@@ -177,7 +177,11 @@ function printPseudo(algorithm, translations, output) {
     function printLoop(step, depth, output) {
         const indent = makeIndent(depth)
         if (isEmptyBody(step.body)) {return}
-        printStructuredContent(step.content, indent, output)
+        var content = step.content
+        if (!content) {
+            content = translate("loop forever")
+        }
+        printStructuredContent(content, indent, output)
         printSteps(step.body, depth + 1, output)
     }      
 

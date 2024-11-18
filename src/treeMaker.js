@@ -13,13 +13,7 @@ function treeMaker(nodes, nodeId, body, stopId) {
 
         // Step 2: Process question nodes
         if (node.type === "question") {
-            const target = nodes[node.next];
-            if (target.targetTaken) {
-                next = undefined;
-            } else {
-                next = node.next;
-                target.targetTaken = true;
-            }
+            next = reserveNext(nodes, node)
 
             transformed = {
                 id: node.id,
@@ -37,7 +31,7 @@ function treeMaker(nodes, nodeId, body, stopId) {
             treeMaker(nodes, noNodeId, transformed.no, node.next);
         }
         // Step 3: Process loop nodes
-        else if (node.type === "loopbegin") {
+        else if (node.type === "loopbegin" || node.type === "arrow-loop") {
             transformed = {
                 id: node.id,
                 type: "loop",
@@ -45,14 +39,17 @@ function treeMaker(nodes, nodeId, body, stopId) {
                 body: []
             };
 
-            next = node.next;
+            next = reserveNext(nodes, node)
 
             // Recursive call for the loop body
-            treeMaker(nodes, node.one, transformed.body, node.end);
+            treeMaker(nodes, node.one, transformed.body, node.stub);
         }
         else if (node.type === "loopend") {
             return
-        }        
+        }       
+        else if (node.type === "arrow-stub") {
+            return
+        }          
         // Step 4: Process other nodes
         else {
             transformed = {
@@ -72,6 +69,18 @@ function treeMaker(nodes, nodeId, body, stopId) {
         // Move to the next node
         nodeId = next;
     }
+}
+
+function reserveNext(nodes, node) {
+    var next
+    const target = nodes[node.next];
+    if (target.targetTaken) {
+        next = undefined;
+    } else {
+        next = node.next;
+        target.targetTaken = true;
+    }    
+    return next
 }
 
 module.exports = {treeMaker}

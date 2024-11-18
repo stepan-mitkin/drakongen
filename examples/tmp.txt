@@ -1,13 +1,13 @@
-Start with an empty list
+Loop forever
+    BBBBB
 
-If node.prev
-    get the prev node by id
+    If CCCCC
+        break
+    Else
+        DDDDDD
 
-    If not (prev node is poisoned)
-        If The parent loop of prev node == parent loop
-            add prev node to list
+        If EEEEEE
+            break
+    KKKK
 
-            If not (list length > 10)
-                write to log
-
-Return the list
+    break

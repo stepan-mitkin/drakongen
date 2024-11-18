@@ -20,6 +20,9 @@ function structFlow(nodes, nodeId, branchingStack, filename) {
         node.stack = branchingStack.slice();
     }
 
+    // Step 3.1: try to find breaks for arrows
+    tryToBreakArrows(nodes, node)
+
     // Step 4: Proceed
     if (node.type === "question") {
         for (let i = 0; i < node.stack.length; i++) {
@@ -35,8 +38,48 @@ function structFlow(nodes, nodeId, branchingStack, filename) {
 
         structFlow(nodes, node.two, stackTwo, filename);
         structFlow(nodes, node.one, stackOne, filename);
+    } else if (node.type === "arrow-loop") {
+        const stack = node.stack.slice();
+        stack.push(nodeId);
+        structFlow(nodes, node.one, stack, filename);
+    } else if (node.type === "arrow-stub") {
+        decrementBranchingForAll(nodes, node)
     } else {
         structFlow(nodes, node.one, node.stack, filename);
+    }
+}
+
+function decrementBranchingForAll(nodes, node) {
+    for (var id of node.stack) {
+        var algonode = nodes[id]
+        algonode.branching--
+    }
+}
+
+function tryToBreakArrows(nodes, node) {    
+    for (var id of node.stack) {
+        var algonode = nodes[id]
+        if (algonode.type === "arrow-loop" && algonode.branching === 1) {
+            if (!isInMap(node.astack, id)) {
+                severTheArrow(nodes, node, algonode)
+            }
+        }        
+    }
+}
+
+function isInMap(map, key) {
+    if (!map) { return false }
+    return key in map
+}
+
+function severTheArrow(nodes, node, arrow) {
+    for (var prevId of node.prev) {
+        var prev = nodes[prevId]
+        if (prev.stack.includes(arrow.id)) {
+            makeBreak(nodes, node, prev)
+            prev.next = node.id
+            arrow.next = node.id
+        }
     }
 }
 
@@ -70,15 +113,19 @@ function mergeAll(nodes, node, dictionary, filename) {
     for (const id in dictionary) {
         const occurrences = dictionary[id];
         if (occurrences > 1) {
-            const question = nodes[id];
-            question.branching--;
-            if (question.branching === 1) {
-                dictionary[id] = 0;
-                question.next = node.id;
-                if (question.parentLoopId && node.parentLoopId !== question.parentLoopId) {
-                    markBreak(nodes, node, question, filename)                   
-                }                
-            } else {
+            const algonode = nodes[id];
+            algonode.branching--;
+            if (algonode.type === "question") {
+                if (algonode.branching === 1) {
+                    dictionary[id] = 0;
+                    algonode.next = node.id;
+                    if (algonode.parentLoopId && node.parentLoopId !== algonode.parentLoopId) {
+                        markBreak(nodes, node, algonode, filename)                   
+                    }                
+                } else {
+                    dictionary[id] = occurrences - 1;
+                }
+            } else if (algonode.type === "arrow-loop") {
                 dictionary[id] = occurrences - 1;
             }
         }
@@ -167,6 +214,9 @@ function redirectNode(nodes, node, from, to) {
     if (node.two === from) {
         node.two = to;
     }
+    if (node.next === from) {
+        node.next = to
+    }
     if (node.start && node.type === "loopend") {
         start = nodes[node.start]
         if (start.next === from) {
@@ -211,4 +261,4 @@ function handleBreaks(nodes) {
 }
 
 
-module.exports = { structFlow, prepareQuestions, handleBreaks };
+module.exports = { structFlow, prepareQuestions, handleBreaks, redirectNode };

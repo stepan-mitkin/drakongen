@@ -1,1 +1,5 @@
-Lift weight
+Loop forever
+    Lift weight
+
+    If Tired?
+        break

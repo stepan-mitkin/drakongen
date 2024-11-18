@@ -1,0 +1,31 @@
+AAAAAA
+
+Loop forever
+    BBBBB
+
+    If CCCCC
+        If FFFFFF
+            break
+        Else
+            For each GGGGG
+                HHHHH
+
+                If not (IIIIII)
+                    break
+            break
+    Else
+        DDDDDD
+
+        If EEEEEE
+            For each GGGGG
+                HHHHH
+
+                If not (IIIIII)
+                    break
+        Else
+            Loop forever
+                If JJJJ
+                    break
+    KKKK
+
+    break

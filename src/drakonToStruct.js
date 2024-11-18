@@ -1,4 +1,4 @@
-const { handleBreaks, structFlow, prepareQuestions } = require("./structFlow")
+const { handleBreaks, structFlow, prepareQuestions, redirectNode } = require("./structFlow")
 const { treeMaker } = require("./treeMaker")
 
 function drakonToStruct(drakonJson, name, filename) {
@@ -139,7 +139,7 @@ function rewireArrowsInBranch(nodes, prevNodeId, nodeId, arrowStack) {
 
 function insertArrowStub(nodes, node) {
     var stub = {
-        type: "action",
+        type: "arrow-stub",
         id: "arrow-stub-" + node.id,
         arrow: node.id,
         prev: []
@@ -153,7 +153,7 @@ function insertArrowStub(nodes, node) {
         } else {
             stub.prev.push(prevId)
             var prev = nodes[prevId]
-            redirect(prev, node.id, stub.id)
+            redirectNode(nodes, prev, node.id, stub.id)
         }
     }
     node.prev = prev2

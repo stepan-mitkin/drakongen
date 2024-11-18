@@ -3,71 +3,70 @@
     "params": "",
     "body": [
         {
-            "id": "3",
-            "type": "action",
-            "content": "<p>Start with an empty list</p>",
-            "message": "",
-            "secondary": ""
-        },
-        {
-            "id": "11",
-            "type": "question",
-            "content": "<p>node.prev</p>",
-            "yes": [
+            "id": "15",
+            "type": "loop",
+            "content": "",
+            "body": [
                 {
-                    "id": "7",
+                    "id": "4",
                     "type": "action",
-                    "content": "<p>get the prev node by id</p>",
+                    "content": "<p>BBBBB</p>",
                     "message": "",
                     "secondary": ""
                 },
                 {
-                    "id": "12",
+                    "id": "5",
                     "type": "question",
-                    "content": "<p>prev node is poisoned</p>",
-                    "yes": [],
+                    "content": "<p>CCCCC</p>",
+                    "yes": [
+                        {
+                            "id": "break-1916",
+                            "type": "break",
+                            "content": "",
+                            "message": "",
+                            "secondary": ""
+                        }
+                    ],
                     "no": [
                         {
-                            "id": "8",
+                            "id": "6",
+                            "type": "action",
+                            "content": "<p>DDDDDD</p>",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "7",
                             "type": "question",
-                            "content": "<p>The parent loop of prev node == parent loop</p>",
+                            "content": "<p>EEEEEE</p>",
                             "yes": [
                                 {
-                                    "id": "9",
-                                    "type": "action",
-                                    "content": "<p>add prev node to list</p>",
+                                    "id": "break-1527",
+                                    "type": "break",
+                                    "content": "",
                                     "message": "",
                                     "secondary": ""
-                                },
-                                {
-                                    "id": "10",
-                                    "type": "question",
-                                    "content": "<p>list length &gt; 10</p>",
-                                    "yes": [],
-                                    "no": [
-                                        {
-                                            "id": "13",
-                                            "type": "action",
-                                            "content": "<p>write to log</p>",
-                                            "message": "",
-                                            "secondary": ""
-                                        }
-                                    ]
                                 }
                             ],
                             "no": []
                         }
                     ]
+                },
+                {
+                    "id": "16",
+                    "type": "action",
+                    "content": "<p>KKKK</p>",
+                    "message": "",
+                    "secondary": ""
+                },
+                {
+                    "id": "break-2279",
+                    "type": "break",
+                    "content": "",
+                    "message": "",
+                    "secondary": ""
                 }
-            ],
-            "no": []
-        },
-        {
-            "id": "6",
-            "type": "action",
-            "content": "<p>Return the list</p>",
-            "message": "",
-            "secondary": ""
+            ]
         },
         {
             "id": "1",
