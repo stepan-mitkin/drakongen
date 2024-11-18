@@ -11,7 +11,8 @@ function drakonToStruct(drakonJson, name, filename) {
 
     const nodes = drakonGraph.items || {};
 
-    var firstNodeId = findStartNode(nodes, filename)
+    var branches = []
+    var firstNodeId = findStartNode(nodes, filename, branches)
 
     if (!firstNodeId) {
         return undefined
@@ -21,11 +22,11 @@ function drakonToStruct(drakonJson, name, filename) {
 
     rewireSelectsMarkLoops(nodes, filename)
     rewireShortcircuit(nodes, filename)
-    rewireArrows(nodes)
+    rewireArrows(nodes, branches)
 
     prepareQuestions(nodes)    
-    forEachBranch(nodes, cutOffBranch)
-    forEachBranch(nodes, branch => structFlow(nodes, branch.next, [], filename))
+    branches.forEach(cutOffBranch)
+    branches.forEach(branch => structFlow(nodes, branch.next, [], filename))
     handleBreaks(nodes)
 
     var body = []
@@ -44,16 +45,6 @@ function cutOffBranch(branch) {
     branch.one = undefined
 }
 
-function forEachBranch(nodes, action) {
-    for (var id in nodes) {
-        var node = nodes[id]
-        if (node.type === "branch") {
-            action(node)
-        }
-    }
-}
-
-
 function buildTwoWayConnections(nodes, firstNodeId) {
     for (var id in nodes) {
         var node = nodes[id]
@@ -65,7 +56,7 @@ function buildTwoWayConnections(nodes, firstNodeId) {
     traverse(nodes, firstNodeId, {}, connectBack)
 }
 
-function findStartNode(nodes, filename) {
+function findStartNode(nodes, filename, branches) {
     var firstNodeId = undefined
     var minBranchId = 10000    
     for (var id in nodes) {
@@ -75,6 +66,7 @@ function findStartNode(nodes, filename) {
                 firstNodeId = id
                 minBranchId = node.branchId
             }
+            branches.push(node)
         } else if (node.type === "select") {
             if (!node.content) {
                 throw new Error(`A Select icon must have content in file "${filename}", node ${id}.`);
@@ -95,14 +87,8 @@ function findStartNode(nodes, filename) {
 }
 
 
-function rewireArrows(nodes) {
-    for (var id in nodes) {
-        var node = nodes[id]
-        if (node.type === "branch") {
-            var arrowStack = []
-            rewireArrowsInBranch(nodes, node.id, node.one, arrowStack)
-        }
-    }
+function rewireArrows(nodes, branches) {
+    branches.forEach(branch => rewireArrowsInBranch(nodes, branch.id, branch.next, []))
     for (var id in nodes) {
         var node = nodes[id]
         if (node.type === "arrow-loop") {

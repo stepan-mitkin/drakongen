@@ -3,13 +3,6 @@
     "params": "",
     "body": [
         {
-            "id": "2",
-            "type": "branch",
-            "content": "",
-            "message": "",
-            "secondary": ""
-        },
-        {
             "id": "3",
             "type": "action",
             "content": "<p>Start with an empty list</p>",
@@ -39,7 +32,7 @@
                             "content": "<p>prev node is poisoned</p>",
                             "yes": [
                                 {
-                                    "id": "break-6307",
+                                    "id": "break-8973",
                                     "type": "break",
                                     "content": "",
                                     "message": "",
@@ -77,7 +70,7 @@
                                                             "secondary": ""
                                                         },
                                                         {
-                                                            "id": "break-9209",
+                                                            "id": "break-2734",
                                                             "type": "break",
                                                             "content": "",
                                                             "message": "",
@@ -104,7 +97,7 @@
                                                                     "yes": [],
                                                                     "no": [
                                                                         {
-                                                                            "id": "break-6018",
+                                                                            "id": "break-4345",
                                                                             "type": "break",
                                                                             "content": "",
                                                                             "message": "",
@@ -115,7 +108,7 @@
                                                             ]
                                                         },
                                                         {
-                                                            "id": "break-9300",
+                                                            "id": "break-2187",
                                                             "type": "break",
                                                             "content": "",
                                                             "message": "",
