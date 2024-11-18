@@ -54,8 +54,9 @@ function parseDrakon(drakonJson, name, filename) {
 
     rewireSelects(nodes, filename)
     rewireShortcircuit(nodes, filename)
+    rewireArrows(nodes)
 
-    prepareQuestions(nodes)    
+    prepareQuestions(nodes)
     structFlow(nodes, firstNodeId, [], filename)
     handleBreaks(nodes)
 
@@ -67,6 +68,75 @@ function parseDrakon(drakonJson, name, filename) {
 
     treeMaker(nodes, firstNodeId, result.body, "none", {})
     return result
+}
+
+function rewireArrows(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.type === "branch") {
+            var arrowStack = []
+            rewireArrowsInBranch(nodes, node.id, node.one, arrowStack)
+        }
+    }
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.type === "arrow-loop") {
+            insertArrowStub(nodes, node)
+        }
+    }    
+}
+
+function rewireArrowsInBranch(nodes, prevNodeId, nodeId, arrowStack) {
+    if (!nodeId) {return}
+    var node = nodes[nodeId]
+    if (node.type === "branch") {
+        return
+    }
+    if (node.type === "arrow-loop") {
+        if (!node.noloop) {
+            node.noloop = {}
+        }
+        if (arrowStack.includes(nodeId)) {
+            return            
+        }
+        node.noloop[prevNodeId] = true
+        arrowStack = arrowStack.slice()
+        arrowStack.push(nodeId)
+        rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
+    } else if (node.type === "question") {
+        var left = arrowStack.slice()
+        var right = arrowStack.slice()
+        rewireArrowsInBranch(nodes, nodeId, node.one, left)
+        rewireArrowsInBranch(nodes, nodeId, node.two, right)
+    } else {
+        rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
+    }
+}
+
+function insertArrowStub(nodes, node) {
+    var stub = {
+        id: "arrow-stub-" + node.id,
+        arrow: node.id,
+        prev: []
+    }
+    nodes[stub.id] = stub
+    node.stub = stub.id
+    var prev2 = []
+    for (var prevId of node.prev) {
+        if (prevId in node.noloop) {
+            prev2.push(prevId)
+        } else {
+            stub.prev.push(prevId)
+            var prev = nodes[prevId]
+            if (prev.one === node.id) {
+                prev.one = stub.id
+            }
+            if (prev.two === node.id) {
+                prev.two = stub.id
+            }
+        }
+    }
+    node.prev = prev2
 }
 
 function rewireSelects(nodes, filename) {

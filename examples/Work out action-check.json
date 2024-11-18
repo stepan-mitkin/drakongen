@@ -1,0 +1,33 @@
+{
+    "name": "Work out action-check",
+    "params": "",
+    "body": [
+        {
+            "id": "2",
+            "type": "branch",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "5",
+            "type": "arrow-loop",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "3",
+            "type": "action",
+            "content": "<p>Lift weight</p>",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "arrow-stub-5",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+Warm up
+
+For each exercize in the program
+    Repeat 10 times
+        Lift the weight
+
+        If Tired?
+            Say: huff da
+
+            break

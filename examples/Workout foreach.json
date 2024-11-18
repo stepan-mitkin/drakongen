@@ -1,114 +1,70 @@
 {
-    "start": "56",
-    "nodes": {
-        "2": {
-            "type": "end",
-            "id": "2",
-            "prev": [
-                "58"
-            ]
-        },
-        "4": {
-            "type": "action",
-            "one": "59",
-            "content": "Warm up",
-            "id": "4",
-            "prev": [
-                "56"
-            ]
-        },
-        "56": {
-            "type": "branch",
-            "branchId": 0,
-            "one": "4",
-            "id": "56",
-            "prev": []
-        },
-        "58": {
-            "type": "loopend",
-            "one": "2",
-            "id": "58",
-            "prev": [
-                "61",
-                "64"
-            ],
-            "parentLoopId": "59",
-            "start": "59"
-        },
-        "59": {
-            "type": "loopbegin",
-            "one": "60",
-            "content": "<p>For each exercize in the program</p>",
-            "id": "59",
-            "prev": [
-                "4"
-            ],
-            "end": "58"
-        },
-        "60": {
-            "type": "loopbegin",
-            "one": "62",
-            "content": "Repeat 10 times",
-            "two": "",
-            "id": "60",
-            "prev": [
-                "59"
-            ],
-            "parentLoopId": "59",
-            "end": "61"
-        },
-        "61": {
-            "type": "loopend",
-            "one": "58",
-            "content": "",
-            "two": "",
-            "id": "61",
-            "prev": [
-                "63"
-            ],
-            "parentLoopId": "60",
-            "start": "60"
-        },
-        "62": {
-            "type": "action",
-            "one": "63",
-            "content": "Lift the weight",
-            "two": "",
-            "id": "62",
-            "prev": [
-                "60"
-            ],
-            "parentLoopId": "60"
-        },
-        "63": {
-            "type": "question",
-            "flag1": 0,
-            "one": "61",
-            "two": "64",
-            "content": "Tired?",
-            "id": "63",
-            "prev": [
-                "62"
-            ],
-            "parentLoopId": "60"
-        },
-        "64": {
-            "type": "action",
-            "content": "<p>Say: huff da</p>",
-            "one": "58",
-            "two": "",
-            "id": "64",
-            "prev": [
-                "63"
-            ]
-        },
-        "header": {
-            "type": "header",
-            "style": "{\"font\":\"bold 16px Arimo\"}",
-            "id": "header",
-            "prev": []
-        }
-    },
     "name": "Workout foreach",
-    "params": ""
+    "params": "",
+    "body": [
+        {
+            "id": "56",
+            "type": "branch",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "4",
+            "type": "action",
+            "content": "Warm up",
+            "message": "",
+            "secondary": ""
+        },
+        {
+            "id": "59",
+            "type": "loop",
+            "content": "<p>For each exercize in the program</p>",
+            "body": [
+                {
+                    "id": "60",
+                    "type": "loop",
+                    "content": "Repeat 10 times",
+                    "body": [
+                        {
+                            "id": "62",
+                            "type": "action",
+                            "content": "Lift the weight",
+                            "message": "",
+                            "secondary": ""
+                        },
+                        {
+                            "id": "63",
+                            "type": "question",
+                            "content": "Tired?",
+                            "yes": [
+                                {
+                                    "id": "64",
+                                    "type": "action",
+                                    "content": "<p>Say: huff da</p>",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "break-9333",
+                                    "type": "break",
+                                    "content": "",
+                                    "message": "",
+                                    "secondary": ""
+                                }
+                            ],
+                            "no": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "type": "end",
+            "content": "",
+            "message": "",
+            "secondary": ""
+        }
+    ]
 }
