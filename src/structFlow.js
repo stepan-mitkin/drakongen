@@ -4,24 +4,15 @@ function structFlow(nodes, nodeId, branchingStack, filename) {
 
     const node = nodes[nodeId];
 
-    // Step 3: Can we continue?
-    if (node.prev && node.prev.length > 1) {
-        if (!node.stack) {
-            node.stack = [];
-            node.remaining = node.prev.length;
-        }
-        node.remaining--;
-
-        // Merge the branching stack into node.stack
-        mergeBranchingStack(nodes, node, branchingStack, filename);
-
-        if (node.remaining > 0) return;
-    } else {
-        node.stack = branchingStack.slice();
+    if (!node.stack) {
+        node.stack = [];
+        node.remaining = node.prev.length;
     }
+    node.remaining--;
 
-    // Step 3.1: try to find breaks for arrows
-    tryToBreakArrows(nodes, node)
+    // Merge the branching stack into node.stack
+    mergeBranchingStack(nodes, node, branchingStack, filename);
+    if (node.remaining > 0) return;
 
     // Step 4: Proceed
     if (node.type === "question") {
@@ -56,17 +47,6 @@ function decrementBranchingForAll(nodes, node) {
     }
 }
 
-function tryToBreakArrows(nodes, node) {    
-    for (var id of node.stack) {
-        var algonode = nodes[id]
-        if (algonode.type === "arrow-loop" && algonode.branching === 1) {
-            if (!isInMap(node.astack, id)) {
-                severTheArrow(nodes, node, algonode)
-            }
-        }        
-    }
-}
-
 function isInMap(map, key) {
     if (!map) { return false }
     return key in map
@@ -78,7 +58,6 @@ function severTheArrow(nodes, node, arrow) {
         if (prev.stack.includes(arrow.id)) {
             makeBreak(nodes, node, prev)
             prev.next = node.id
-            arrow.next = node.id
         }
     }
 }
@@ -90,46 +69,64 @@ function mergeBranchingStack(nodes, node, branchingStack, filename) {
     }
 
     // Build a dictionary of occurrences
-    const dictionary = {};
-    for (let i = 0; i < node.stack.length; i++) {
-        const id = node.stack[i];
-        dictionary[id] = (dictionary[id] || 0) + 1;
-    }
+    const dictionary = buildDictionaryOfOccurences(node);
 
     // Merge all nodes
     mergeAll(nodes, node, dictionary, filename);
 
     // Rebuild the stack
+    node.stack = buildStackFromDictionary(dictionary);
+}
+
+function buildStackFromDictionary(dictionary) {
     const rebuiltStack = [];
     for (const id in dictionary) {
         if (dictionary[id] > 0) {
             rebuiltStack.push(id);
         }
     }
-    node.stack = rebuiltStack;
+    return rebuiltStack;
+}
+
+function buildDictionaryOfOccurences(node) {
+    const dictionary = {};
+    for (let i = 0; i < node.stack.length; i++) {
+        const id = node.stack[i];
+        dictionary[id] = (dictionary[id] || 0) + 1;
+    }
+    return dictionary;
 }
 
 function mergeAll(nodes, node, dictionary, filename) {
+    var oldStack = Object.keys(dictionary)
     for (const id in dictionary) {
         const occurrences = dictionary[id];
-        if (occurrences > 1) {
-            const algonode = nodes[id];
+        const algonode = nodes[id];
+        if (occurrences > 1) {            
             algonode.branching--;
+            dictionary[id] = occurrences - 1;
+        }
+
+        if (algonode.branching === 1) {
             if (algonode.type === "question") {
-                if (algonode.branching === 1) {
-                    dictionary[id] = 0;
+                algonode.next = node.id;
+                dictionary[algonode.id] = 0;    
+                completeQuestion(nodes, node, algonode, dictionary, filename)
+            } else if (algonode.type === "arrow-loop") {    
+                if (!isInMap(node.astack, algonode.id)) {
                     algonode.next = node.id;
-                    if (algonode.parentLoopId && node.parentLoopId !== algonode.parentLoopId) {
-                        markBreak(nodes, node, algonode, filename)                   
-                    }                
-                } else {
-                    dictionary[id] = occurrences - 1;
-                }
-            } else if (algonode.type === "arrow-loop") {
-                dictionary[id] = occurrences - 1;
+                    dictionary[algonode.id] = 0;                 
+                    severTheArrow(nodes, node, algonode)
+                }            
             }
         }
     }
+}
+
+function completeQuestion(nodes, node, algonode, dictionary, filename) {
+    if (algonode.parentLoopId && node.parentLoopId !== algonode.parentLoopId) {
+        markBreak(nodes, node, algonode, filename)                   
+    }                
 }
 
 function markBreak(nodes, node, question, filename) {

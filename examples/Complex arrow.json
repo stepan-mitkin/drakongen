@@ -32,7 +32,7 @@
                             "content": "<p>FFFFFF</p>",
                             "yes": [
                                 {
-                                    "id": "break-8907",
+                                    "id": "break-8441",
                                     "type": "break",
                                     "content": "",
                                     "message": "",
@@ -59,7 +59,7 @@
                                             "yes": [],
                                             "no": [
                                                 {
-                                                    "id": "break-6133",
+                                                    "id": "break-8917",
                                                     "type": "break",
                                                     "content": "",
                                                     "message": "",
@@ -70,7 +70,7 @@
                                     ]
                                 },
                                 {
-                                    "id": "break-2340",
+                                    "id": "break-2525",
                                     "type": "break",
                                     "content": "",
                                     "message": "",
@@ -91,37 +91,7 @@
                             "id": "7",
                             "type": "question",
                             "content": "<p>EEEEEE</p>",
-                            "yes": [
-                                {
-                                    "id": "10",
-                                    "type": "loop",
-                                    "content": "<p>For each GGGGG</p>",
-                                    "body": [
-                                        {
-                                            "id": "11",
-                                            "type": "action",
-                                            "content": "<p>HHHHH</p>",
-                                            "message": "",
-                                            "secondary": ""
-                                        },
-                                        {
-                                            "id": "12",
-                                            "type": "question",
-                                            "content": "<p>IIIIII</p>",
-                                            "yes": [],
-                                            "no": [
-                                                {
-                                                    "id": "break-6133",
-                                                    "type": "break",
-                                                    "content": "",
-                                                    "message": "",
-                                                    "secondary": ""
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
+                            "yes": [],
                             "no": [
                                 {
                                     "id": "14",
@@ -134,7 +104,7 @@
                                             "content": "<p>JJJJ</p>",
                                             "yes": [
                                                 {
-                                                    "id": "break-3792",
+                                                    "id": "break-8347",
                                                     "type": "break",
                                                     "content": "",
                                                     "message": "",
@@ -146,24 +116,46 @@
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "id": "10",
+                            "type": "loop",
+                            "content": "<p>For each GGGGG</p>",
+                            "body": [
+                                {
+                                    "id": "11",
+                                    "type": "action",
+                                    "content": "<p>HHHHH</p>",
+                                    "message": "",
+                                    "secondary": ""
+                                },
+                                {
+                                    "id": "12",
+                                    "type": "question",
+                                    "content": "<p>IIIIII</p>",
+                                    "yes": [],
+                                    "no": [
+                                        {
+                                            "id": "break-8917",
+                                            "type": "break",
+                                            "content": "",
+                                            "message": "",
+                                            "secondary": ""
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
-                },
-                {
-                    "id": "16",
-                    "type": "action",
-                    "content": "<p>KKKK</p>",
-                    "message": "",
-                    "secondary": ""
-                },
-                {
-                    "id": "break-7158",
-                    "type": "break",
-                    "content": "",
-                    "message": "",
-                    "secondary": ""
                 }
             ]
+        },
+        {
+            "id": "16",
+            "type": "action",
+            "content": "<p>KKKK</p>",
+            "message": "",
+            "secondary": ""
         },
         {
             "id": "1",

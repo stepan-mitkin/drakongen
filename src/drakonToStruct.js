@@ -97,13 +97,13 @@ function rewireArrows(nodes, branches) {
 }
 
 function fillAStack(nodes, node, arrowId) {
-    if (node.id === arrowId) {
-        return
-    }
     if (!node.astack) {
         node.astack = {}
     }
     node.astack[arrowId] = true
+    if (node.id === arrowId) {
+        return
+    }    
     for (var prevId of node.prev) {
         var prev = nodes[prevId]
         fillAStack(nodes, prev, arrowId)

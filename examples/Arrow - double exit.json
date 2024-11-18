@@ -1,5 +1,5 @@
 {
-    "name": "tmp",
+    "name": "Arrow - double exit",
     "params": "",
     "body": [
         {
@@ -13,7 +13,7 @@
                     "content": "<p>CCCCC</p>",
                     "yes": [
                         {
-                            "id": "break-2617",
+                            "id": "break-7613",
                             "type": "break",
                             "content": "",
                             "message": "",
@@ -36,7 +36,7 @@
                             "secondary": ""
                         },
                         {
-                            "id": "break-2684",
+                            "id": "break-5800",
                             "type": "break",
                             "content": "",
                             "message": "",
