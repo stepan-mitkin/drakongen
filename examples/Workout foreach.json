@@ -3,13 +3,6 @@
     "params": "",
     "body": [
         {
-            "id": "56",
-            "type": "branch",
-            "content": "",
-            "message": "",
-            "secondary": ""
-        },
-        {
             "id": "4",
             "type": "action",
             "content": "Warm up",
@@ -46,7 +39,7 @@
                                     "secondary": ""
                                 },
                                 {
-                                    "id": "break-9333",
+                                    "id": "break-3903",
                                     "type": "break",
                                     "content": "",
                                     "message": "",

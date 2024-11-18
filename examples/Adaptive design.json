@@ -3,13 +3,6 @@
     "params": "",
     "body": [
         {
-            "id": "111",
-            "type": "branch",
-            "content": "",
-            "message": "",
-            "secondary": ""
-        },
-        {
             "id": "5",
             "type": "question",
             "content": {

@@ -193,6 +193,8 @@ function prepareQuestions(nodes) {
         const node = nodes[nodeId];
         if (node.type === "question") {
             node.branching = 2;
+        } else if (node.type === "arrow-loop") {
+            node.branching = 1;
         }
     }
 }

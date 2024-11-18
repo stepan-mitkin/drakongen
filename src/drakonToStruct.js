@@ -22,10 +22,9 @@ function drakonToStruct(drakonJson, name, filename) {
 
     rewireSelectsMarkLoops(nodes, filename)
     rewireShortcircuit(nodes, filename)
-    rewireArrows(nodes, branches)
-
-    prepareQuestions(nodes)    
     branches.forEach(cutOffBranch)
+    rewireArrows(nodes, branches)
+    prepareQuestions(nodes)    
     branches.forEach(branch => structFlow(nodes, branch.next, [], filename))
     handleBreaks(nodes)
 
@@ -49,8 +48,7 @@ function buildTwoWayConnections(nodes, firstNodeId) {
     for (var id in nodes) {
         var node = nodes[id]
         node.id = id
-        node.prev = []
-        node.astack = {}
+        node.prev = []        
     }
 
     traverse(nodes, firstNodeId, {}, connectBack)
@@ -92,9 +90,24 @@ function rewireArrows(nodes, branches) {
     for (var id in nodes) {
         var node = nodes[id]
         if (node.type === "arrow-loop") {
-            insertArrowStub(nodes, node)
+            var stub = insertArrowStub(nodes, node)
+            fillAStack(nodes, stub, stub.arrow)
         }
     }    
+}
+
+function fillAStack(nodes, node, arrowId) {
+    if (node.id === arrowId) {
+        return
+    }
+    if (!node.astack) {
+        node.astack = {}
+    }
+    node.astack[arrowId] = true
+    for (var prevId of node.prev) {
+        var prev = nodes[prevId]
+        fillAStack(nodes, prev, arrowId)
+    }
 }
 
 function rewireArrowsInBranch(nodes, prevNodeId, nodeId, arrowStack) {
@@ -126,6 +139,7 @@ function rewireArrowsInBranch(nodes, prevNodeId, nodeId, arrowStack) {
 
 function insertArrowStub(nodes, node) {
     var stub = {
+        type: "action",
         id: "arrow-stub-" + node.id,
         arrow: node.id,
         prev: []
@@ -139,15 +153,23 @@ function insertArrowStub(nodes, node) {
         } else {
             stub.prev.push(prevId)
             var prev = nodes[prevId]
-            if (prev.one === node.id) {
-                prev.one = stub.id
-            }
-            if (prev.two === node.id) {
-                prev.two = stub.id
-            }
+            redirect(prev, node.id, stub.id)
         }
     }
     node.prev = prev2
+    return stub
+}
+
+function redirect(node, from, to) {
+    if (node.one === from) {
+        node.one = to
+    }
+    if (node.two === from) {
+        node.two = to
+    }
+    if (node.next === from) {
+        node.next = to
+    }    
 }
 
 function rewireSelectsMarkLoops(nodes, filename) {
