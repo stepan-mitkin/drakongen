@@ -2,10 +2,6 @@ const { handleBreaks, structFlow, prepareQuestions } = require("./structFlow")
 const { treeMaker } = require("./treeMaker")
 
 function drakonToStruct(drakonJson, name, filename) {
-    return parseDrakon(drakonJson, name, filename)
-}
-
-function parseDrakon(drakonJson, name, filename) {
     let drakonGraph;
     try {
         drakonGraph = JSON.parse(drakonJson);
@@ -14,19 +10,52 @@ function parseDrakon(drakonJson, name, filename) {
     }
 
     const nodes = drakonGraph.items || {};
+
+    var firstNodeId = findStartNode(nodes, filename)
+
+    if (!firstNodeId) {
+        return undefined
+    }
+
+    buildTwoWayConnections(nodes, firstNodeId)
+
+    rewireSelectsMarkLoops(nodes, filename)
+    rewireShortcircuit(nodes, filename)
+    rewireArrows(nodes)
+
+    prepareQuestions(nodes)
+    structFlow(nodes, firstNodeId, [], filename)
+    handleBreaks(nodes)
+
+    var body = []
+    treeMaker(nodes, firstNodeId, body, "none", {})
+
+    return {
+        name: name,
+        params: drakonGraph.params || "",
+        body: body
+    }
+}
+
+function buildTwoWayConnections(nodes, firstNodeId) {
     for (var id in nodes) {
         var node = nodes[id]
         node.id = id
         node.prev = []
-    }    
-    
+        node.astack = {}
+    }
+
+    traverse(nodes, firstNodeId, {}, connectBack)
+}
+
+function findStartNode(nodes, filename) {
     var firstNodeId = undefined
     var minBranchId = 10000    
     for (var id in nodes) {
         var node = nodes[id]
         if (node.type === "branch") {
             if (node.branchId < minBranchId) {
-                firstNodeId = node.id
+                firstNodeId = id
                 minBranchId = node.branchId
             }
         } else if (node.type === "select") {
@@ -38,7 +67,6 @@ function parseDrakon(drakonJson, name, filename) {
             if (!node.content) {
                 throw new Error(`A Loop begin icon must have content in file "${filename}", node ${id}.`);
             }             
-            markLoopBody(nodes, node, filename)
         } else if (node.type === "question") {
             if (!node.content) {
                 throw new Error(`A Question icon must have content in file "${filename}", node ${id}.`);
@@ -46,29 +74,9 @@ function parseDrakon(drakonJson, name, filename) {
         }
     }
 
-    if (!firstNodeId) {
-        return undefined
-    }
-
-    traverse(nodes, firstNodeId, {}, connectBack)
-
-    rewireSelects(nodes, filename)
-    rewireShortcircuit(nodes, filename)
-    rewireArrows(nodes)
-
-    prepareQuestions(nodes)
-    structFlow(nodes, firstNodeId, [], filename)
-    handleBreaks(nodes)
-
-    var result = {
-        name: name,
-        params: drakonGraph.params || "",
-        body: []
-    }
-
-    treeMaker(nodes, firstNodeId, result.body, "none", {})
-    return result
+    return firstNodeId
 }
+
 
 function rewireArrows(nodes) {
     for (var id in nodes) {
@@ -139,11 +147,13 @@ function insertArrowStub(nodes, node) {
     node.prev = prev2
 }
 
-function rewireSelects(nodes, filename) {
+function rewireSelectsMarkLoops(nodes, filename) {
     for (var id of Object.keys(nodes)) {
         var node = nodes[id]
         if (node.type === "select") {
             rewireSelect(nodes, node, filename)
+        } else if (node.type === "loopbegin") {
+            markLoopBody(nodes, node, filename)
         }
     }
 }
