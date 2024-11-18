@@ -33,8 +33,8 @@ function structFlow(nodes, nodeId, branchingStack, filename) {
         stackOne.push(nodeId);
         stackTwo.push(nodeId);
 
-        structFlow(nodes, node.one, stackOne, filename);
         structFlow(nodes, node.two, stackTwo, filename);
+        structFlow(nodes, node.one, stackOne, filename);
     } else {
         structFlow(nodes, node.one, node.stack, filename);
     }
