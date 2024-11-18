@@ -3,13 +3,6 @@
     "params": "<p>Obtains an access token. Connects to the dataverse if necessary.</p><p>Returns a JWT token as a string.</p><p>An empty return value means the user has cancelled the logon.</p><p><br /></p><p>Parameters:</p><ul><li>context: ServerContext</li><li>url: a string with the address of the dataverse instance</li></ul>",
     "body": [
         {
-            "id": "2",
-            "type": "branch",
-            "content": "",
-            "message": "",
-            "secondary": ""
-        },
-        {
             "id": "3",
             "type": "action",
             "content": "<p>Find an existing connection in context.connections by URL</p>",

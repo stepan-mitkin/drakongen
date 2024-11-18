@@ -4,12 +4,6 @@ function structFlow(nodes, nodeId, branchingStack, filename) {
 
     const node = nodes[nodeId];
 
-    // Step 2: Detect cycles
-    if (branchingStack.indexOf(nodeId) !== -1) {
-        // Cycle detected, return
-        return;
-    }
-
     // Step 3: Can we continue?
     if (node.prev && node.prev.length > 1) {
         if (!node.stack) {

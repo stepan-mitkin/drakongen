@@ -23,12 +23,14 @@ function drakonToStruct(drakonJson, name, filename) {
     rewireShortcircuit(nodes, filename)
     rewireArrows(nodes)
 
-    prepareQuestions(nodes)
-    structFlow(nodes, firstNodeId, [], filename)
+    prepareQuestions(nodes)    
+    forEachBranch(nodes, cutOffBranch)
+    forEachBranch(nodes, branch => structFlow(nodes, branch.next, [], filename))
     handleBreaks(nodes)
 
     var body = []
-    treeMaker(nodes, firstNodeId, body, "none", {})
+    var firstBranch = nodes[firstNodeId]
+    treeMaker(nodes, firstBranch.next, body, "none", {})
 
     return {
         name: name,
@@ -36,6 +38,21 @@ function drakonToStruct(drakonJson, name, filename) {
         body: body
     }
 }
+
+function cutOffBranch(branch) {
+    branch.next = branch.one
+    branch.one = undefined
+}
+
+function forEachBranch(nodes, action) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.type === "branch") {
+            action(node)
+        }
+    }
+}
+
 
 function buildTwoWayConnections(nodes, firstNodeId) {
     for (var id in nodes) {
