@@ -50,7 +50,7 @@ function structFlow(nodes, branches, filename) {
         var stub = nodes[algonode.stub]
         for (var id of stub.stack) {
             var snode = nodes[id]
-            if (snode.type === "question") {
+            if (id != algonode) {
                 if (id in dictionary) {
                     snode.branching--
                 }
@@ -135,121 +135,6 @@ function structFlow(nodes, branches, filename) {
         return key in map
     }
 
-    function severTheArrow(nodes, node, arrow) {
-        for (var prevId of node.prev) {
-            var prev = nodes[prevId]
-            if (prev.stack.includes(arrow.id)) {
-                makeBreak(nodes, node, prev)
-                prev.next = node.id
-            }
-        }
-    }
-
-    function completeQuestion(nodes, node, question) {
-        if (question.parentLoopId && node.parentLoopId !== question.parentLoopId) {
-            markForBreak(nodes, node, question)
-        }
-    }
-
-    function markForBreak(nodes, node, question) {
-        const parentLoopId = question.parentLoopId
-        const start = nodes[parentLoopId];
-        const end = nodes[start.end];
-        if (end.one === node.id) {
-            if (!node.breakingLoops) {
-                node.breakingLoops = {}
-            }
-            node.breakingLoops[question.parentLoopId] = true
-        } else {
-            throw new Error(
-                `An exit from the loop points too far away, node id = ${node.id}, filename: ${filename}`
-            );
-        }
-    }
-
-    function handleForBreaks(nodes) {
-        for (var id in nodes) {
-            var node = nodes[id]
-            if (node.breakingLoops) {
-                for (var startId in node.breakingLoops) {
-                    handleForBreak(nodes, node, startId)
-                }
-            }
-        }
-    }
-
-    function makeBreak(nodes, node, pn) {
-        const id = makeRandomId(nodes);
-        const breakNode = {
-            id: id,
-            type: "break"
-        };
-        nodes[id] = breakNode;
-        redirectNode(nodes, pn, node.id, id)
-    }
-
-    function handleForBreak(nodes, node, startId) {
-        var questions = {}        
-        const pointingNodes = findPointingNodes(nodes, node, startId, questions);
-        for (var qid in questions) {            
-            var question = nodes[qid]
-            if (question.next === node.id) {
-                var localStartId = questions[id]
-                var localStart = nodes[localStartId]
-                question.next = localStart.end
-            }
-        }
-        for (var pn of pointingNodes) {
-            makeBreak(nodes, node, pn)
-        }
-    }
-
-    function findPointingNodes(nodes, node, parentLoopId, questions) {
-        const result = [];
-        for (let prevId of node.prev) {
-            const prev = nodes[prevId];
-            if (prev.type === "loopend" && prev.start === parentLoopId) { continue }
-            if (tryReachSourceQuestion(nodes, prevId, parentLoopId, questions)) {
-                result.push(prev)
-            }
-        }
-        return result;
-    }
-
-    function tryReachSourceQuestion(nodes, nodeId, parentLoopId, questions) {
-        const node = nodes[nodeId]
-        if (node.type === "branch") {
-            return false
-        }
-        if (node.type === "question") {
-            if (node.parentLoopId) {
-                setParentLoopForQuestions(nodes, questions, node.parentLoopId)
-            }
-        }
-        var found = false
-        if (node.parentLoopId === parentLoopId) {            
-            found = true
-        } else {
-            for (var prevId of node.prev) {
-                var foundHere = tryReachSourceQuestion(nodes, prevId, parentLoopId, questions)
-                if (foundHere) { found = true }
-            }
-        }
-        if (found && node.type === "question") {
-            questions[nodeId] = true
-        }
-        return found
-    }
-
-    function setParentLoopForQuestions(nodes, questions, parentLoopId) {
-        for (var id in questions) {
-            var question = nodes[id]
-            if (!question.parentLoopId) {
-                question.parentLoopId = parentLoopId
-            }
-        }
-    }
-
     function redirectNode(nodes, node, from, to) {
         if (node.one === from) {
             node.one = to;
@@ -266,19 +151,6 @@ function structFlow(nodes, branches, filename) {
                 start.next = to
             }
         }
-    }
-
-    function makeRandomId(nodes) {
-        while (true) {
-            const id = generateId();
-            if (!nodes[id]) {
-                return id;
-            }
-        }
-    }
-
-    function generateId() {
-        return "break-" + Math.floor(Math.random() * (10000 - 1000) + 1000);
     }
 
     function prepareQuestions(nodes) {
@@ -449,13 +321,6 @@ function structFlow(nodes, branches, filename) {
             }            
         }
         return false
-    }
-
-    function remove(array, element) {
-        var index = array.indexOf(element)
-        if (index !== -1) {
-            array.splice(index, 1)
-        }
     }
 
     function addBreaks(toBreak) {

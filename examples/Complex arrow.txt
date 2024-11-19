@@ -4,25 +4,25 @@ Loop forever
     BBBBB
 
     If CCCCC
-        If FFFFFF
-            break
-        Else
+        If not (FFFFFF)
+            For each GGGGG
+                HHHHH
+
+                If not (IIIIII)
+                    break
+        break
+    Else
+        DDDDDD
+
+        If EEEEEE
             For each GGGGG
                 HHHHH
 
                 If not (IIIIII)
                     break
             break
-    Else
-        DDDDDD
-
-        If not (EEEEEE)
+        Else
             Loop forever
                 If JJJJ
                     break
-        For each GGGGG
-            HHHHH
-
-            If not (IIIIII)
-                break
 KKKK

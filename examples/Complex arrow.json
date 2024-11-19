@@ -5,9 +5,7 @@
         {
             "id": "3",
             "type": "action",
-            "content": "<p>AAAAAA</p>",
-            "message": "",
-            "secondary": ""
+            "content": "<p>AAAAAA</p>"
         },
         {
             "id": "15",
@@ -17,28 +15,18 @@
                 {
                     "id": "4",
                     "type": "action",
-                    "content": "<p>BBBBB</p>",
-                    "message": "",
-                    "secondary": ""
+                    "content": "<p>BBBBB</p>"
                 },
                 {
-                    "id": "5",
                     "type": "question",
+                    "id": "5",
                     "content": "<p>CCCCC</p>",
                     "yes": [
                         {
-                            "id": "8",
                             "type": "question",
+                            "id": "8",
                             "content": "<p>FFFFFF</p>",
-                            "yes": [
-                                {
-                                    "id": "break-8441",
-                                    "type": "break",
-                                    "content": "",
-                                    "message": "",
-                                    "secondary": ""
-                                }
-                            ],
+                            "yes": [],
                             "no": [
                                 {
                                     "id": "10",
@@ -48,50 +36,77 @@
                                         {
                                             "id": "11",
                                             "type": "action",
-                                            "content": "<p>HHHHH</p>",
-                                            "message": "",
-                                            "secondary": ""
+                                            "content": "<p>HHHHH</p>"
                                         },
                                         {
-                                            "id": "12",
                                             "type": "question",
+                                            "id": "12",
                                             "content": "<p>IIIIII</p>",
-                                            "yes": [],
+                                            "yes": [
+                                                {
+                                                    "id": "9",
+                                                    "type": "loopend",
+                                                    "start": "10"
+                                                }
+                                            ],
                                             "no": [
                                                 {
-                                                    "id": "break-8917",
-                                                    "type": "break",
-                                                    "content": "",
-                                                    "message": "",
-                                                    "secondary": ""
+                                                    "type": "break"
                                                 }
                                             ]
                                         }
                                     ]
-                                },
-                                {
-                                    "id": "break-2525",
-                                    "type": "break",
-                                    "content": "",
-                                    "message": "",
-                                    "secondary": ""
                                 }
                             ]
+                        },
+                        {
+                            "type": "break"
                         }
                     ],
                     "no": [
                         {
                             "id": "6",
                             "type": "action",
-                            "content": "<p>DDDDDD</p>",
-                            "message": "",
-                            "secondary": ""
+                            "content": "<p>DDDDDD</p>"
                         },
                         {
-                            "id": "7",
                             "type": "question",
+                            "id": "7",
                             "content": "<p>EEEEEE</p>",
-                            "yes": [],
+                            "yes": [
+                                {
+                                    "id": "10",
+                                    "type": "loop",
+                                    "content": "<p>For each GGGGG</p>",
+                                    "body": [
+                                        {
+                                            "id": "11",
+                                            "type": "action",
+                                            "content": "<p>HHHHH</p>"
+                                        },
+                                        {
+                                            "type": "question",
+                                            "id": "12",
+                                            "content": "<p>IIIIII</p>",
+                                            "yes": [
+                                                {
+                                                    "id": "9",
+                                                    "type": "loopend",
+                                                    "start": "10"
+                                                }
+                                            ],
+                                            "no": [
+                                                {
+                                                    "type": "break"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "break"
+                                }
+                            ],
                             "no": [
                                 {
                                     "id": "14",
@@ -99,50 +114,28 @@
                                     "content": "",
                                     "body": [
                                         {
-                                            "id": "13",
                                             "type": "question",
+                                            "id": "13",
                                             "content": "<p>JJJJ</p>",
                                             "yes": [
                                                 {
-                                                    "id": "break-8347",
-                                                    "type": "break",
-                                                    "content": "",
-                                                    "message": "",
-                                                    "secondary": ""
+                                                    "type": "break"
                                                 }
                                             ],
-                                            "no": []
+                                            "no": [
+                                                {
+                                                    "id": "arrow-stub-14",
+                                                    "type": "loopend",
+                                                    "start": "14"
+                                                }
+                                            ]
                                         }
                                     ]
-                                }
-                            ]
-                        },
-                        {
-                            "id": "10",
-                            "type": "loop",
-                            "content": "<p>For each GGGGG</p>",
-                            "body": [
-                                {
-                                    "id": "11",
-                                    "type": "action",
-                                    "content": "<p>HHHHH</p>",
-                                    "message": "",
-                                    "secondary": ""
                                 },
                                 {
-                                    "id": "12",
-                                    "type": "question",
-                                    "content": "<p>IIIIII</p>",
-                                    "yes": [],
-                                    "no": [
-                                        {
-                                            "id": "break-8917",
-                                            "type": "break",
-                                            "content": "",
-                                            "message": "",
-                                            "secondary": ""
-                                        }
-                                    ]
+                                    "id": "arrow-stub-15",
+                                    "type": "loopend",
+                                    "start": "15"
                                 }
                             ]
                         }
@@ -153,16 +146,11 @@
         {
             "id": "16",
             "type": "action",
-            "content": "<p>KKKK</p>",
-            "message": "",
-            "secondary": ""
+            "content": "<p>KKKK</p>"
         },
         {
             "id": "1",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }
