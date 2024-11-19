@@ -30,7 +30,7 @@ Else
         Else
             If not (The device type == Phone)
                 ERROR:
-                Unexpected case value
+                undefined
                 The device type
 
             Use small background image

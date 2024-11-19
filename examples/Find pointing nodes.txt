@@ -14,12 +14,11 @@ If node.prev
                     If extra check
                         fine
 
-                        break
                     Else
                         for each hair
                             raise the hair
 
                             If not (raised?)
                                 break
-                        break
+                    break
 Return the list

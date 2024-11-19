@@ -8,39 +8,36 @@
             "content": "",
             "body": [
                 {
-                    "id": "5",
                     "type": "question",
+                    "id": "5",
                     "content": "<p>CCCCC</p>",
                     "yes": [
                         {
-                            "id": "break-7613",
-                            "type": "break",
-                            "content": "",
-                            "message": "",
-                            "secondary": ""
+                            "type": "break"
                         }
                     ],
                     "no": [
                         {
-                            "id": "7",
                             "type": "question",
+                            "id": "7",
                             "content": "<p>EEEEEE</p>",
-                            "yes": [],
-                            "no": []
-                        },
-                        {
-                            "id": "11",
-                            "type": "action",
-                            "content": "<p>HHHHH</p>",
-                            "message": "",
-                            "secondary": ""
-                        },
-                        {
-                            "id": "break-5800",
-                            "type": "break",
-                            "content": "",
-                            "message": "",
-                            "secondary": ""
+                            "yes": [
+                                {
+                                    "id": "11",
+                                    "type": "action",
+                                    "content": "<p>HHHHH</p>"
+                                },
+                                {
+                                    "type": "break"
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "arrow-stub-15",
+                                    "type": "loopend",
+                                    "start": "15"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -49,16 +46,11 @@
         {
             "id": "16",
             "type": "action",
-            "content": "<p>KKKK</p>",
-            "message": "",
-            "secondary": ""
+            "content": "<p>KKKK</p>"
         },
         {
             "id": "1",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }

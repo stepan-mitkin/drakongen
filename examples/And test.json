@@ -3,8 +3,8 @@
     "params": "",
     "body": [
         {
-            "id": "3",
             "type": "question",
+            "id": "3",
             "content": {
                 "operator": "and",
                 "left": {
@@ -21,27 +21,20 @@
                 {
                     "id": "6",
                     "type": "action",
-                    "content": "<p>Do it!</p>",
-                    "message": "",
-                    "secondary": ""
+                    "content": "<p>Do it!</p>"
                 }
             ],
             "no": [
                 {
                     "id": "7",
                     "type": "action",
-                    "content": "<p>Do not do it</p>",
-                    "message": "",
-                    "secondary": ""
+                    "content": "<p>Do not do it</p>"
                 }
             ]
         },
         {
             "id": "1",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }

@@ -78,14 +78,6 @@ function printPseudo(algorithm, translations, output) {
         return lines;
     }
 
-    function isEmptyBody(body) {
-        for (var step of body) {
-            if (step.type === "end" || step.type === "branch" || step.type === "comment") { continue }
-            return false
-        }
-        return true
-    }
-
     function printBinary(content, operator, lines) {
         const leftLines = printOperand(content.left);
         const rightLines = printOperand(content.right);
@@ -153,36 +145,50 @@ function printPseudo(algorithm, translations, output) {
         output.push("")
     }    
 
+    function empty(array) {
+        return array.length === 0
+    }
+
     function printQuestion(step, depth, output) {
         const indent = makeIndent(depth)
-        if (isEmptyBody(step.yes) && isEmptyBody(step.no)) {return}
+        var yesBody = []
+        printSteps(step.yes, depth + 1, yesBody)
+        var noBody = []
+        printSteps(step.no, depth + 1, noBody)        
+        if (empty(yesBody) && empty(noBody)) {
+            yesBody.push(indent + translate("pass"))
+        }
         var content = step.content
-        if (isEmptyBody(step.yes)) {
+        if (empty(yesBody)) {
             content = {operator:"not",operand:step.content}
         }
         var lines = printStructuredContentNoIdent(content)
         lines[0] = translate("If") + " " + lines[0]
         printWithIndent(lines, indent, output)
-        if (isEmptyBody(step.yes)) {
-            printSteps(step.no, depth + 1, output)
+        if (empty(yesBody)) {
+            addRange(output, noBody)           
         } else {
-            printSteps(step.yes, depth + 1, output)
-            if (!isEmptyBody(step.no)) {
+            addRange(output, yesBody)            
+            if (!empty(noBody)) {
                 output.push(indent + translate("Else"))
-                printSteps(step.no, depth + 1, output)
+                addRange(output, noBody)
             }
         }    
     }      
 
     function printLoop(step, depth, output) {
         const indent = makeIndent(depth)
-        if (isEmptyBody(step.body)) {return}
+        var body = []
+        printSteps(step.body, depth + 1, body)
+        if (empty(body)) {
+            body.push(indent + translate("pass"))
+        }
         var content = step.content
         if (!content) {
             content = translate("loop forever")
         }
         printStructuredContent(content, indent, output)
-        printSteps(step.body, depth + 1, output)
+        addRange(output, body)
     }      
 
     printSteps(algorithm.body, 0, output)

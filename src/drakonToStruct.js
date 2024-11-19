@@ -1,4 +1,4 @@
-const { handleBreaks, structFlow, prepareQuestions, redirectNode } = require("./structFlow")
+const { structFlow } = require("./structFlow")
 const { treeMaker } = require("./treeMaker")
 
 function drakonToStruct(drakonJson, name, filename) {
@@ -23,19 +23,13 @@ function drakonToStruct(drakonJson, name, filename) {
     rewireSelectsMarkLoops(nodes, filename)
     rewireShortcircuit(nodes, filename)
     branches.forEach(cutOffBranch)
-    rewireArrows(nodes, branches)
-    prepareQuestions(nodes)    
-    branches.forEach(branch => structFlow(nodes, branch.next, [], filename))
-    handleBreaks(nodes)
-
-    var body = []
-    var firstBranch = nodes[firstNodeId]
-    treeMaker(nodes, firstBranch.next, body, "none", {})
+    
+    var branchTrees = structFlow(nodes, branches, filename)
 
     return {
         name: name,
         params: drakonGraph.params || "",
-        body: body
+        body: branchTrees[0].body
     }
 }
 
@@ -82,94 +76,6 @@ function findStartNode(nodes, filename, branches) {
     }
 
     return firstNodeId
-}
-
-
-function rewireArrows(nodes, branches) {
-    branches.forEach(branch => rewireArrowsInBranch(nodes, branch.id, branch.next, []))
-    for (var id in nodes) {
-        var node = nodes[id]
-        if (node.type === "arrow-loop") {
-            var stub = insertArrowStub(nodes, node)
-            fillAStack(nodes, stub, stub.arrow)
-        }
-    }    
-}
-
-function fillAStack(nodes, node, arrowId) {
-    if (!node.astack) {
-        node.astack = {}
-    }
-    node.astack[arrowId] = true
-    if (node.id === arrowId) {
-        return
-    }    
-    for (var prevId of node.prev) {
-        var prev = nodes[prevId]
-        fillAStack(nodes, prev, arrowId)
-    }
-}
-
-function rewireArrowsInBranch(nodes, prevNodeId, nodeId, arrowStack) {
-    if (!nodeId) {return}
-    var node = nodes[nodeId]
-    if (node.type === "branch") {
-        return
-    }
-    if (node.type === "arrow-loop") {
-        if (!node.noloop) {
-            node.noloop = {}
-        }
-        if (arrowStack.includes(nodeId)) {
-            return            
-        }
-        node.noloop[prevNodeId] = true
-        arrowStack = arrowStack.slice()
-        arrowStack.push(nodeId)
-        rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
-    } else if (node.type === "question") {
-        var left = arrowStack.slice()
-        var right = arrowStack.slice()
-        rewireArrowsInBranch(nodes, nodeId, node.one, left)
-        rewireArrowsInBranch(nodes, nodeId, node.two, right)
-    } else {
-        rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
-    }
-}
-
-function insertArrowStub(nodes, node) {
-    var stub = {
-        type: "arrow-stub",
-        id: "arrow-stub-" + node.id,
-        arrow: node.id,
-        prev: []
-    }
-    nodes[stub.id] = stub
-    node.stub = stub.id
-    var prev2 = []
-    for (var prevId of node.prev) {
-        if (prevId in node.noloop) {
-            prev2.push(prevId)
-        } else {
-            stub.prev.push(prevId)
-            var prev = nodes[prevId]
-            redirectNode(nodes, prev, node.id, stub.id)
-        }
-    }
-    node.prev = prev2
-    return stub
-}
-
-function redirect(node, from, to) {
-    if (node.one === from) {
-        node.one = to
-    }
-    if (node.two === from) {
-        node.two = to
-    }
-    if (node.next === from) {
-        node.next = to
-    }    
 }
 
 function rewireSelectsMarkLoops(nodes, filename) {
@@ -387,13 +293,6 @@ function markLoopBody(nodes, start, filename) {
         }
     }
     throw new Error(`Loop end expected here "${filename}".`);
-}
-
-function visitSelect(nodes, nodeId, cases) {
-    if (!nodeId) return;
-    const node = nodes[nodeId];
-    cases.push({ value: node.content, next: node.one });
-    visitSelect(nodes, node.two, cases);
 }
 
 module.exports = { drakonToStruct };

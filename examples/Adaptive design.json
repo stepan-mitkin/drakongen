@@ -3,8 +3,8 @@
     "params": "",
     "body": [
         {
-            "id": "5",
             "type": "question",
+            "id": "5",
             "content": {
                 "operator": "equal",
                 "left": "<p>The device type</p>",
@@ -14,36 +14,28 @@
                 {
                     "id": "55",
                     "type": "action",
-                    "content": "Use large background image",
-                    "message": "",
-                    "secondary": ""
+                    "content": "Use large background image"
                 },
                 {
                     "id": "67",
                     "type": "action",
-                    "content": "Use grid layout",
-                    "message": "",
-                    "secondary": ""
+                    "content": "Use grid layout"
                 },
                 {
                     "id": "77",
                     "type": "action",
-                    "content": "Use small UI elements",
-                    "message": "",
-                    "secondary": ""
+                    "content": "Use small UI elements"
                 },
                 {
                     "id": "38",
                     "type": "action",
-                    "content": "Put full main menu",
-                    "message": "",
-                    "secondary": ""
+                    "content": "Put full main menu"
                 }
             ],
             "no": [
                 {
-                    "id": "8",
                     "type": "question",
+                    "id": "8",
                     "content": {
                         "operator": "equal",
                         "left": "<p>The device type</p>",
@@ -53,36 +45,28 @@
                         {
                             "id": "58",
                             "type": "action",
-                            "content": "Use medium background image",
-                            "message": "",
-                            "secondary": ""
+                            "content": "Use medium background image"
                         },
                         {
                             "id": "102",
                             "type": "action",
-                            "content": "Use grid layout",
-                            "message": "",
-                            "secondary": ""
+                            "content": "Use grid layout"
                         },
                         {
                             "id": "70",
                             "type": "action",
-                            "content": "Use small UI elements",
-                            "message": "",
-                            "secondary": ""
+                            "content": "Use small UI elements"
                         },
                         {
                             "id": "38",
                             "type": "action",
-                            "content": "Put full main menu",
-                            "message": "",
-                            "secondary": ""
+                            "content": "Put full main menu"
                         }
                     ],
                     "no": [
                         {
-                            "id": "27",
                             "type": "question",
+                            "id": "27",
                             "content": {
                                 "operator": "equal",
                                 "left": "<p>The device type</p>",
@@ -92,36 +76,28 @@
                                 {
                                     "id": "61",
                                     "type": "action",
-                                    "content": "Use medium background image",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use medium background image"
                                 },
                                 {
                                     "id": "105",
                                     "type": "action",
-                                    "content": "Use plain layout",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use plain layout"
                                 },
                                 {
                                     "id": "83",
                                     "type": "action",
-                                    "content": "Use large UI elements",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use large UI elements"
                                 },
                                 {
                                     "id": "38",
                                     "type": "action",
-                                    "content": "Put full main menu",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Put full main menu"
                                 }
                             ],
                             "no": [
                                 {
-                                    "id": "9",
                                     "type": "question",
+                                    "id": "9",
                                     "content": {
                                         "operator": "equal",
                                         "left": "<p>The device type</p>",
@@ -132,39 +108,29 @@
                                         {
                                             "id": "9-unexpected",
                                             "type": "error",
-                                            "content": "<p>The device type</p>",
-                                            "message": "Unexpected case value",
-                                            "secondary": ""
+                                            "content": "<p>The device type</p>"
                                         }
                                     ]
                                 },
                                 {
                                     "id": "64",
                                     "type": "action",
-                                    "content": "Use small background image",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use small background image"
                                 },
                                 {
                                     "id": "108",
                                     "type": "action",
-                                    "content": "Use plain layout",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use plain layout"
                                 },
                                 {
                                     "id": "80",
                                     "type": "action",
-                                    "content": "Use large UI elements",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Use large UI elements"
                                 },
                                 {
                                     "id": "99",
                                     "type": "action",
-                                    "content": "Put minimal main menu",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "Put minimal main menu"
                                 }
                             ]
                         }
@@ -174,10 +140,7 @@
         },
         {
             "id": "2",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }

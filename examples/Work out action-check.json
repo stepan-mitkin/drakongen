@@ -10,33 +10,30 @@
                 {
                     "id": "3",
                     "type": "action",
-                    "content": "<p>Lift weight</p>",
-                    "message": "",
-                    "secondary": ""
+                    "content": "<p>Lift weight</p>"
                 },
                 {
-                    "id": "4",
                     "type": "question",
+                    "id": "4",
                     "content": "<p>Tired?</p>",
                     "yes": [
                         {
-                            "id": "break-7672",
-                            "type": "break",
-                            "content": "",
-                            "message": "",
-                            "secondary": ""
+                            "type": "break"
                         }
                     ],
-                    "no": []
+                    "no": [
+                        {
+                            "id": "arrow-stub-5",
+                            "type": "loopend",
+                            "start": "5"
+                        }
+                    ]
                 }
             ]
         },
         {
             "id": "1",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }

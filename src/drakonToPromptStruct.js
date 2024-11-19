@@ -11,7 +11,8 @@ const translations = {
     "If": "If",
     "Else": "Else",
     "empty": "EMPTY",
-    "loop forever": "Loop forever"
+    "loop forever": "Loop forever",
+    "pass": "Pass"
 };
 
 function drakonToPromptStruct(drakonJson, name, filename) {

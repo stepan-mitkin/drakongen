@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/index.js",
-            "args": ["examples/Work out action-check.drakon"]
+            "args": ["examples/tmp.drakon"]
         }
     ]
 }

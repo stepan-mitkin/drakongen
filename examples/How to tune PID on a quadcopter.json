@@ -6,43 +6,32 @@
             "id": "824",
             "type": "input",
             "content": "<p>To the motor sound</p>",
-            "message": "",
             "secondary": "<p>Listen</p>"
         },
         {
             "id": "41",
             "type": "comment",
-            "content": "Remember, PID tuning is subjective!",
-            "message": "",
-            "secondary": ""
+            "content": "Remember, PID tuning is subjective!"
         },
         {
             "id": "32",
             "type": "action",
-            "content": "Backup your current PID values",
-            "message": "",
-            "secondary": ""
+            "content": "Backup your current PID values"
         },
         {
             "id": "35",
             "type": "action",
-            "content": "Switch to Rate Mode (aka Acro Mode)",
-            "message": "",
-            "secondary": ""
+            "content": "Switch to Rate Mode (aka Acro Mode)"
         },
         {
             "id": "38",
             "type": "action",
-            "content": "Make sure your quadcopter’s CG (centre of gravity) is right in the middle",
-            "message": "",
-            "secondary": ""
+            "content": "Make sure your quadcopter’s CG (centre of gravity) is right in the middle"
         },
         {
             "id": "239",
             "type": "branch",
-            "content": "Set initial values",
-            "message": "",
-            "secondary": ""
+            "content": "Set initial values"
         }
     ]
 }

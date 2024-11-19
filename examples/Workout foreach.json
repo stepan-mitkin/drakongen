@@ -5,9 +5,7 @@
         {
             "id": "4",
             "type": "action",
-            "content": "Warm up",
-            "message": "",
-            "secondary": ""
+            "content": "Warm up"
         },
         {
             "id": "59",
@@ -22,31 +20,29 @@
                         {
                             "id": "62",
                             "type": "action",
-                            "content": "Lift the weight",
-                            "message": "",
-                            "secondary": ""
+                            "content": "Lift the weight"
                         },
                         {
-                            "id": "63",
                             "type": "question",
+                            "id": "63",
                             "content": "Tired?",
                             "yes": [
                                 {
                                     "id": "64",
                                     "type": "action",
-                                    "content": "<p>Say: huff da</p>",
-                                    "message": "",
-                                    "secondary": ""
+                                    "content": "<p>Say: huff da</p>"
                                 },
                                 {
-                                    "id": "break-7195",
-                                    "type": "break",
-                                    "content": "",
-                                    "message": "",
-                                    "secondary": ""
+                                    "type": "break"
                                 }
                             ],
-                            "no": []
+                            "no": [
+                                {
+                                    "id": "61",
+                                    "type": "loopend",
+                                    "start": "60"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -54,10 +50,7 @@
         },
         {
             "id": "2",
-            "type": "end",
-            "content": "",
-            "message": "",
-            "secondary": ""
+            "type": "end"
         }
     ]
 }
