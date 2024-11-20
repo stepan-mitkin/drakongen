@@ -102,18 +102,22 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, language) 
     setUpLanguage(language)
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
-    lines.push(translate("Procedure") + " \"" + diagram.name + "\"")
     if (diagram.params) {
-        lines.push("")
-        lines.push(translate("Description") + ":")
         addRange(lines, htmlToString(diagram.params))
+        lines.push("")
     }
+
+    lines.push(translate("Procedure") + " \"" + diagram.name + "\"")
     lines.push("")
     lines.push(translate("Algorithm") + ":")    
-    var first = diagram.branches[0]
-    if (diagram.branches.length === 1) {
+    
+    if (diagram.branches.length === 0) {
+        lines.push(translate("Empty"))
+    } else if (diagram.branches.length === 1) {
+        var first = diagram.branches[0]
         printPseudo(first, translate, lines, htmlToString)
     } else {
+        var first = diagram.branches[0]
         lines.push(translate("Call subroutine") + ": \"" + htmlToString(first.name) + "\"")
         diagram.branches.forEach(branch => {
             lines.push("")
@@ -143,4 +147,4 @@ function setUpLanguage(language) {
 }
 
 
-module.exports = { drakonToPseudocode: drakonToPseudocode };
+module.exports = { drakonToPseudocode };

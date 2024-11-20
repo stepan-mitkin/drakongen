@@ -1,9 +1,8 @@
-Procedure "Complex arrow"
-
-Description:
 Parameters:
 one - first
 two - second
+
+Procedure "Complex arrow"
 
 Algorithm:
 AAAAAA

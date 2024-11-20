@@ -7,6 +7,50 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
     translate = translateFunction
     let drakonGraph;
     try {
+        drakonJson = drakonJson || ""
+        drakonJson = drakonJson.trim()
+        drakonJson = drakonJson || "{}"
+        drakonGraph = JSON.parse(drakonJson);
+    } catch (error) {
+        var message = translate("Error parsing JSON") + ": " + error.message
+        throw createError(message, filename)
+    }
+
+    const nodes = drakonGraph.items || {};
+
+    var branches = []
+    var firstNodeId = findStartNode(nodes, filename, branches)
+
+    if (!firstNodeId) {
+        return {
+            name: name,
+            params: drakonGraph.params || "",
+            description: drakonGraph.description || "",
+            branches: []
+        }
+    }
+
+    buildTwoWayConnections(nodes, firstNodeId)
+
+    rewireSelectsMarkLoops(nodes, filename)
+    branches.forEach(branch => checkBranchIsReferenced(branch, firstNodeId, filename))
+    rewireShortcircuit(nodes, filename)
+    branches.forEach(branch => cutOffBranch(nodes, branch))
+    
+    var branchTrees = structFlow(nodes, branches, filename, translate)
+
+    return {
+        name: name,
+        params: drakonGraph.params || "",
+        description: drakonGraph.description || "",
+        branches: branchTrees
+    }
+}
+
+function drakonToGraph(drakonJson, name, filename, translateFunction) {
+    translate = translateFunction
+    let drakonGraph;
+    try {
         drakonGraph = JSON.parse(drakonJson);
     } catch (error) {
         var message = translate("Error parsing JSON") + ": " + error.message
@@ -38,6 +82,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
         branches: branchTrees
     }
 }
+
 
 function checkBranchIsReferenced(branch, firstNodeId, filename) {
     if (branch.id === firstNodeId) {
@@ -368,4 +413,4 @@ function markLoopBody(nodes, start, filename) {
     throw createError(translate("Loop end expected here"), filename, start.one)
 }
 
-module.exports = { drakonToStruct };
+module.exports = { drakonToStruct, drakonToGraph };
