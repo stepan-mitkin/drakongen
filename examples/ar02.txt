@@ -1,10 +1,10 @@
-Процедура "ar02"
+Procedure "ar02"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3
+Algorithm:
+Loop forever
+    If 3
         break
-    Иначе
+    Else
         4
 
-Конец процедуры
+End of procedure

@@ -1,29 +1,29 @@
-Процедура "Find pointing nodes"
+Procedure "Find pointing nodes"
 
-Алгоритм:
+Algorithm:
 Start with an empty list
 
-Если node.prev
+If node.prev
     For each id in node.prev
         get the prev node by id
 
-        Если prev node is poisoned
+        If prev node is poisoned
             break
-        Иначе
-            Если The parent loop of prev node == parent loop
+        Else
+            If The parent loop of prev node == parent loop
                 add prev node to list
 
-                Если list length > 10
-                    Если extra check
+                If list length > 10
+                    If extra check
                         fine
 
-                    Иначе
+                    Else
                         for each hair
                             raise the hair
 
-                            Если не (raised?)
+                            If not (raised?)
                                 break
                     break
 Return the list
 
-Конец процедуры
+End of procedure

@@ -1,18 +1,18 @@
-Процедура "DoubleArrow"
+Procedure "DoubleArrow"
 
-Алгоритм:
-Бесконечный цикл
-    Если CCCCC
+Algorithm:
+Loop forever
+    If CCCCC
         break
-    Иначе
-        Если EEEEEE
+    Else
+        If EEEEEE
             qqq
 
             break
-        Иначе
-            Бесконечный цикл
-                Если JJJJ
+        Else
+            Loop forever
+                If JJJJ
                     break
 KKKK
 
-Конец процедуры
+End of procedure

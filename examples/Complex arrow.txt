@@ -1,33 +1,44 @@
-Процедура "Complex arrow"
+Procedure "Complex arrow"
 
-Алгоритм:
+Description:
+Parameters:
+one - first
+two - second
+
+Algorithm:
 AAAAAA
 
-Бесконечный цикл
+Loop forever
     BBBBB
 
-    Если CCCCC
-        Если не (FFFFFF)
+    If CCCCC
+        If not (FFFFFF)
             For each GGGGG
                 HHHHH
 
-                Если не (IIIIII)
+                If not (IIIIII)
                     break
         break
-    Иначе
+    Else
         DDDDDD
 
-        Если EEEEEE
+        If EEEEEE
             For each GGGGG
                 HHHHH
 
-                Если не (IIIIII)
+                If not (IIIIII)
                     break
             break
-        Иначе
-            Бесконечный цикл
-                Если JJJJ
+        Else
+            Loop forever
+                If JJJJ
                     break
 KKKK
 
-Конец процедуры
+End of procedure
+
+Hello
+
+1. Bar
+2. What is it?
+

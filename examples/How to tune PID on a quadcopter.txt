@@ -1,12 +1,12 @@
-Процедура "How to tune PID on a quadcopter"
+Procedure "How to tune PID on a quadcopter"
 
-Описание:
+Description:
 By Oscar Liang
 
-Алгоритм:
-Вызвать подпрограмму: "Prepare"
+Algorithm:
+Call subroutine: "Prepare"
 
-Подпрограмма: "Prepare"
+Subroutine: "Prepare"
 Listen
 To the motor sound
 
@@ -16,155 +16,155 @@ Switch to Rate Mode (aka Acro Mode)
 
 Make sure your quadcopter’s CG (centre of gravity) is right in the middle
 
-Вызвать подпрограмму "Set initial values"
-Конец подпрограммы
+Call subroutine "Set initial values"
+End of subroutine
 
-Подпрограмма: "Set initial values"
+Subroutine: "Set initial values"
 Set RC rates, super rates and expo
 
 Set default PID values
 
 Lower all the values by at least half
 
-Вызвать подпрограмму "P on Roll"
-Конец подпрограммы
+Call subroutine "P on Roll"
+End of subroutine
 
-Подпрограмма: "P on Roll"
-Бесконечный цикл
+Subroutine: "P on Roll"
+Loop forever
     Cruise around
 
     Do some sharp turns
 
-    Если не (Does the quad dip to one side (like a wobble)?) и не (Do slow oscillations occur?)
-        Если Do fast oscilations occur?
+    If not (Does the quad dip to one side (like a wobble)?) and not (Do slow oscillations occur?)
+        If Do fast oscilations occur?
             Decrease P on Roll
 
-        Иначе
+        Else
             break
-    Иначе
+    Else
         Increase P on Roll
 
-Вызвать подпрограмму "P on Pitch"
-Конец подпрограммы
+Call subroutine "P on Pitch"
+End of subroutine
 
-Подпрограмма: "P on Pitch"
-Бесконечный цикл
+Subroutine: "P on Pitch"
+Loop forever
     Do a split-S (where you move both the throttle and pitch sticks)
 
     Increase throttle to recover, pay attention to the pitch movement
 
-    Если Does the quad pitch up more than it should?
+    If Does the quad pitch up more than it should?
         Increase P on Pitch
 
-    Иначе
-        Если не (Do fast oscilations occur?) и не (Are the motors making a twitching sound?)
+    Else
+        If not (Do fast oscilations occur?) and not (Are the motors making a twitching sound?)
             break
-        Иначе
+        Else
             Decrease P on Pitch
 
-Вызвать подпрограмму "TPA"
-Конец подпрограммы
+Call subroutine "TPA"
+End of subroutine
 
-Подпрограмма: "TPA"
-Бесконечный цикл
+Subroutine: "TPA"
+Loop forever
     Do a punch out
 
-    Если Does the quad get oscillations with high throttle?
+    If Does the quad get oscillations with high throttle?
         Increase TPA
 
-    Иначе
+    Else
         break
-Вызвать подпрограмму "D on Roll and Pitch"
-Конец подпрограммы
+Call subroutine "D on Roll and Pitch"
+End of subroutine
 
-Подпрограмма: "D on Roll and Pitch"
-Бесконечный цикл
+Subroutine: "D on Roll and Pitch"
+Loop forever
     Do aggressive maneuvers like flips and rolls
 
-    Если не (Does the quad overshoot at the end of the move then bounce back?) и не (Does prop wash happen? (oscillation when you descent))
-        Если Do fast oscillation happen at the end of a roll or flip?
+    If not (Does the quad overshoot at the end of the move then bounce back?) and not (Does prop wash happen? (oscillation when you descent))
+        If Do fast oscillation happen at the end of a roll or flip?
             Decrease D on the affected axis
 
-        Иначе
+        Else
             break
-    Иначе
+    Else
         Increase D on the affected axis
 
-Вызвать подпрограмму "I on Roll"
-Конец подпрограммы
+Call subroutine "I on Roll"
+End of subroutine
 
-Подпрограмма: "I on Roll"
-Бесконечный цикл
+Subroutine: "I on Roll"
+Loop forever
     Bank your quad to the left and right
 
     Release stick
 
-    Если Is the quad holding the angle well?
-        Если не (Does the quad have stiff, robotic feeling?) и не (Does the quad have oscilations?)
+    If Is the quad holding the angle well?
+        If not (Does the quad have stiff, robotic feeling?) and not (Does the quad have oscilations?)
             break
-        Иначе
+        Else
             Decrease I on Roll
 
-    Иначе
+    Else
         Increase I on Roll
 
-Вызвать подпрограмму "I on Pitch"
-Конец подпрограммы
+Call subroutine "I on Pitch"
+End of subroutine
 
-Подпрограмма: "I on Pitch"
-Бесконечный цикл
+Subroutine: "I on Pitch"
+Loop forever
     Fly forward, do not increase throttle
 
-    Если Does the nose keep the same angle?
+    If Does the nose keep the same angle?
         break
-    Иначе
+    Else
         Increase I on Pitch
 
-Вызвать подпрограмму "Anti Gravity Gain"
-Конец подпрограммы
+Call subroutine "Anti Gravity Gain"
+End of subroutine
 
-Подпрограмма: "Anti Gravity Gain"
-Бесконечный цикл
+Subroutine: "Anti Gravity Gain"
+Loop forever
     Fly in a straight line
 
     Do some rapid punchouts
 
-    Если Does pitch stay at the same angle?
+    If Does pitch stay at the same angle?
         break
-    Иначе
+    Else
         Increase Anti Gravity
 
-Вызвать подпрограмму "P on Yaw"
-Конец подпрограммы
+Call subroutine "P on Yaw"
+End of subroutine
 
-Подпрограмма: "P on Yaw"
-Бесконечный цикл
+Subroutine: "P on Yaw"
+Loop forever
     Spin quickly on the yaw axis
 
     Stop spinning
 
-    Если Does the quad dip one side?
+    If Does the quad dip one side?
         Increase P on Yaw
 
-    Иначе
-        Если Do you get fast oscilations?
+    Else
+        If Do you get fast oscilations?
             Decrease P on Yaw
 
-        Иначе
+        Else
             break
-Вызвать подпрограмму "I on Yaw"
-Конец подпрограммы
+Call subroutine "I on Yaw"
+End of subroutine
 
-Подпрограмма: "I on Yaw"
-Бесконечный цикл
+Subroutine: "I on Yaw"
+Loop forever
     Fly straight
 
     Make a turn
 
-    Если Is there drift, does the quad slide out?
+    If Is there drift, does the quad slide out?
         Increase I on Yaw
 
-    Иначе
+    Else
         break
-Конец подпрограммы
-Конец процедуры
+End of subroutine
+End of procedure

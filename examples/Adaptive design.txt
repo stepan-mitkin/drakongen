@@ -1,7 +1,7 @@
-Процедура "Adaptive design"
+Procedure "Adaptive design"
 
-Алгоритм:
-Если The device type == Large screen
+Algorithm:
+If The device type == Large screen
     Use large background image
 
     Use grid layout
@@ -10,8 +10,8 @@
 
     Put full main menu
 
-Иначе
-    Если The device type == Laptop
+Else
+    If The device type == Laptop
         Use medium background image
 
         Use grid layout
@@ -20,8 +20,8 @@
 
         Put full main menu
 
-    Иначе
-        Если The device type == Tablet
+    Else
+        If The device type == Tablet
             Use medium background image
 
             Use plain layout
@@ -30,9 +30,9 @@
 
             Put full main menu
 
-        Иначе
-            Если не (The device type == Phone)
-                ОШИБКА:
+        Else
+            If not (The device type == Phone)
+                Error:
                 Unexpected case value
                 The device type
 
@@ -44,4 +44,4 @@
 
             Put minimal main menu
 
-Конец процедуры
+End of procedure

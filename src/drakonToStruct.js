@@ -34,6 +34,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
     return {
         name: name,
         params: drakonGraph.params || "",
+        description: drakonGraph.description || "",
         branches: branchTrees
     }
 }

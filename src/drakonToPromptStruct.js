@@ -1,13 +1,12 @@
-const path = require('path');
-const { parse } = require('node-html-parser');
 const {drakonToStruct} = require("./drakonToStruct");
 const { printPseudo } = require('./printPseudo');
 var {addRange} = require("./tools")
 
 
-var translations = {
+var translationsRu = {
     "error": "ОШИБКА",
     "not": "не",
+    break: 'выход из цикла',
     "and": "и",
     "or": "или",
     "if": "Если",
@@ -29,15 +28,78 @@ var translations = {
     "Subroutine": "Подпрограмма",
     "End of subroutine": "Конец подпрограммы",
     "Description": "Описание",
-    "Algorithm": "Алгоритм"
+    "Algorithm": "Алгоритм",
+    Remarks: "Замечания"
 }
+
+var translationsEn = {
+    error: 'Error',
+    not: 'not',
+    break: 'break',
+    and: 'and',
+    or: 'or',
+    if: 'If',
+    else: 'Else',
+    empty: 'Empty',
+    'loop forever': 'Loop forever',
+    pass: 'Pass',
+    'Only the rightmost Case icon can be empty': 'Only the rightmost Case icon can be empty',
+    'Error parsing JSON': 'Error parsing JSON',
+    'A Loop begin icon must have content': 'A Loop begin icon must have content',
+    'A Question icon must have content': 'A Question icon must have content',
+    'A Select icon must have content': 'A Select icon must have content',
+    'Loop end expected here': 'Loop end expected here',
+    'An exit from the loop must lead to the point right after the loop end': 'An exit from the loop must lead to the point right after the loop end',
+    'A silhouette branch is not referenced': 'A silhouette branch is not referenced',
+    'Call subroutine': 'Call subroutine',
+    Procedure: 'Procedure',
+    'End of procedure': 'End of procedure',
+    Subroutine: 'Subroutine',
+    'End of subroutine': 'End of subroutine',
+    Description: 'Description',
+    Algorithm: 'Algorithm',
+    Remarks: "Remarks"
+}
+
+var translationsNo = {
+    error: 'Feil',
+    not: 'ikke',
+    break: 'avslutt løkken',
+    and: 'og',
+    or: 'eller',
+    if: 'Hvis',
+    else: 'Ellers',
+    empty: 'Tom',
+    'loop forever': 'Gjør evig',
+    pass: 'Hopp over',
+    'Only the rightmost Case icon can be empty': 'Bare den ytterste høyre Case-ikonet kan være tomt',
+    'Error parsing JSON': 'Feil ved parsing av JSON',
+    'A Loop begin icon must have content': 'Et Loop-startikon må ha innhold',
+    'A Question icon must have content': 'Et Spørsmål-ikon må ha innhold',
+    'A Select icon must have content': 'Et Velg-ikon må ha innhold',
+    'Loop end expected here': 'Slutt på løkke forventet her',
+    'An exit from the loop must lead to the point right after the loop end': 'En utgang fra løkken må føre til punktet rett etter løkkens slutt',
+    'A silhouette branch is not referenced': 'En silhuettgren er ikke referert',
+    'Call subroutine': 'Kall delprosedyre',
+    Procedure: 'Prosedyre',
+    'End of procedure': 'Slutt på prosedyre',
+    Subroutine: 'Delprosedyre',
+    'End of subroutine': 'Slutt på delprosedyre',
+    Description: 'Beskrivelse',
+    Algorithm: 'Algoritme',
+    Remarks: "Bemerkninger"
+};
+
+
+var translations = translationsEn
 
 function translate(text) {
     return translations[text] || text;
 }
 
-function drakonToPromptStruct(drakonJson, name, filename, htmlToString) {
+function drakonToPseudocode(drakonJson, name, filename, htmlToString, language) {
 
+    setUpLanguage(language)
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
     lines.push(translate("Procedure") + " \"" + diagram.name + "\"")
@@ -59,13 +121,26 @@ function drakonToPromptStruct(drakonJson, name, filename, htmlToString) {
             printPseudo(branch, translate, lines, htmlToString)
             lines.push(translate("End of subroutine"))
         })
-    }
+    }  
     lines.push(translate("End of procedure"))
+    if (diagram.description) {
+        lines.push("")       
+        addRange(lines, htmlToString(diagram.description))
+        lines.push("")       
+    }      
     var text = lines.join("\n")
     
     var str = JSON.stringify(diagram, null, 4)
     return {text:text,json:str}
 }
 
+function setUpLanguage(language) {
+    if (language === "ru") {
+        translations = translationsRu
+    } else if (language === "no") {
+        translations = translationsNo
+    }
+}
 
-module.exports = { drakonToPromptStruct };
+
+module.exports = { drakonToPseudocode: drakonToPseudocode };

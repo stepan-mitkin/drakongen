@@ -1,4 +1,4 @@
-Процедура "01. Белый"
+Procedure "01. Белый"
 
-Алгоритм:
-Конец процедуры
+Algorithm:
+End of procedure

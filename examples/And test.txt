@@ -1,10 +1,10 @@
-Процедура "And test"
+Procedure "And test"
 
-Алгоритм:
-Если (One и не (Two)) и Three
+Algorithm:
+If (One and not (Two)) and Three
     Do it!
 
-Иначе
+Else
     Do not do it
 
-Конец процедуры
+End of procedure

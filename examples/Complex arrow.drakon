@@ -87,6 +87,7 @@
         }
     },
     "type": "drakon",
-    "id": "Complex arrow.drakon",
-    "style": "{\"maxWidth\":210}"
+    "style": "{\"maxWidth\":210}",
+    "description": "<p>Hello</p><ol><li>Bar</li><li>What is it?</li></ol>",
+    "params": "<p>Parameters:</p><p>one - first</p><p>two - second</p>"
 }

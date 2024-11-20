@@ -1,6 +1,6 @@
-Процедура "getToken"
+Procedure "getToken"
 
-Описание:
+Description:
 Obtains an access token. Connects to the dataverse if necessary.
 Returns a JWT token as a string.
 An empty return value means the user has cancelled the logon.
@@ -11,10 +11,10 @@ Parameters:
 - url: a string with the address of the dataverse instance
 
 
-Алгоритм:
+Algorithm:
 Find an existing connection in context.connections by URL
 
-Если не (Connection found?)
+If not (Connection found?)
     Create a new MSAL connection object.
     Use the following information to initialize the object:
     
@@ -27,16 +27,16 @@ Find an existing connection in context.connections by URL
 
 Try to get an access token using the connection in non-interactive mode.
 
-Если Got exception?
+If Got exception?
     Get a token in interactive mode.
 
-    Если Did the user cancel the logon?
+    If Did the user cancel the logon?
         Return an empty string
 
-    Иначе
+    Else
         Return the access token
 
-Иначе
+Else
     Return the access token
 
-Конец процедуры
+End of procedure

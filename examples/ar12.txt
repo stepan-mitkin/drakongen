@@ -1,10 +1,10 @@
-Процедура "ar12"
+Procedure "ar12"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3 или 5
+Algorithm:
+Loop forever
+    If 3 or 5
         break
-    Иначе
+    Else
         4
 
-Конец процедуры
+End of procedure

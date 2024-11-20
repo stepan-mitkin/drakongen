@@ -1,7 +1,7 @@
-Процедура "ar03"
+Procedure "ar03"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3 и 5
+Algorithm:
+Loop forever
+    If 3 and 5
         break
-Конец процедуры
+End of procedure

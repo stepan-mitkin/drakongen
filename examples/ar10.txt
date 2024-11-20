@@ -1,18 +1,18 @@
-Процедура "ar10"
+Procedure "ar10"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3 == 4
+Algorithm:
+Loop forever
+    If 3 == 4
         break
-    Иначе
-        Если 3 == 5
-            Если не (7)
+    Else
+        If 3 == 5
+            If not (7)
                 8
 
-        Иначе
-            Если не (3 == 6)
-                ОШИБКА:
+        Else
+            If not (3 == 6)
+                Error:
                 Unexpected case value
                 3
 
-Конец процедуры
+End of procedure

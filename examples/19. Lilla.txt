@@ -1,11 +1,11 @@
-Процедура "19. Lilla"
+Procedure "19. Lilla"
 
-Алгоритм:
-Если 3
-    Если 4
-        Если 5
-            Пропустить
-    Иначе
+Algorithm:
+If 3
+    If 4
+        If 5
+            Pass
+    Else
         6
 
-Конец процедуры
+End of procedure

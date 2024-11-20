@@ -1,14 +1,14 @@
-Процедура "Workout foreach"
+Procedure "Workout foreach"
 
-Алгоритм:
+Algorithm:
 Warm up
 
 For each exercize in the program
     Repeat 10 times
         Lift the weight
 
-        Если Tired?
+        If Tired?
             Say: huff da
 
             break
-Конец процедуры
+End of procedure

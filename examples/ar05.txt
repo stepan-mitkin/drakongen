@@ -1,11 +1,11 @@
-Процедура "ar05"
+Procedure "ar05"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3
-        Если 5
+Algorithm:
+Loop forever
+    If 3
+        If 5
             break
-    Иначе
+    Else
         4
 
-Конец процедуры
+End of procedure

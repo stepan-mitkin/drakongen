@@ -1,24 +1,24 @@
-Процедура "Silhouette test 1"
+Procedure "Silhouette test 1"
 
-Алгоритм:
-Вызвать подпрограмму: "Branch1"
+Algorithm:
+Call subroutine: "Branch1"
 
-Подпрограмма: "Branch1"
-Если AAAAAAA
-    Вызвать подпрограмму "Branch2"
-Иначе
-    Вызвать подпрограмму "Exit"
-Конец подпрограммы
+Subroutine: "Branch1"
+If AAAAAAA
+    Call subroutine "Branch2"
+Else
+    Call subroutine "Exit"
+End of subroutine
 
-Подпрограмма: "Branch2"
-Если BBBB
+Subroutine: "Branch2"
+If BBBB
     CCCC
 
-    Вызвать подпрограмму "Exit"
-Иначе
-    Вызвать подпрограмму "Exit"
-Конец подпрограммы
+    Call subroutine "Exit"
+Else
+    Call subroutine "Exit"
+End of subroutine
 
-Подпрограмма: "Exit"
-Конец подпрограммы
-Конец процедуры
+Subroutine: "Exit"
+End of subroutine
+End of procedure

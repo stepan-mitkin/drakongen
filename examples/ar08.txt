@@ -1,16 +1,16 @@
-Процедура "ar08"
+Procedure "ar08"
 
-Алгоритм:
-Бесконечный цикл
-    Если 3 == 4
+Algorithm:
+Loop forever
+    If 3 == 4
         break
-    Иначе
-        Если не (3 == 5)
-            Если не (3 == 6)
-                ОШИБКА:
+    Else
+        If not (3 == 5)
+            If not (3 == 6)
+                Error:
                 Unexpected case value
                 3
 
-            Если 7
-                Пропустить
-Конец процедуры
+            If 7
+                Pass
+End of procedure

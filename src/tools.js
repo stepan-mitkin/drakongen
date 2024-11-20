@@ -15,7 +15,7 @@ function sortByProperty(array, property, order = "asc") {
         const valA = a[property];
         const valB = b[property];
 
-        if (valA == null || valB == null) {
+        if (valA === null || valB === null || valA === undefined || valB === undefined) {
             return 0; // Handle null or undefined values
         }
 

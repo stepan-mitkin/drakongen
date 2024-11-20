@@ -1,14 +1,14 @@
-Процедура "Arrow - double exit"
+Procedure "Arrow - double exit"
 
-Алгоритм:
-Бесконечный цикл
-    Если CCCCC
+Algorithm:
+Loop forever
+    If CCCCC
         break
-    Иначе
-        Если EEEEEE
+    Else
+        If EEEEEE
             HHHHH
 
             break
 KKKK
 
-Конец процедуры
+End of procedure
