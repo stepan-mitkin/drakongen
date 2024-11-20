@@ -50,6 +50,7 @@ function buildTree(nodes, nodeId, body, stopId) {
                     "content",
                     "secondary",
                     "start",
+                    "message",
                     "end"
                 ]
             )

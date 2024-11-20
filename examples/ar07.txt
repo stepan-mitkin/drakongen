@@ -1,0 +1,8 @@
+Loop forever
+    If 3 == 4
+        break
+    Else
+        If not ((3 == 5) or (3 == 6))
+            ERROR:
+            Unexpected case value
+            3

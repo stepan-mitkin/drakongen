@@ -137,7 +137,7 @@ function printPseudo(algorithm, translations, output) {
     }
 
     function printError(step, indent, output) {
-        output.push(indent + translate("Error") + ":")
+        output.push(indent + translate("error") + ":")
         output.push(indent + step.message)
         if (step.content) {
             printStructuredContent(step.content, indent, output)
@@ -151,37 +151,39 @@ function printPseudo(algorithm, translations, output) {
 
     function printQuestion(step, depth, output) {
         const indent = makeIndent(depth)
+        const indent2 = makeIndent(depth + 1)
         var yesBody = []
         printSteps(step.yes, depth + 1, yesBody)
         var noBody = []
         printSteps(step.no, depth + 1, noBody)        
         if (empty(yesBody) && empty(noBody)) {
-            yesBody.push(indent + translate("pass"))
+            yesBody.push(indent2 + translate("pass"))
         }
         var content = step.content
         if (empty(yesBody)) {
             content = {operator:"not",operand:step.content}
         }
         var lines = printStructuredContentNoIdent(content)
-        lines[0] = translate("If") + " " + lines[0]
+        lines[0] = translate("if") + " " + lines[0]
         printWithIndent(lines, indent, output)
         if (empty(yesBody)) {
             addRange(output, noBody)           
         } else {
             addRange(output, yesBody)            
             if (!empty(noBody)) {
-                output.push(indent + translate("Else"))
+                output.push(indent + translate("else"))
                 addRange(output, noBody)
             }
         }    
     }      
 
     function printLoop(step, depth, output) {
+        const indent2 = makeIndent(depth + 1)
         const indent = makeIndent(depth)
         var body = []
         printSteps(step.body, depth + 1, body)
         if (empty(body)) {
-            body.push(indent + translate("pass"))
+            body.push(indent2 + translate("pass"))
         }
         var content = step.content
         if (!content) {

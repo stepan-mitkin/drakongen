@@ -1,0 +1,33 @@
+{
+    "name": "09. Оранжевый",
+    "params": "",
+    "body": [
+        {
+            "type": "question",
+            "id": "4",
+            "content": {
+                "operator": "and",
+                "left": "3",
+                "right": "4"
+            },
+            "yes": [
+                {
+                    "id": "25",
+                    "type": "action",
+                    "content": "6"
+                }
+            ],
+            "no": [
+                {
+                    "id": "19",
+                    "type": "action",
+                    "content": "5"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "type": "end"
+        }
+    ]
+}

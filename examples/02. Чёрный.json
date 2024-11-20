@@ -1,0 +1,25 @@
+{
+    "name": "02. Чёрный",
+    "params": "",
+    "body": [
+        {
+            "id": "4",
+            "type": "action",
+            "content": "3"
+        },
+        {
+            "id": "7",
+            "type": "action",
+            "content": "4"
+        },
+        {
+            "id": "10",
+            "type": "action",
+            "content": "5"
+        },
+        {
+            "id": "2",
+            "type": "end"
+        }
+    ]
+}

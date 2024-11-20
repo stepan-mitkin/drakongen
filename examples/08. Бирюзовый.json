@@ -1,0 +1,21 @@
+{
+    "name": "08. Бирюзовый",
+    "params": "",
+    "body": [
+        {
+            "type": "question",
+            "id": "7",
+            "content": {
+                "operator": "and",
+                "left": "3",
+                "right": "4"
+            },
+            "yes": [],
+            "no": []
+        },
+        {
+            "id": "2",
+            "type": "end"
+        }
+    ]
+}

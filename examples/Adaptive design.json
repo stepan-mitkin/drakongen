@@ -108,7 +108,8 @@
                                         {
                                             "id": "9-unexpected",
                                             "type": "error",
-                                            "content": "<p>The device type</p>"
+                                            "content": "<p>The device type</p>",
+                                            "message": "Unexpected case value"
                                         }
                                     ]
                                 },

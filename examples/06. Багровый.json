@@ -1,0 +1,29 @@
+{
+    "name": "06. Багровый",
+    "params": "",
+    "body": [
+        {
+            "type": "question",
+            "id": "4",
+            "content": "3",
+            "yes": [
+                {
+                    "id": "14",
+                    "type": "action",
+                    "content": "4"
+                }
+            ],
+            "no": [
+                {
+                    "id": "17",
+                    "type": "action",
+                    "content": "5"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "type": "end"
+        }
+    ]
+}

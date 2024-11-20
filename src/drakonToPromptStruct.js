@@ -4,12 +4,12 @@ const {drakonToStruct} = require("./drakonToStruct");
 const { printPseudo } = require('./printPseudo');
 
 const translations = {
-    "Error": "ERROR",
+    "error": "ERROR",
     "not": "not",
     "and": "and",
     "or": "or",
-    "If": "If",
-    "Else": "Else",
+    "if": "If",
+    "else": "Else",
     "empty": "EMPTY",
     "loop forever": "Loop forever",
     "pass": "Pass"
