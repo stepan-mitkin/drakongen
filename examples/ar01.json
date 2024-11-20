@@ -1,34 +1,40 @@
 {
     "name": "ar01",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "id": "17",
-            "type": "loop",
-            "content": "",
+            "branchId": 0,
+            "start": "17",
             "body": [
                 {
-                    "type": "question",
-                    "id": "4",
-                    "content": "3",
-                    "yes": [
+                    "id": "17",
+                    "type": "loop",
+                    "content": "",
+                    "body": [
                         {
-                            "type": "break"
-                        }
-                    ],
-                    "no": [
-                        {
-                            "id": "arrow-stub-17",
-                            "type": "loopend",
-                            "start": "17"
+                            "type": "question",
+                            "id": "4",
+                            "content": "3",
+                            "yes": [
+                                {
+                                    "type": "break"
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "arrow-stub-17",
+                                    "type": "loopend",
+                                    "start": "17"
+                                }
+                            ]
                         }
                     ]
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

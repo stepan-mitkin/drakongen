@@ -1,23 +1,29 @@
 {
     "name": "05. Жёлтый",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "type": "question",
-            "id": "4",
-            "content": "3",
-            "yes": [],
-            "no": [
+            "branchId": 0,
+            "start": "4",
+            "body": [
                 {
-                    "id": "14",
-                    "type": "action",
-                    "content": "4"
+                    "type": "question",
+                    "id": "4",
+                    "content": "3",
+                    "yes": [],
+                    "no": [
+                        {
+                            "id": "14",
+                            "type": "action",
+                            "content": "4"
+                        }
+                    ]
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

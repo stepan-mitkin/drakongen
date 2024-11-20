@@ -86,5 +86,7 @@
             "one": "1"
         }
     },
-    "type": "drakon"
+    "type": "drakon",
+    "id": "Complex arrow.drakon",
+    "style": "{\"maxWidth\":210}"
 }

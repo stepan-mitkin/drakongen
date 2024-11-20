@@ -1,5 +1,9 @@
-Loop forever
+Процедура "Work out action-check"
+
+Алгоритм:
+Бесконечный цикл
     Lift weight
 
-    If Tired?
+    Если Tired?
         break
+Конец процедуры

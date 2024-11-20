@@ -1,52 +1,8 @@
-const { parse } = require('node-html-parser');
+var {addRange} = require("./tools")
 
-function printPseudo(algorithm, translations, output) {
+function printPseudo(algorithm, translate, output, htmlToString) {
 
-    // Helper to translate strings
-    function translate(text) {
-        return translations[text] || text;
-    }
 
-    // Helper function to convert HTML to plain text
-    function htmlToString(html) {
-        if (!html) return '';
-        if (!html.startsWith('<') || !html.endsWith('>')) {
-            return html.split("\n").map(line => {return line.trim()})
-        }
-
-        const root = parse(html);
-        const output = [];
-
-        root.childNodes.forEach((node) => {
-            if (node.tagName === 'P') {
-                output.push(node.text.trim());
-            } else if (node.tagName === 'UL') {
-                output.push('');
-                node.childNodes.forEach((item) => {
-                    if (item.tagName === 'LI') {
-                        output.push(`- ${item.text.trim()}`);
-                    }
-                });
-                output.push('');
-            } else if (node.tagName === 'OL') {
-                output.push('');
-                node.childNodes.forEach((item, index) => {
-                    if (item.tagName === 'LI') {
-                        output.push(`${index + 1}. ${item.text.trim()}`);
-                    }
-                });
-                output.push('');
-            }
-        });
-
-        return output;
-    }
-
-    function addRange(to, from) {
-        for (var item of from) {
-            to.push(item)
-        }
-    }
 
     function printStructuredContent(content, indent, output) {
         var lines = printStructuredContentNoIdent(content)
@@ -114,7 +70,9 @@ function printPseudo(algorithm, translations, output) {
             if (step.type === "question") {
                 printQuestion(step, depth, output)
             } else if (step.type === "loop") {
-                printLoop(step, depth, output)                     
+                printLoop(step, depth, output)    
+            } else if (step.type === "address") {
+                printAddress(step, indent, output)                                      
             } else if (step.type === "error") {
                 printError(step, indent, output)
             } else if (step.type === "break") {
@@ -134,6 +92,16 @@ function printPseudo(algorithm, translations, output) {
             printStructuredContent(step.content, indent, output)
         }        
         output.push("")
+    }
+
+    function printAddress(step, indent, output) {
+        var label
+        if (step.content) {
+            label = htmlToString(step.content);
+        } else {
+            label = translate("Subroutine") + " " + step.branch 
+        }
+        output.push(indent + translate("Call subroutine") + " \"" + label + "\"")
     }
 
     function printError(step, indent, output) {

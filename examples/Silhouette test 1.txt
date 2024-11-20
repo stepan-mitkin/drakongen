@@ -1,14 +1,4 @@
-Процедура "tmp"
-
-Описание:
-It's a nice function
-
-Parameters:
-
-- hello
-- bye
-- foo
-
+Процедура "Silhouette test 1"
 
 Алгоритм:
 Вызвать подпрограмму: "Branch1"

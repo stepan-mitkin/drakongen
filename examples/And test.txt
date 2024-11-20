@@ -1,5 +1,10 @@
-If (One and not (Two)) and Three
+Процедура "And test"
+
+Алгоритм:
+Если (One и не (Two)) и Three
     Do it!
 
-Else
+Иначе
     Do not do it
+
+Конец процедуры

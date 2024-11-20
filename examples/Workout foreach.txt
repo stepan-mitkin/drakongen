@@ -1,10 +1,14 @@
+Процедура "Workout foreach"
+
+Алгоритм:
 Warm up
 
 For each exercize in the program
     Repeat 10 times
         Lift the weight
 
-        If Tired?
+        Если Tired?
             Say: huff da
 
             break
+Конец процедуры

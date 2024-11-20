@@ -1,6 +1,6 @@
 {
-    "name": "tmp",
-    "params": "<p>It's a nice function</p><p><br /></p><p>Parameters:</p><ul><li>hello</li><li>bye</li><li>foo</li></ul>",
+    "name": "Silhouette test 1",
+    "params": "",
     "branches": [
         {
             "name": "Branch1",

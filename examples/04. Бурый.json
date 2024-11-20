@@ -1,23 +1,29 @@
 {
     "name": "04. Бурый",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "type": "question",
-            "id": "4",
-            "content": "3",
-            "yes": [
+            "branchId": 0,
+            "start": "4",
+            "body": [
                 {
-                    "id": "14",
-                    "type": "action",
-                    "content": "4"
+                    "type": "question",
+                    "id": "4",
+                    "content": "3",
+                    "yes": [
+                        {
+                            "id": "14",
+                            "type": "action",
+                            "content": "4"
+                        }
+                    ],
+                    "no": []
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
-            ],
-            "no": []
-        },
-        {
-            "id": "2",
-            "type": "end"
+            ]
         }
     ]
 }

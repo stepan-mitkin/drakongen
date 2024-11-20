@@ -1,13 +1,18 @@
-Loop forever
-    If CCCCC
+Процедура "DoubleArrow"
+
+Алгоритм:
+Бесконечный цикл
+    Если CCCCC
         break
-    Else
-        If EEEEEE
+    Иначе
+        Если EEEEEE
             qqq
 
             break
-        Else
-            Loop forever
-                If JJJJ
+        Иначе
+            Бесконечный цикл
+                Если JJJJ
                     break
 KKKK
+
+Конец процедуры

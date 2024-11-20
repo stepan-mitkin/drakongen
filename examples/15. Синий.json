@@ -1,47 +1,20 @@
 {
     "name": "15. Синий",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "type": "question",
-            "id": "4",
-            "content": "3",
-            "yes": [
-                {
-                    "id": "63",
-                    "type": "action",
-                    "content": "5"
-                },
+            "branchId": 0,
+            "start": "4",
+            "body": [
                 {
                     "type": "question",
-                    "id": "14",
-                    "content": "7",
+                    "id": "4",
+                    "content": "3",
                     "yes": [
                         {
-                            "id": "60",
+                            "id": "63",
                             "type": "action",
-                            "content": "8"
-                        }
-                    ],
-                    "no": [
-                        {
-                            "id": "24",
-                            "type": "action",
-                            "content": "9"
-                        }
-                    ]
-                }
-            ],
-            "no": [
-                {
-                    "type": "question",
-                    "id": "47",
-                    "content": "4",
-                    "yes": [
-                        {
-                            "id": "66",
-                            "type": "action",
-                            "content": "6"
+                            "content": "5"
                         },
                         {
                             "type": "question",
@@ -65,17 +38,50 @@
                     ],
                     "no": [
                         {
-                            "id": "24",
-                            "type": "action",
-                            "content": "9"
+                            "type": "question",
+                            "id": "47",
+                            "content": "4",
+                            "yes": [
+                                {
+                                    "id": "66",
+                                    "type": "action",
+                                    "content": "6"
+                                },
+                                {
+                                    "type": "question",
+                                    "id": "14",
+                                    "content": "7",
+                                    "yes": [
+                                        {
+                                            "id": "60",
+                                            "type": "action",
+                                            "content": "8"
+                                        }
+                                    ],
+                                    "no": [
+                                        {
+                                            "id": "24",
+                                            "type": "action",
+                                            "content": "9"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "24",
+                                    "type": "action",
+                                    "content": "9"
+                                }
+                            ]
                         }
                     ]
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

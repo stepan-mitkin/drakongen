@@ -1,3 +1,12 @@
+Процедура "How to tune PID on a quadcopter"
+
+Описание:
+By Oscar Liang
+
+Алгоритм:
+Вызвать подпрограмму: "Prepare"
+
+Подпрограмма: "Prepare"
 Listen
 To the motor sound
 
@@ -6,3 +15,156 @@ Backup your current PID values
 Switch to Rate Mode (aka Acro Mode)
 
 Make sure your quadcopter’s CG (centre of gravity) is right in the middle
+
+Вызвать подпрограмму "Set initial values"
+Конец подпрограммы
+
+Подпрограмма: "Set initial values"
+Set RC rates, super rates and expo
+
+Set default PID values
+
+Lower all the values by at least half
+
+Вызвать подпрограмму "P on Roll"
+Конец подпрограммы
+
+Подпрограмма: "P on Roll"
+Бесконечный цикл
+    Cruise around
+
+    Do some sharp turns
+
+    Если не (Does the quad dip to one side (like a wobble)?) и не (Do slow oscillations occur?)
+        Если Do fast oscilations occur?
+            Decrease P on Roll
+
+        Иначе
+            break
+    Иначе
+        Increase P on Roll
+
+Вызвать подпрограмму "P on Pitch"
+Конец подпрограммы
+
+Подпрограмма: "P on Pitch"
+Бесконечный цикл
+    Do a split-S (where you move both the throttle and pitch sticks)
+
+    Increase throttle to recover, pay attention to the pitch movement
+
+    Если Does the quad pitch up more than it should?
+        Increase P on Pitch
+
+    Иначе
+        Если не (Do fast oscilations occur?) и не (Are the motors making a twitching sound?)
+            break
+        Иначе
+            Decrease P on Pitch
+
+Вызвать подпрограмму "TPA"
+Конец подпрограммы
+
+Подпрограмма: "TPA"
+Бесконечный цикл
+    Do a punch out
+
+    Если Does the quad get oscillations with high throttle?
+        Increase TPA
+
+    Иначе
+        break
+Вызвать подпрограмму "D on Roll and Pitch"
+Конец подпрограммы
+
+Подпрограмма: "D on Roll and Pitch"
+Бесконечный цикл
+    Do aggressive maneuvers like flips and rolls
+
+    Если не (Does the quad overshoot at the end of the move then bounce back?) и не (Does prop wash happen? (oscillation when you descent))
+        Если Do fast oscillation happen at the end of a roll or flip?
+            Decrease D on the affected axis
+
+        Иначе
+            break
+    Иначе
+        Increase D on the affected axis
+
+Вызвать подпрограмму "I on Roll"
+Конец подпрограммы
+
+Подпрограмма: "I on Roll"
+Бесконечный цикл
+    Bank your quad to the left and right
+
+    Release stick
+
+    Если Is the quad holding the angle well?
+        Если не (Does the quad have stiff, robotic feeling?) и не (Does the quad have oscilations?)
+            break
+        Иначе
+            Decrease I on Roll
+
+    Иначе
+        Increase I on Roll
+
+Вызвать подпрограмму "I on Pitch"
+Конец подпрограммы
+
+Подпрограмма: "I on Pitch"
+Бесконечный цикл
+    Fly forward, do not increase throttle
+
+    Если Does the nose keep the same angle?
+        break
+    Иначе
+        Increase I on Pitch
+
+Вызвать подпрограмму "Anti Gravity Gain"
+Конец подпрограммы
+
+Подпрограмма: "Anti Gravity Gain"
+Бесконечный цикл
+    Fly in a straight line
+
+    Do some rapid punchouts
+
+    Если Does pitch stay at the same angle?
+        break
+    Иначе
+        Increase Anti Gravity
+
+Вызвать подпрограмму "P on Yaw"
+Конец подпрограммы
+
+Подпрограмма: "P on Yaw"
+Бесконечный цикл
+    Spin quickly on the yaw axis
+
+    Stop spinning
+
+    Если Does the quad dip one side?
+        Increase P on Yaw
+
+    Иначе
+        Если Do you get fast oscilations?
+            Decrease P on Yaw
+
+        Иначе
+            break
+Вызвать подпрограмму "I on Yaw"
+Конец подпрограммы
+
+Подпрограмма: "I on Yaw"
+Бесконечный цикл
+    Fly straight
+
+    Make a turn
+
+    Если Is there drift, does the quad slide out?
+        Increase I on Yaw
+
+    Иначе
+        break
+Конец подпрограммы
+Конец процедуры

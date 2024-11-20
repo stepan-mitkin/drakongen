@@ -1,10 +1,16 @@
 {
     "name": "01. Белый",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "id": "2",
-            "type": "end"
+            "branchId": 0,
+            "start": "2",
+            "body": [
+                {
+                    "id": "2",
+                    "type": "end"
+                }
+            ]
         }
     ]
 }

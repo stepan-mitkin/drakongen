@@ -1,43 +1,49 @@
 {
     "name": "07. Фиолетовый",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "type": "question",
-            "id": "4",
-            "content": "3",
-            "yes": [
-                {
-                    "id": "29",
-                    "type": "action",
-                    "content": "5"
-                }
-            ],
-            "no": [
+            "branchId": 0,
+            "start": "4",
+            "body": [
                 {
                     "type": "question",
-                    "id": "14",
-                    "content": "4",
+                    "id": "4",
+                    "content": "3",
                     "yes": [
                         {
-                            "id": "32",
+                            "id": "29",
                             "type": "action",
-                            "content": "6"
+                            "content": "5"
                         }
                     ],
                     "no": [
                         {
-                            "id": "35",
-                            "type": "action",
-                            "content": "7"
+                            "type": "question",
+                            "id": "14",
+                            "content": "4",
+                            "yes": [
+                                {
+                                    "id": "32",
+                                    "type": "action",
+                                    "content": "6"
+                                }
+                            ],
+                            "no": [
+                                {
+                                    "id": "35",
+                                    "type": "action",
+                                    "content": "7"
+                                }
+                            ]
                         }
                     ]
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

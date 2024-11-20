@@ -1,33 +1,39 @@
 {
     "name": "09. Оранжевый",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "type": "question",
-            "id": "4",
-            "content": {
-                "operator": "and",
-                "left": "3",
-                "right": "4"
-            },
-            "yes": [
+            "branchId": 0,
+            "start": "4",
+            "body": [
                 {
-                    "id": "25",
-                    "type": "action",
-                    "content": "6"
-                }
-            ],
-            "no": [
+                    "type": "question",
+                    "id": "4",
+                    "content": {
+                        "operator": "and",
+                        "left": "3",
+                        "right": "4"
+                    },
+                    "yes": [
+                        {
+                            "id": "25",
+                            "type": "action",
+                            "content": "6"
+                        }
+                    ],
+                    "no": [
+                        {
+                            "id": "19",
+                            "type": "action",
+                            "content": "5"
+                        }
+                    ]
+                },
                 {
-                    "id": "19",
-                    "type": "action",
-                    "content": "5"
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

@@ -1,28 +1,33 @@
+Процедура "Complex arrow"
+
+Алгоритм:
 AAAAAA
 
-Loop forever
+Бесконечный цикл
     BBBBB
 
-    If CCCCC
-        If not (FFFFFF)
+    Если CCCCC
+        Если не (FFFFFF)
             For each GGGGG
                 HHHHH
 
-                If not (IIIIII)
+                Если не (IIIIII)
                     break
         break
-    Else
+    Иначе
         DDDDDD
 
-        If EEEEEE
+        Если EEEEEE
             For each GGGGG
                 HHHHH
 
-                If not (IIIIII)
+                Если не (IIIIII)
                     break
             break
-        Else
-            Loop forever
-                If JJJJ
+        Иначе
+            Бесконечный цикл
+                Если JJJJ
                     break
 KKKK
+
+Конец процедуры

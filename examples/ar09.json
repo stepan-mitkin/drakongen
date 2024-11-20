@@ -1,81 +1,87 @@
 {
     "name": "ar09",
     "params": "",
-    "body": [
+    "branches": [
         {
-            "id": "29",
-            "type": "loop",
-            "content": "",
+            "branchId": 0,
+            "start": "29",
             "body": [
                 {
-                    "type": "question",
-                    "id": "5",
-                    "content": {
-                        "operator": "equal",
-                        "left": "3",
-                        "right": "4"
-                    },
-                    "yes": [
-                        {
-                            "type": "break"
-                        }
-                    ],
-                    "no": [
+                    "id": "29",
+                    "type": "loop",
+                    "content": "",
+                    "body": [
                         {
                             "type": "question",
-                            "id": "8",
+                            "id": "5",
                             "content": {
                                 "operator": "equal",
                                 "left": "3",
-                                "right": "5"
+                                "right": "4"
                             },
-                            "yes": [],
+                            "yes": [
+                                {
+                                    "type": "break"
+                                }
+                            ],
                             "no": [
                                 {
                                     "type": "question",
-                                    "id": "9",
+                                    "id": "8",
                                     "content": {
                                         "operator": "equal",
                                         "left": "3",
-                                        "right": "6"
+                                        "right": "5"
                                     },
                                     "yes": [],
                                     "no": [
                                         {
-                                            "id": "9-unexpected",
-                                            "type": "error",
-                                            "content": "3",
-                                            "message": "Unexpected case value"
+                                            "type": "question",
+                                            "id": "9",
+                                            "content": {
+                                                "operator": "equal",
+                                                "left": "3",
+                                                "right": "6"
+                                            },
+                                            "yes": [],
+                                            "no": [
+                                                {
+                                                    "id": "9-unexpected",
+                                                    "type": "error",
+                                                    "content": "3",
+                                                    "message": "Unexpected case value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "question",
+                                            "id": "42",
+                                            "content": "7",
+                                            "yes": [],
+                                            "no": [
+                                                {
+                                                    "id": "58",
+                                                    "type": "action",
+                                                    "content": "8"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
                                 {
-                                    "type": "question",
-                                    "id": "42",
-                                    "content": "7",
-                                    "yes": [],
-                                    "no": [
-                                        {
-                                            "id": "58",
-                                            "type": "action",
-                                            "content": "8"
-                                        }
-                                    ]
+                                    "id": "arrow-stub-29",
+                                    "type": "loopend",
+                                    "start": "29"
                                 }
                             ]
-                        },
-                        {
-                            "id": "arrow-stub-29",
-                            "type": "loopend",
-                            "start": "29"
                         }
                     ]
+                },
+                {
+                    "id": "2",
+                    "type": "end"
                 }
             ]
-        },
-        {
-            "id": "2",
-            "type": "end"
         }
     ]
 }

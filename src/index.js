@@ -2,6 +2,8 @@
 const { drakonToPromptStruct } = require('./drakonToPromptStruct');
 const fs = require('fs').promises;
 const path = require('path');
+var {htmlToString} = require("./nodeTools")
+
 
 async function processFile(filePath) {
     try {
@@ -14,14 +16,16 @@ async function processFile(filePath) {
         const outputFilePathTxt = path.join(pname.dir, pname.name + ".txt")
         const name = pname.name
         // Call the drakonToPromptStruct function with the file content and filename
-        const result = drakonToPromptStruct(content, name, filePath);
+        const result = drakonToPromptStruct(content, name, filePath, htmlToString);
 
 
         // Write the result to a new file in UTF-8 encoding
         await fs.writeFile(outputFilePathJson, result.json, 'utf8');
         await fs.writeFile(outputFilePathTxt, result.text, 'utf8');
     } catch (error) {
-        console.error(`Error: ${error.message}`);
+        console.error(error.message);
+        console.error("File: " + error.filename)
+        console.error("Node id: " + error.nodeId)
         console.error(error.stack);
     }
 }

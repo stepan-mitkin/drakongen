@@ -1,9 +1,14 @@
-Loop forever
-    If CCCCC
+Процедура "Arrow - double exit"
+
+Алгоритм:
+Бесконечный цикл
+    Если CCCCC
         break
-    Else
-        If EEEEEE
+    Иначе
+        Если EEEEEE
             HHHHH
 
             break
 KKKK
+
+Конец процедуры

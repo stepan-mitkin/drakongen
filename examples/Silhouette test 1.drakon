@@ -42,8 +42,6 @@
         }
     },
     "type": "drakon",
-    "style": "{\"maxWidth\":160}",
-    "id": "tmp.drakon",
-    "params": "<p>It's a nice function</p><p><br /></p><p>Parameters:</p><ul><li>hello</li><li>bye</li><li>foo</li></ul>",
-    "description": "<p>line one</p><p>line two</p><p>line three</p>"
+    "id": "Silhouette test 1.drakon",
+    "style": "{\"maxWidth\":160}"
 }

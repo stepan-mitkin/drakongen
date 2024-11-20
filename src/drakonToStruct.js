@@ -1,12 +1,16 @@
-const { structFlow } = require("./structFlow")
-const { treeMaker } = require("./treeMaker")
+const { structFlow, redirectNode } = require("./structFlow");
+const { createError } = require("./tools");
 
-function drakonToStruct(drakonJson, name, filename) {
+var translate
+
+function drakonToStruct(drakonJson, name, filename, translateFunction) {
+    translate = translateFunction
     let drakonGraph;
     try {
         drakonGraph = JSON.parse(drakonJson);
     } catch (error) {
-        throw new Error(`Error parsing JSON in file "${filename}": ${error.message}`);
+        var message = translate("Error parsing JSON") + ": " + error.message
+        throw createError(message, filename)
     }
 
     const nodes = drakonGraph.items || {};
@@ -22,20 +26,87 @@ function drakonToStruct(drakonJson, name, filename) {
 
     rewireSelectsMarkLoops(nodes, filename)
     rewireShortcircuit(nodes, filename)
-    branches.forEach(cutOffBranch)
+    branches.forEach(branch => checkBranchIsReferenced(branch, firstNodeId, filename))
+    branches.forEach(branch => cutOffBranch(nodes, branch))
     
-    var branchTrees = structFlow(nodes, branches, filename)
+    var branchTrees = structFlow(nodes, branches, filename, translate)
 
     return {
         name: name,
         params: drakonGraph.params || "",
-        body: branchTrees[0].body
+        branches: branchTrees
     }
 }
 
-function cutOffBranch(branch) {
+function checkBranchIsReferenced(branch, firstNodeId, filename) {
+    if (branch.id === firstNodeId) {
+        return
+    }
+    if (branch.prev.length === 0) {
+        throw createError(translate("A silhouette branch is not referenced"), filename, branch.id)
+    }
+}
+
+function cutOffBranch(nodes, branch) {
+    var end = {
+        type: "end",
+        id: branch.id + "-end",
+        prev: []
+    }
+    nodes[end.id] = end
     branch.next = branch.one
-    branch.one = undefined
+    var addresses = []
+    traverseToHitBranch(nodes, branch.id, {}, (prev, node) => addFakeEnd(nodes, prev, node, end, addresses))
+}
+
+function traverseToHitBranch(nodes, nodeId, visited, action) {
+    if (!nodeId) {return}
+    if (nodeId in visited) {return}
+    visited[nodeId] = true
+    var node = nodes[nodeId]
+    if (!node) {return}
+    if (node.one) {
+        var one = nodes[node.one]
+        if (one.type === "branch") {
+            action(node, one)
+        } else {
+            traverseToHitBranch(nodes, node.one, visited, action)
+        }
+    }
+    if (node.two) {
+        var two = nodes[node.two]
+        if (two.type === "branch") {
+            action(node, two)
+        } else {
+            traverseToHitBranch(nodes, node.two, visited, action)
+        }
+    }    
+}
+
+var idCounter = 1000
+function addFakeEnd(nodes, prev, node, end, addresses) {
+    var lastAddress = undefined
+    if (addresses.length > 0) {
+        lastAddress = addresses[addresses.length - 1]
+    }        
+    var address
+    if (lastAddress && lastAddress.branch === node.id) {
+        address = lastAddress
+    } else {
+        address = {
+            type: "address",
+            content: node.content,
+            id: "ad-" + idCounter,
+            branch: node.id,
+            one: end.id,
+            prev: []
+        }   
+        idCounter++
+        nodes[address.id] = address
+        end.prev.push(address.id)
+        addresses.push(address)
+    }
+    redirectNode(nodes, prev, node.id, address.id)
 }
 
 function buildTwoWayConnections(nodes, firstNodeId) {
@@ -61,16 +132,16 @@ function findStartNode(nodes, filename, branches) {
             branches.push(node)
         } else if (node.type === "select") {
             if (!node.content) {
-                throw new Error(`A Select icon must have content in file "${filename}", node ${id}.`);
+                throw createError(translate("A Select icon must have content"), filename, id)
             }            
             node.cases = [];
         } else if (node.type === "loopbegin") {
             if (!node.content) {
-                throw new Error(`A Loop begin icon must have content in file "${filename}", node ${id}.`);
+                throw createError(translate("A Loop begin icon must have content"), filename, id)
             }             
         } else if (node.type === "question") {
             if (!node.content) {
-                throw new Error(`A Question icon must have content in file "${filename}", node ${id}.`);
+                throw createError(translate("A Question icon must have content"), filename, id)
             }             
         }
     }
@@ -81,6 +152,7 @@ function findStartNode(nodes, filename, branches) {
 function rewireSelectsMarkLoops(nodes, filename) {
     for (var id of Object.keys(nodes)) {
         var node = nodes[id]
+        if (!node) { continue }
         if (node.type === "select") {
             rewireSelect(nodes, node, filename)
         } else if (node.type === "loopbegin") {
@@ -112,7 +184,7 @@ function rewireSelect(nodes, selectNode, filename) {
             }
         } else {
             if (caseNode.two) {
-                throw new Error("Error in " + filename + ": Only the rightmost Case icon can be empty, nodeId = " + caseNode.id)
+                throw createError(translate("Only the rightmost Case icon can be empty"), filename, caseNode.id)
             }
             removeNodeOne(nodes, caseNode.id)
         }
@@ -292,7 +364,7 @@ function markLoopBody(nodes, start, filename) {
             return nextNodeId
         }
     }
-    throw new Error(`Loop end expected here "${filename}".`);
+    throw createError(translate("Loop end expected here"), filename, start.one)
 }
 
 module.exports = { drakonToStruct };

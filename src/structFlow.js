@@ -1,6 +1,27 @@
 var {buildTree} = require("./technicalTree")
+const { createError, sortByProperty } = require("./tools");
 
-function structFlow(nodes, branches, filename) {
+function redirectNode(nodes, node, from, to) {
+    if (node.one === from) {
+        node.one = to;
+    }
+    if (node.two === from) {
+        node.two = to;
+    }
+    if (node.next === from) {
+        node.next = to
+    }
+    if (node.start && node.type === "loopend") {
+        start = nodes[node.start]
+        if (start.next === from) {
+            start.next = to
+        }
+    }
+}
+
+function structFlow(nodes, branches, filename, translate) {
+
+
 
     function flowGraph(nodes, nodeId, branchingStack) {
         if (!nodeId) {return;}
@@ -133,24 +154,6 @@ function structFlow(nodes, branches, filename) {
     function isInMap(map, key) {
         if (!map) { return false }
         return key in map
-    }
-
-    function redirectNode(nodes, node, from, to) {
-        if (node.one === from) {
-            node.one = to;
-        }
-        if (node.two === from) {
-            node.two = to;
-        }
-        if (node.next === from) {
-            node.next = to
-        }
-        if (node.start && node.type === "loopend") {
-            start = nodes[node.start]
-            if (start.next === from) {
-                start.next = to
-            }
-        }
     }
 
     function prepareQuestions(nodes) {
@@ -306,8 +309,10 @@ function structFlow(nodes, branches, filename) {
                 if (i === body.length - 1) {
                     return true
                 } else {
-                    throw new Error(
-                        `An exit from the loop points too far away, node id = ${node.id}, filename: ${filename}`
+                    throw createError(
+                        translate("An exit from the loop must lead to the point right after the loop end"),
+                        filename,
+                        node.id
                     );
                 }
             }
@@ -362,15 +367,16 @@ function structFlow(nodes, branches, filename) {
             var body2 = []
             rewriteTree(body, 0, undefined, body2)
             result.push({
+                name: branch.content,
+                branchId: branch.branchId,
                 start: branch.next,
                 body: body2
             })
         }
 
-
-        return result
+        return sortByProperty(result, "branchId")
     }
 
     return structMain()
 }
-module.exports = { structFlow };
+module.exports = { structFlow, redirectNode };
