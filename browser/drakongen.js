@@ -184,6 +184,10 @@ function setUpLanguage(language) {
         translations = translationsRu
     } else if (language === "no") {
         translations = translationsNo
+    } else if (language === "en") {
+        translations = translationsEn
+    } else {
+        translations = {}
     }
 }
 
