@@ -1,4 +1,4 @@
-Procedure "15. Синий"
+Procedure "15. Синий"
 
 Algorithm:
 If 3

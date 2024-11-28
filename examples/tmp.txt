@@ -1,6 +1,3 @@
-Procedure "tmp"
-
-Description:
 It's a nice function
 
 Parameters:
@@ -9,6 +6,8 @@ Parameters:
 - bye
 - foo
 
+
+Procedure "tmp"
 
 Algorithm:
 Call subroutine: "Branch1"

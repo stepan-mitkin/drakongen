@@ -1,4 +1,4 @@
-Procedure "14. Золотой"
+Procedure "14. Золотой"
 
 Algorithm:
 If 3

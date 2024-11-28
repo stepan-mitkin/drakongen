@@ -8,7 +8,7 @@ const examplesFolder = path.join(__dirname, 'examples');
 // Function to execute a command with a file
 async function executeCommand(filePath) {
     return new Promise((resolve, reject) => {
-        const process = spawn('node', ['src/index.js', "--output", examplesFolder, filePath]);
+        const process = spawn('node', ['src/main.js', "--output", examplesFolder, filePath]);
 
         // Handle stdout
         process.stdout.on('data', data => {

@@ -1,4 +1,4 @@
-Procedure "05. Жёлтый"
+Procedure "05. Жёлтый"
 
 Algorithm:
 If not (3)

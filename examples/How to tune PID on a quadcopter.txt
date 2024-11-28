@@ -1,7 +1,6 @@
-Procedure "How to tune PID on a quadcopter"
-
-Description:
 By Oscar Liang
+
+Procedure "How to tune PID on a quadcopter"
 
 Algorithm:
 Call subroutine: "Prepare"
