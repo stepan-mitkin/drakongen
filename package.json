@@ -1,10 +1,14 @@
 {
   "name": "drakongen",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generates pseudocode and AST from drakon flowcharts built with DrakonWidget or DrakonHub.",
   "main": "src/index.js",
   "bin": {
     "drakongen": "./src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stepan-mitkin/drakongen.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
