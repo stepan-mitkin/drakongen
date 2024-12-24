@@ -128,21 +128,14 @@ function printPseudo(algorithm, translate, output, htmlToString) {
             yesBody.push(indent2 + translate("pass"))
         }
         var content = step.content
-        if (empty(yesBody)) {
-            content = {operator:"not",operand:step.content}
-        }
         var lines = printStructuredContentNoIdent(content)
         lines[0] = translate("if") + " " + lines[0]
         printWithIndent(lines, indent, output)
-        if (empty(yesBody)) {
-            addRange(output, noBody)           
-        } else {
-            addRange(output, yesBody)            
-            if (!empty(noBody)) {
-                output.push(indent + translate("else"))
-                addRange(output, noBody)
-            }
-        }    
+        addRange(output, yesBody)            
+        if (!empty(noBody)) {
+            output.push(indent + translate("else"))
+            addRange(output, noBody)
+        }
     }      
 
     function printLoop(step, depth, output) {

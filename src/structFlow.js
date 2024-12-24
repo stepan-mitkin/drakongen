@@ -1,5 +1,6 @@
 var {buildTree} = require("./technicalTree")
 const { createError, sortByProperty } = require("./tools");
+const { optimizeTree } = require("./treeTools")
 
 function redirectNode(nodes, node, from, to) {
     if (node.one === from) {
@@ -370,7 +371,7 @@ function structFlow(nodes, branches, filename, translate) {
                 name: branch.content,
                 branchId: branch.branchId,
                 start: branch.next,
-                body: body2
+                body: optimizeTree(body2)
             })
         }
 
