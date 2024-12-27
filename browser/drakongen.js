@@ -648,21 +648,14 @@ function printPseudo(algorithm, translate, output, htmlToString) {
             yesBody.push(indent2 + translate("pass"))
         }
         var content = step.content
-        if (empty(yesBody)) {
-            content = {operator:"not",operand:step.content}
-        }
         var lines = printStructuredContentNoIdent(content)
         lines[0] = translate("if") + " " + lines[0]
         printWithIndent(lines, indent, output)
-        if (empty(yesBody)) {
-            addRange(output, noBody)           
-        } else {
-            addRange(output, yesBody)            
-            if (!empty(noBody)) {
-                output.push(indent + translate("else"))
-                addRange(output, noBody)
-            }
-        }    
+        addRange(output, yesBody)            
+        if (!empty(noBody)) {
+            output.push(indent + translate("else"))
+            addRange(output, noBody)
+        }
     }      
 
     function printLoop(step, depth, output) {
@@ -688,6 +681,7 @@ module.exports = {printPseudo}
 },{"./tools":8}],6:[function(require,module,exports){
 var {buildTree} = require("./technicalTree")
 const { createError, sortByProperty } = require("./tools");
+const { optimizeTree } = require("./treeTools")
 
 function redirectNode(nodes, node, from, to) {
     if (node.one === from) {
@@ -1058,7 +1052,8 @@ function structFlow(nodes, branches, filename, translate) {
                 name: branch.content,
                 branchId: branch.branchId,
                 start: branch.next,
-                body: body2
+                refs: branch.prev.length,
+                body: optimizeTree(body2)
             })
         }
 
@@ -1068,7 +1063,7 @@ function structFlow(nodes, branches, filename, translate) {
     return structMain()
 }
 module.exports = { structFlow, redirectNode };
-},{"./technicalTree":7,"./tools":8}],7:[function(require,module,exports){
+},{"./technicalTree":7,"./tools":8,"./treeTools":10}],7:[function(require,module,exports){
 function buildTree(nodes, nodeId, body, stopId) {
     while (nodeId) {
         if (nodeId === stopId) {return;}
@@ -1300,4 +1295,63 @@ function setUpLanguage(language) {
 
 
 module.exports = { setUpLanguage, translate };
+},{}],10:[function(require,module,exports){
+
+function optimizeTree(steps) {
+    var result = []
+
+    for (var step of steps) {
+        if (step.type === "end" || step.type === "branch" || step.type === "comment" || step.type === "loopend") { continue }
+        if (step.type === "action" && !step.content) { continue }
+        var copy
+        if (step.type === "question") {
+            copy = optimizeQuestion(step)
+        } else if (step.type === "loop") {
+            copy = optimizeLoop(step)
+        } else {
+            copy = step
+        }
+        result.push(copy)
+    }
+
+    return result
+}
+
+function optimizeLoop(step) {
+    return {
+        type: step.type,
+        content: step.content,
+        body: optimizeTree(step.body)
+    }
+}
+
+function optimizeQuestion(step) {
+    var yes = optimizeTree(step.yes)
+    var no = optimizeTree(step.no)
+    if (yes.length === 0 && no.length === 0) {
+        return {
+            type: step.type,
+            content: step.content,
+            yes: [],
+            no: []
+        }    
+    }
+    if (yes.length === 0) {
+        return {
+            type: step.type,
+            content: {operator:"not",operand:step.content},
+            yes: no,
+            no: []
+        }
+    }
+    return {
+        type: step.type,
+        content: step.content,
+        yes: yes,
+        no: no
+    }    
+}
+
+
+module.exports = {optimizeTree}
 },{}]},{},[4]);
