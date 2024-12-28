@@ -15,7 +15,7 @@ Include the `drakongen.js` script on the web page.
 <script src="browser/drakongen.js"></script>
 ```
 
-Call `toPseudocode` or `toTree` functions.
+Call `drakongen.toPseudocode` or `drakongen.toTree` functions.
 
 ```html
 <script>
@@ -23,10 +23,10 @@ var drakon = ... // Get the drakon chart from DrakonWidget
 var name = "Diagram one"
 var filename = "Diagram one.drakon"
 
-var pseudo = toPseudocode(drakon, name, filename, "en")
+var pseudo = drakongen.toPseudocode(drakon, name, filename, "en")
 console.log(pseudo)
 
-var tree = toTree(drakon, name, filename, "en")
+var tree = drakongen.toTree(drakon, name, filename, "en")
 console.log(tree)
 
 </script>

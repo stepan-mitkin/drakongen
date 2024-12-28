@@ -66,9 +66,9 @@
             try {
                 var content
                 if (format.value === "pseudo") {
-                    content = toPseudocode(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
+                    content = drakongen.toPseudocode(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
                 } else {
-                    content = toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
+                    content = drakongen.toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
                 }
                 setText(output, content)
             } catch (ex) {
