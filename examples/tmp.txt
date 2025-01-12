@@ -23,9 +23,7 @@ Subroutine: "Branch2"
 If BBBB
     CCCC
 
-    Call subroutine "Exit"
-Else
-    Call subroutine "Exit"
+Call subroutine "Exit"
 End of subroutine
 
 Subroutine: "Exit"

@@ -1,5 +1,5 @@
 const { structFlow, redirectNode } = require("./structFlow");
-const { createError } = require("./tools");
+const { createError, remove } = require("./tools");
 
 var translate
 
@@ -36,9 +36,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
     branches.forEach(branch => checkBranchIsReferenced(branch, firstNodeId, filename))
     rewireShortcircuit(nodes, filename)
     branches.forEach(branch => cutOffBranch(nodes, branch))
-    
     var branchTrees = structFlow(nodes, branches, filename, translate)
-
     return {
         name: name,
         params: drakonGraph.params || "",
@@ -151,8 +149,11 @@ function addFakeEnd(nodes, prev, node, end, addresses) {
         nodes[address.id] = address
         end.prev.push(address.id)
         addresses.push(address)
+        node.prev.push(address.id)
     }
     redirectNode(nodes, prev, node.id, address.id)
+    address.prev.push(prev.id)
+    node.prev = remove(node.prev, prev.id)
 }
 
 function buildTwoWayConnections(nodes, firstNodeId) {

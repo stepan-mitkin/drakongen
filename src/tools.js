@@ -6,6 +6,10 @@ function createError(message, filename, nodeId) {
     return error
 }
 
+function remove(array, element) {
+    return array.filter(item => item != element)
+}
+
 function sortByProperty(array, property, order = "asc") {
     if (!Array.isArray(array)) {
         throw new Error("First argument must be an array");
@@ -33,4 +37,4 @@ function addRange(to, from) {
         to.push(item)
     }
 }
-module.exports = { createError, sortByProperty, addRange }
+module.exports = { createError, sortByProperty, addRange, remove }

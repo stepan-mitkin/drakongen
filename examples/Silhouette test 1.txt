@@ -7,16 +7,17 @@ Subroutine: "Branch1"
 If AAAAAAA
     Call subroutine "Branch2"
 Else
-    Call subroutine "Exit"
+    If CCCCC
+        Call subroutine "Exit"
+    Else
+        Call subroutine "Branch2"
 End of subroutine
 
 Subroutine: "Branch2"
 If BBBB
     CCCC
 
-    Call subroutine "Exit"
-Else
-    Call subroutine "Exit"
+Call subroutine "Exit"
 End of subroutine
 
 Subroutine: "Exit"
