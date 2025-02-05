@@ -13,7 +13,10 @@ Procedure "getToken"
 Algorithm:
 Find an existing connection in context.connections by URL
 
-If not (Connection found?)
+If Connection found?
+    Some comment
+
+Else
     Create a new MSAL connection object.
     Use the following information to initialize the object:
     

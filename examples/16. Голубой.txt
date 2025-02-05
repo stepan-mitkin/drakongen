@@ -1,4 +1,4 @@
-Procedure "16. Голубой"
+Procedure "16. Голубой"
 
 Algorithm:
 If 3

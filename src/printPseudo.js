@@ -66,7 +66,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
     function printSteps(steps, depth, output) {
         const indent = makeIndent(depth)
         for (var step of steps) {
-            if (step.type === "end" || step.type === "branch" || step.type === "comment") { continue }
+            if (step.type === "end" || step.type === "branch") { continue }
             if (step.type === "question") {
                 printQuestion(step, depth, output)
             } else if (step.type === "loop") {

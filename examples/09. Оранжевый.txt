@@ -1,4 +1,4 @@
-Procedure "09. Оранжевый"
+Procedure "09. Оранжевый"
 
 Algorithm:
 If 3 and 4

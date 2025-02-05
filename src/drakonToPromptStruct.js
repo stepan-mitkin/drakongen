@@ -2,7 +2,7 @@ const {drakonToStruct} = require("./drakonToStruct");
 const {printPseudo} = require('./printPseudo');
 const {addRange} = require("./tools")
 
-function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {
+function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
     if (diagram.params) {

@@ -11,8 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/index.js",
-            "args": ["examples/tmp.drakon"]
+            "program": "${workspaceFolder}/src/main.js",
+            "args": ["examples/Comments.drakon"]
         }
     ]
 }

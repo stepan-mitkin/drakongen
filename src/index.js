@@ -4,7 +4,7 @@ const { setUpLanguage, translate } = require("./translate")
 const { drakonToStruct } = require("./drakonToStruct");
 
 function toPseudocode(drakonJson, name, filename, language) {
-    setUpLanguage(language)
+    setUpLanguage(language)    
     var result = drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
     return result.text
 }

@@ -43,7 +43,7 @@ const {drakonToStruct} = require("./drakonToStruct");
 const {printPseudo} = require('./printPseudo');
 const {addRange} = require("./tools")
 
-function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {
+function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
     if (diagram.params) {
@@ -589,7 +589,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
     function printSteps(steps, depth, output) {
         const indent = makeIndent(depth)
         for (var step of steps) {
-            if (step.type === "end" || step.type === "branch" || step.type === "comment") { continue }
+            if (step.type === "end" || step.type === "branch") { continue }
             if (step.type === "question") {
                 printQuestion(step, depth, output)
             } else if (step.type === "loop") {
@@ -1308,8 +1308,8 @@ function optimizeTree(steps) {
     var result = []
 
     for (var step of steps) {
-        if (step.type === "end" || step.type === "branch" || step.type === "comment" || step.type === "loopend") { continue }
-        if (step.type === "action" && !step.content) { continue }
+        if (step.type === "end" || step.type === "branch" || step.type === "loopend") { continue }
+        if ((step.type === "action" || step.type === "comment") && !step.content) { continue }
         var copy
         if (step.type === "question") {
             copy = optimizeQuestion(step)

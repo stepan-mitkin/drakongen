@@ -9,6 +9,8 @@ Subroutine: "Prepare"
 Listen
 To the motor sound
 
+Remember, PID tuning is subjective!
+
 Backup your current PID values
 
 Switch to Rate Mode (aka Acro Mode)
@@ -29,6 +31,8 @@ Call subroutine "P on Roll"
 End of subroutine
 
 Subroutine: "P on Roll"
+With good P, the control should feel precise
+
 Loop forever
     Cruise around
 
@@ -42,6 +46,8 @@ Loop forever
             break
     Else
         Increase P on Roll
+
+When P is right, you should get minimum oscillations when doing sharp turns.
 
 Call subroutine "P on Pitch"
 End of subroutine
@@ -61,6 +67,8 @@ Loop forever
         Else
             Decrease P on Pitch
 
+The quad feels very responsive and nimble
+
 Call subroutine "TPA"
 End of subroutine
 
@@ -70,6 +78,8 @@ Loop forever
 
     If Does the quad get oscillations with high throttle?
         Increase TPA
+
+        Do not increase TPA higher than 0.4
 
     Else
         break
@@ -89,6 +99,8 @@ Loop forever
     Else
         Increase D on the affected axis
 
+Note that to eliminate bounces at the end of a flip or roll, you can also use Setpoint Transition
+
 Call subroutine "I on Roll"
 End of subroutine
 
@@ -106,6 +118,8 @@ Loop forever
 
     Else
         Increase I on Roll
+
+You might want to increase I a bit more on a windy day
 
 Call subroutine "I on Pitch"
 End of subroutine
@@ -133,6 +147,8 @@ Loop forever
     Else
         Increase Anti Gravity
 
+3 to 5 is a good range
+
 Call subroutine "P on Yaw"
 End of subroutine
 
@@ -151,6 +167,8 @@ Loop forever
 
         Else
             break
+When Yaw P is right the spin should be clean and snappy
+
 Call subroutine "I on Yaw"
 End of subroutine
 
@@ -165,5 +183,7 @@ Loop forever
 
     Else
         break
+Yaw I should not be higher than just enough to prevent drift.
+
 End of subroutine
 End of procedure

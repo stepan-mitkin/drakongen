@@ -3,8 +3,8 @@ function optimizeTree(steps) {
     var result = []
 
     for (var step of steps) {
-        if (step.type === "end" || step.type === "branch" || step.type === "comment" || step.type === "loopend") { continue }
-        if (step.type === "action" && !step.content) { continue }
+        if (step.type === "end" || step.type === "branch" || step.type === "loopend") { continue }
+        if ((step.type === "action" || step.type === "comment") && !step.content) { continue }
         var copy
         if (step.type === "question") {
             copy = optimizeQuestion(step)
