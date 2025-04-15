@@ -95,7 +95,16 @@ drakongen --language no --output out Hello.drakon
 
 ### Generate from a folder
 
+Convert and concatenate all files in a folder.
+
 Read all .drakon and .graf files in the specified input folder, generate pseudocode for each file, and write the output prompt to one text file in the output folder.
+
+.drakon flowcharts will be converted to pseudocode.
+
+.graf mind-maps will be converted to tree-like text.
+
+.txt files will be included in the output file as they are.
+
 
 In this example, the path to the output folder is **out**, the input folder is **examples**:
 

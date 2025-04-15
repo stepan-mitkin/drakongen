@@ -79,7 +79,7 @@ async function getDrakonFiles(dirPath) {
 
     // Filter files that are regular files and have a .txt extension, then map to full paths
     const txtFiles = files
-        .filter(file => file.isFile() && (path.extname(file.name) === '.drakon' || path.extname(file.name) === '.graf'))
+        .filter(file => file.isFile() && (path.extname(file.name) === '.drakon' || path.extname(file.name) === '.graf' || path.extname(file.name) === '.txt'))
         .map(file => path.join(dirPath, file.name));
 
     return txtFiles;
@@ -147,6 +147,8 @@ async function convertToPseudo(filePath, options) {
         result = toPseudocode(content, name, filePath, options.language);
     } else if (pname.ext == ".graf") {
         result = toMindTree(content, name, filePath, options.language);
+    } else if (pname.ext == ".txt") {
+        result = content       
     } else {
         throw new Error("Unknown file type: " + pname.ext)
     }
