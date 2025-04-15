@@ -16,21 +16,17 @@ function htmlToString(html) {
         if (node.tagName === 'P') {
             output.push(node.textContent.trim());
         } else if (node.tagName === 'UL') {
-            output.push('');
             node.childNodes.forEach((item) => {
                 if (item.tagName === 'LI') {
                     output.push(`- ${item.textContent.trim()}`);
                 }
             });
-            output.push('');
         } else if (node.tagName === 'OL') {
-            output.push('');
             node.childNodes.forEach((item, index) => {
                 if (item.tagName === 'LI') {
                     output.push(`${index + 1}. ${item.textContent.trim()}`);
                 }
             });
-            output.push('');
         }
     });
 
@@ -46,12 +42,11 @@ const {addRange} = require("./tools")
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
-    if (diagram.params) {
-        addRange(lines, htmlToString(diagram.params))
-        lines.push("")
-    }
 
     lines.push(translate("Procedure") + " \"" + diagram.name + "\"")
+    if (diagram.params) {
+        addRange(lines, htmlToString(diagram.params))
+    }    
     lines.push("")
     lines.push(translate("Algorithm") + ":")    
     
@@ -70,6 +65,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
             lines.push(translate("End of subroutine"))
         })
     }  
+    lines.push("")
     lines.push(translate("End of procedure"))
     if (diagram.description) {
         lines.push("")       
@@ -613,8 +609,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
         }
         if (step.content) {
             printStructuredContent(step.content, indent, output)
-        }        
-        output.push("")
+        }
     }
 
     function printAddress(step, indent, output) {
@@ -629,11 +624,12 @@ function printPseudo(algorithm, translate, output, htmlToString) {
 
     function printError(step, indent, output) {
         output.push(indent + translate("error") + ":")
-        output.push(indent + step.message)
+        var ind2 = indent + makeIndent(1)
+        output.push(ind2 + step.message)
         if (step.content) {
-            printStructuredContent(step.content, indent, output)
+            var ind3 = indent + makeIndent(2)
+            printStructuredContent(step.content, ind3, output)
         }        
-        output.push("")
     }    
 
     function empty(array) {
