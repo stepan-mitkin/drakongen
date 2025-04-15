@@ -1,6 +1,5 @@
-By Oscar Liang
-
 Procedure "How to tune PID on a quadcopter"
+By Oscar Liang
 
 Algorithm:
 Call subroutine: "Prepare"

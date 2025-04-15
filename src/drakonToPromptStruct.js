@@ -5,12 +5,11 @@ const {addRange} = require("./tools")
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
     var lines = []
-    if (diagram.params) {
-        addRange(lines, htmlToString(diagram.params))
-        lines.push("")
-    }
 
     lines.push(translate("Procedure") + " \"" + diagram.name + "\"")
+    if (diagram.params) {
+        addRange(lines, htmlToString(diagram.params))
+    }    
     lines.push("")
     lines.push(translate("Algorithm") + ":")    
     

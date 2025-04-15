@@ -10,12 +10,21 @@ Else
     If CCCCC
         Call subroutine "Exit"
     Else
+        фыфыфы
+
         Call subroutine "Branch2"
 End of subroutine
 
 Subroutine: "Branch2"
-If BBBB
-    CCCC
+If CCCCC
+    If BBBB
+        CCCC
+
+    Else
+        CCCC
+
+Else
+    фыфыфы
 
 Call subroutine "Exit"
 End of subroutine

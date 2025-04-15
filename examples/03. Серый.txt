@@ -1,4 +1,4 @@
-Procedure "03. Серый"
+Procedure "03. Серый"
 
 Algorithm:
 If 3

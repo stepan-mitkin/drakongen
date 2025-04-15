@@ -1,6 +1,5 @@
-value
-
 Procedure "sil2"
+value
 
 Algorithm:
 Call subroutine: "Ветка1"
