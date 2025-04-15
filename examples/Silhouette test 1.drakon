@@ -18,7 +18,7 @@
         "4": {
             "type": "branch",
             "content": "Branch2",
-            "one": "6",
+            "one": "10",
             "branchId": 2
         },
         "5": {
@@ -32,7 +32,7 @@
             "type": "question",
             "content": "<p>BBBB</p>",
             "one": "7",
-            "two": "3",
+            "two": "12",
             "flag1": 1
         },
         "7": {
@@ -44,11 +44,34 @@
             "type": "question",
             "content": "<p>CCCCC</p>",
             "one": "3",
-            "two": "4",
+            "two": "9",
             "flag1": 1
+        },
+        "9": {
+            "type": "action",
+            "content": "<p>фыфыфы</p>",
+            "one": "4"
+        },
+        "10": {
+            "type": "question",
+            "content": "<p>CCCCC</p>",
+            "one": "6",
+            "two": "11",
+            "flag1": 1
+        },
+        "11": {
+            "type": "action",
+            "content": "<p>фыфыфы</p>",
+            "one": "3",
+            "two": ""
+        },
+        "12": {
+            "type": "action",
+            "content": "<p>CCCC</p>",
+            "one": "3"
         }
     },
     "type": "drakon",
-    "style": "{\"maxWidth\":160}",
+    "style": "{\"maxWidth\":150}",
     "id": "Silhouette test 1.drakon"
 }
