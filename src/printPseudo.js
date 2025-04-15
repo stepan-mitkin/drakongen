@@ -105,9 +105,11 @@ function printPseudo(algorithm, translate, output, htmlToString) {
 
     function printError(step, indent, output) {
         output.push(indent + translate("error") + ":")
-        output.push(indent + step.message)
+        var ind2 = indent + makeIndent(1)
+        output.push(ind2 + step.message)
         if (step.content) {
-            printStructuredContent(step.content, indent, output)
+            var ind3 = indent + makeIndent(2)
+            printStructuredContent(step.content, ind3, output)
         }        
     }    
 

@@ -11,7 +11,7 @@ Loop forever
         Else
             If not (3 == 6)
                 Error:
-                Unexpected case value
-                3
+                    Unexpected case value
+                        3
 
 End of procedure

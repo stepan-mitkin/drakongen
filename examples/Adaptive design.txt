@@ -21,8 +21,8 @@ Else
         Else
             If not (The device type == Phone)
                 Error:
-                Unexpected case value
-                The device type
+                    Unexpected case value
+                        The device type
             Use small background image
             Use plain layout
             Use large UI elements

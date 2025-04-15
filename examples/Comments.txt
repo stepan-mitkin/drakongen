@@ -11,8 +11,8 @@ Else
     Else
         If not (Choose color == blue)
             Error:
-            Unexpected case value
-            Choose color
+                Unexpected case value
+                    Choose color
         Insertion three
         Blue color chosen
 
