@@ -11,7 +11,6 @@ Else
         Call subroutine "Exit"
     Else
         фыфыфы
-
         Call subroutine "Branch2"
 End of subroutine
 
@@ -19,16 +18,14 @@ Subroutine: "Branch2"
 If CCCCC
     If BBBB
         CCCC
-
     Else
         CCCC
-
 Else
     фыфыфы
-
 Call subroutine "Exit"
 End of subroutine
 
 Subroutine: "Exit"
 End of subroutine
+
 End of procedure

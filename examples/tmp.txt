@@ -2,11 +2,9 @@ Procedure "tmp"
 It's a nice function
 
 Parameters:
-
 - hello
 - bye
 - foo
-
 
 Algorithm:
 Call subroutine: "Branch1"
@@ -21,12 +19,12 @@ End of subroutine
 Subroutine: "Branch2"
 If BBBB
     CCCC
-
 Call subroutine "Exit"
 End of subroutine
 
 Subroutine: "Exit"
 End of subroutine
+
 End of procedure
 
 line one

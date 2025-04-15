@@ -28,6 +28,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
             lines.push(translate("End of subroutine"))
         })
     }  
+    lines.push("")
     lines.push(translate("End of procedure"))
     if (diagram.description) {
         lines.push("")       

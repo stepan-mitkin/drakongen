@@ -3,23 +3,17 @@ Procedure "15. Синий"
 Algorithm:
 If 3
     5
-
     If 7
         8
-
     Else
         9
-
 Else
     If 4
         6
-
         If 7
             8
-
         Else
             9
-
     Else
         9
 

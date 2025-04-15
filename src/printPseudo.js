@@ -90,8 +90,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
         }
         if (step.content) {
             printStructuredContent(step.content, indent, output)
-        }        
-        output.push("")
+        }
     }
 
     function printAddress(step, indent, output) {
@@ -110,7 +109,6 @@ function printPseudo(algorithm, translate, output, htmlToString) {
         if (step.content) {
             printStructuredContent(step.content, indent, output)
         }        
-        output.push("")
     }    
 
     function empty(array) {

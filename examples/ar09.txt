@@ -10,7 +10,6 @@ Loop forever
                 Error:
                 Unexpected case value
                 3
-
             If not (7)
                 8
 

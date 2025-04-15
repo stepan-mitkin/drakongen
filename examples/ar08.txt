@@ -10,7 +10,7 @@ Loop forever
                 Error:
                 Unexpected case value
                 3
-
             If 7
                 Pass
+
 End of procedure

@@ -3,7 +3,6 @@ Procedure "And test"
 Algorithm:
 If (One and not (Two)) and Three
     Do it!
-
 Else
     Do not do it
 

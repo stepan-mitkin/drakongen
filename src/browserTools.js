@@ -15,21 +15,17 @@ function htmlToString(html) {
         if (node.tagName === 'P') {
             output.push(node.textContent.trim());
         } else if (node.tagName === 'UL') {
-            output.push('');
             node.childNodes.forEach((item) => {
                 if (item.tagName === 'LI') {
                     output.push(`- ${item.textContent.trim()}`);
                 }
             });
-            output.push('');
         } else if (node.tagName === 'OL') {
-            output.push('');
             node.childNodes.forEach((item, index) => {
                 if (item.tagName === 'LI') {
                     output.push(`${index + 1}. ${item.textContent.trim()}`);
                 }
             });
-            output.push('');
         }
     });
 

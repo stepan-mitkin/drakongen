@@ -2,9 +2,7 @@ Procedure "02. Чёрный"
 
 Algorithm:
 3
-
 4
-
 5
 
 End of procedure
