@@ -1,6 +1,6 @@
 const {drakonToStruct} = require("./drakonToStruct");
-const {printPseudo} = require('./printPseudo');
-const {addRange} = require("./tools")
+const {printPseudo, printWithIndent, makeIndent} = require('./printPseudo');
+const {addRange, sortByProperty} = require("./tools")
 
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
@@ -41,4 +41,77 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
     return {text:text,json:str}
 }
 
-module.exports = { drakonToPseudocode };
+
+function mindToTree(drakonJson, name, filename, htmlToString) {
+    let drakonGraph;
+    try {
+        drakonJson = drakonJson || ""
+        drakonJson = drakonJson.trim()
+        drakonJson = drakonJson || "{}"
+        drakonGraph = JSON.parse(drakonJson);
+    } catch (error) {
+        var message = translate("Error parsing JSON") + ": " + error.message
+        throw createError(message, filename)
+    }
+
+    const nodes = drakonGraph.items || {};
+    var root = createMindNode("## " + name)
+    nodes["root"] = root
+    connectMindNodesToParent(nodes)
+    sortMindChildren(nodes)
+    var lines = []
+    printMindNode(root, 0, lines, htmlToString, true)
+    lines.push("")
+    var text = lines.join("\n")
+    return {text:text}
+}
+
+function connectMindNodesToParent(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.parent) {
+            var parent = nodes[node.parent]
+            if (!parent.children) {
+                parent.children = []
+            }
+            parent.children.push(node)
+        }
+    }
+}
+
+function sortMindChildren(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.children) {
+            sortByProperty(node.children, "ordinal")
+        }
+    }
+}
+
+function printMindNode(node, depth, lines, htmlToString, first) {
+    var printed = htmlToString(node.content)
+    const indent = makeIndent(depth)
+    printWithIndent(printed, indent, lines)
+    var childDepth = depth + 1
+    if (first) {
+        lines.push("")
+        childDepth = 0
+    }
+    if (node.children) {
+        for (var child of node.children) {
+            printMindNode(child, childDepth, lines, htmlToString, false)
+        }
+    }
+}
+
+function createMindNode(name) {
+    return {
+        "type": "idea",
+        "content": "<p>" + name + "</p>",
+        "parent": undefined,
+        "treeType": "treeview",
+        "ordinal": 0
+    }
+}
+
+module.exports = { drakonToPseudocode, mindToTree };

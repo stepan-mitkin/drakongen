@@ -20,7 +20,6 @@
             width: 100%;
         }
     </style>
-    
     <title>Drakongen browser test</title>
 </head>
 <body>
@@ -29,13 +28,14 @@
         <textarea id="input" rows="30" autocorrect="false" placeholder="Enter drakon Json here" spellcheck="false"></textarea>
         <div><select id="format">
             <option value="pseudo">Pseudocode</option>
+            <option value="graf">Graf mind-map</option>
             <option value="tree">Tree</option>
         </select></div>
         <div><select id="language">
             <option value="en">English</option>
             <option value="no">Norsk</option>
             <option value="ru">Русский</option>
-        </select></div> 
+        </select></div>
         <button onclick="convert()">Convert to pseudocode</button>
         <div></div>
         <pre id="output"></pre>
@@ -67,6 +67,8 @@
                 var content
                 if (format.value === "pseudo") {
                     content = drakongen.toPseudocode(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
+                } else if (format.value === "graf") {
+                    content = drakongen.toMindTree(input.value, "Drakongen browser test", "Drakongen browser test.graf")                    
                 } else {
                     content = drakongen.toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
                 }

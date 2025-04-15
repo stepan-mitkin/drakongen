@@ -1,16 +1,17 @@
 var {addRange} = require("./tools")
 
+function makeIndent(depth) {
+    return " ".repeat(depth * 4); 
+}
+
+function printWithIndent(lines, indent, output) {
+    lines.forEach(line => output.push(indent + line))
+}
+
 function printPseudo(algorithm, translate, output, htmlToString) {
-
-
-
     function printStructuredContent(content, indent, output) {
         var lines = printStructuredContentNoIdent(content)
         printWithIndent(lines, indent, output)
-    }
-
-    function printWithIndent(lines, indent, output) {
-        lines.forEach(line => output.push(indent + line))
     }
 
     function printStructuredContentNoIdent(content) {
@@ -57,10 +58,6 @@ function printPseudo(algorithm, translate, output, htmlToString) {
             lines[last] = lines[last] + ")"
         }
         return lines
-    }
-
-    function makeIndent(depth) {
-        return " ".repeat(depth * 4); 
     }
 
     function printSteps(steps, depth, output) {
@@ -157,4 +154,4 @@ function printPseudo(algorithm, translate, output, htmlToString) {
     printSteps(algorithm.body, 0, output)
 }
 
-module.exports = {printPseudo}
+module.exports = {printPseudo, printWithIndent, makeIndent}

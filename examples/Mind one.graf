@@ -1,0 +1,69 @@
+{
+    "items": {
+        "1": {
+            "type": "idea",
+            "content": "<p>Part one</p><p>The beginning</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "2": {
+            "type": "idea",
+            "content": "<p>Part two</p><p>The end</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "3": {
+            "type": "idea",
+            "content": "<p>What was that:</p><ul><li>line one</li><li>line two</li></ul><p>This is exciting</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "4": {
+            "type": "idea",
+            "content": "<p>Sub task</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "5": {
+            "type": "idea",
+            "content": "<p>Line one</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "6": {
+            "type": "idea",
+            "content": "<p>Line two</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "7": {
+            "type": "idea",
+            "content": "<p>Line three</p><p>Line four</p><p>Line five</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 2
+        },
+        "8": {
+            "type": "idea",
+            "content": "<p>Lower 1</p>",
+            "parent": "6",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "9": {
+            "type": "idea",
+            "content": "<p>Lower 2</p>",
+            "parent": "6",
+            "treeType": "treeview",
+            "ordinal": 1
+        }
+    },
+    "type": "graf",
+    "id": "Mind one.graf"
+}

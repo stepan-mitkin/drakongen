@@ -1,4 +1,4 @@
-const { drakonToPseudocode } = require('./drakonToPromptStruct');
+const { drakonToPseudocode, mindToTree } = require('./drakonToPromptStruct');
 const { htmlToString } = require("./nodeTools")
 const { setUpLanguage, translate } = require("./translate")
 const { drakonToStruct } = require("./drakonToStruct");
@@ -9,9 +9,15 @@ function toPseudocode(drakonJson, name, filename, language) {
     return result.text
 }
 
+function toMindTree(mindJson, name, filename, language) {
+    setUpLanguage(language)    
+    var result = mindToTree(mindJson, name, filename, htmlToString)
+    return result.text
+}
+
 function toTree(drakonJson, name, filename, language) {
     setUpLanguage(language)
     var result = drakonToStruct(drakonJson, name, filename, translate)
     return JSON.stringify(result, null, 4)
 }
-module.exports = { toPseudocode, toTree }
+module.exports = { toPseudocode, toTree, toMindTree }

@@ -36,8 +36,8 @@ function htmlToString(html) {
 module.exports = {htmlToString}
 },{}],2:[function(require,module,exports){
 const {drakonToStruct} = require("./drakonToStruct");
-const {printPseudo} = require('./printPseudo');
-const {addRange} = require("./tools")
+const {printPseudo, printWithIndent, makeIndent} = require('./printPseudo');
+const {addRange, sortByProperty} = require("./tools")
 
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
     var diagram = drakonToStruct(drakonJson, name, filename, translate)
@@ -78,7 +78,80 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
     return {text:text,json:str}
 }
 
-module.exports = { drakonToPseudocode };
+
+function mindToTree(drakonJson, name, filename, htmlToString) {
+    let drakonGraph;
+    try {
+        drakonJson = drakonJson || ""
+        drakonJson = drakonJson.trim()
+        drakonJson = drakonJson || "{}"
+        drakonGraph = JSON.parse(drakonJson);
+    } catch (error) {
+        var message = translate("Error parsing JSON") + ": " + error.message
+        throw createError(message, filename)
+    }
+
+    const nodes = drakonGraph.items || {};
+    var root = createMindNode("## " + name)
+    nodes["root"] = root
+    connectMindNodesToParent(nodes)
+    sortMindChildren(nodes)
+    var lines = []
+    printMindNode(root, 0, lines, htmlToString, true)
+    lines.push("")
+    var text = lines.join("\n")
+    return {text:text}
+}
+
+function connectMindNodesToParent(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.parent) {
+            var parent = nodes[node.parent]
+            if (!parent.children) {
+                parent.children = []
+            }
+            parent.children.push(node)
+        }
+    }
+}
+
+function sortMindChildren(nodes) {
+    for (var id in nodes) {
+        var node = nodes[id]
+        if (node.children) {
+            sortByProperty(node.children, "ordinal")
+        }
+    }
+}
+
+function printMindNode(node, depth, lines, htmlToString, first) {
+    var printed = htmlToString(node.content)
+    const indent = makeIndent(depth)
+    printWithIndent(printed, indent, lines)
+    var childDepth = depth + 1
+    if (first) {
+        lines.push("")
+        childDepth = 0
+    }
+    if (node.children) {
+        for (var child of node.children) {
+            printMindNode(child, childDepth, lines, htmlToString, false)
+        }
+    }
+}
+
+function createMindNode(name) {
+    return {
+        "type": "idea",
+        "content": "<p>" + name + "</p>",
+        "parent": undefined,
+        "treeType": "treeview",
+        "ordinal": 0
+    }
+}
+
+module.exports = { drakonToPseudocode, mindToTree };
 },{"./drakonToStruct":3,"./printPseudo":5,"./tools":8}],3:[function(require,module,exports){
 const { structFlow, redirectNode } = require("./structFlow");
 const { createError, remove } = require("./tools");
@@ -498,7 +571,7 @@ function markLoopBody(nodes, start, filename) {
 
 module.exports = { drakonToStruct, drakonToGraph };
 },{"./structFlow":6,"./tools":8}],4:[function(require,module,exports){
-const { drakonToPseudocode } = require('./drakonToPromptStruct');
+const { drakonToPseudocode, mindToTree } = require('./drakonToPromptStruct');
 const { htmlToString } = require("./browserTools")
 const { setUpLanguage, translate } = require("./translate")
 const { drakonToStruct } = require("./drakonToStruct");
@@ -510,6 +583,12 @@ window.drakongen = {
         return drakonToPseudocode(drakonJson, name, filename, htmlToString, translate).text
     },
 
+    toMindTree: function (mindJson, name, filename, language) {
+        setUpLanguage(language)    
+        var result = mindToTree(mindJson, name, filename, htmlToString)
+        return result.text
+    },    
+
     toTree: function (drakonJson, name, filename, language) {
         setUpLanguage(language)
         var result = drakonToStruct(drakonJson, name, filename, translate)
@@ -519,17 +598,18 @@ window.drakongen = {
 },{"./browserTools":1,"./drakonToPromptStruct":2,"./drakonToStruct":3,"./translate":9}],5:[function(require,module,exports){
 var {addRange} = require("./tools")
 
+function makeIndent(depth) {
+    return " ".repeat(depth * 4); 
+}
+
+function printWithIndent(lines, indent, output) {
+    lines.forEach(line => output.push(indent + line))
+}
+
 function printPseudo(algorithm, translate, output, htmlToString) {
-
-
-
     function printStructuredContent(content, indent, output) {
         var lines = printStructuredContentNoIdent(content)
         printWithIndent(lines, indent, output)
-    }
-
-    function printWithIndent(lines, indent, output) {
-        lines.forEach(line => output.push(indent + line))
     }
 
     function printStructuredContentNoIdent(content) {
@@ -576,10 +656,6 @@ function printPseudo(algorithm, translate, output, htmlToString) {
             lines[last] = lines[last] + ")"
         }
         return lines
-    }
-
-    function makeIndent(depth) {
-        return " ".repeat(depth * 4); 
     }
 
     function printSteps(steps, depth, output) {
@@ -676,7 +752,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
     printSteps(algorithm.body, 0, output)
 }
 
-module.exports = {printPseudo}
+module.exports = {printPseudo, printWithIndent, makeIndent}
 },{"./tools":8}],6:[function(require,module,exports){
 var {buildTree} = require("./technicalTree")
 const { createError, sortByProperty } = require("./tools");

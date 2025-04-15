@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {toTree, toPseudocode} = require("./index")
+const {toTree, toPseudocode, toMindTree} = require("./index")
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -60,7 +60,6 @@ async function main() {
 
     try {
         const stats = await fs.lstat(targetPath);
-
         if (stats.isDirectory()) {
             await generate(targetPath, options);
         } else {
@@ -80,13 +79,12 @@ async function getDrakonFiles(dirPath) {
 
     // Filter files that are regular files and have a .txt extension, then map to full paths
     const txtFiles = files
-        .filter(file => file.isFile() && path.extname(file.name) === '.drakon')
+        .filter(file => file.isFile() && (path.extname(file.name) === '.drakon' || path.extname(file.name) === '.graf'))
         .map(file => path.join(dirPath, file.name));
 
     return txtFiles;
 }
 
-// Placeholder functions (not implemented)
 async function generate(folderPath, options) {
     var files = await getDrakonFiles(folderPath)
     var output
@@ -142,10 +140,16 @@ async function convertToTree(filePath, options) {
 async function convertToPseudo(filePath, options) {
     // Read the content of the file with UTF-8 encoding
     const content = await fs.readFile(filePath, 'utf8');
-
     var pname = path.parse(filePath)
-    const name = pname.name    
-    const result = toPseudocode(content, name, filePath, options.language);
+    const name = pname.name
+    var result
+    if (pname.ext == ".drakon") {
+        result = toPseudocode(content, name, filePath, options.language);
+    } else if (pname.ext == ".graf") {
+        result = toMindTree(content, name, filePath, options.language);
+    } else {
+        throw new Error("Unknown file type: " + pname.ext)
+    }
     return result
 }
 
