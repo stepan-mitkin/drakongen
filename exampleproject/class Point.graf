@@ -1,0 +1,24 @@
+{
+    "items": {
+        "1": {
+            "type": "idea",
+            "content": "<p>x: number</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "2": {
+            "type": "idea",
+            "content": "<p>y: number</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "root": {
+            "treeType": "treeview",
+            "type": "header"
+        }
+    },
+    "type": "graf",
+    "id": "class Point.graf"
+}

@@ -93,21 +93,64 @@ In this example, the language is Norwegian, the path to the output folder is **o
 drakongen --language no --output out Hello.drakon
 ```
 
-### Generate from a folder
+## Project mode
 
-Convert and concatenate all files in a folder.
+Drakongen in project mode generates a single prompt file by processing and concatenating multiple input files, including flowcharts, mind-maps, text files, and directories. It reads a project file specifying the input files, processes them in the defined order, and outputs a consolidated prompt file suitable for AI-driven code generation.
 
-Read all .drakon and .graf files in the specified input folder, generate pseudocode for each file, and write the output prompt to one text file in the output folder.
+### Features
 
-.drakon flowcharts will be converted to pseudocode.
+- **Processes multiple file types**:
+  - Plain text files (e.g., `.txt`) are included as-is.
+  - Mind-map files (e.g., `.graf`) are converted to indented text.
+  - Flowchart files (e.g., `.drakon`) are converted to pseudocode.
+  - Directories are recursively processed, including all files within.
+- **Preserves file order**: Files are processed and concatenated in the exact order specified in the project file, which is critical for AI tools relying on sequential context.
+- **Flexible project file format**: A simple text-based project file lists files and directories to process.
 
-.graf mind-maps will be converted to tree-like text.
 
-.txt files will be included in the output file as they are.
+### Usage
 
+Run the tool with the following command:
 
-In this example, the path to the output folder is **out**, the input folder is **examples**:
+```bash
+drakongen --project <project_file> --output <output_directory>
+```
+
+- `--project`: Path to the project file (e.g., `exampleproject/foo.proj`).
+- `--output`: Directory where the output prompt file will be saved (e.g., `exampleproject`).
+
+### Example
+
+Given a project file `exampleproject/foo.proj` with the following content:
+
 
 ```
-drakongen --output out examples
+start.txt
+math
+class Point.graf
+foo.drakon
 ```
+
+Run:
+
+```bash
+drakongen --project exampleproject/foo.proj --output exampleproject
+```
+
+This will:
+
+1. Include `start.txt` as-is.
+2. Process all files in the `math` directory recursively.
+3. Convert `class Point.graf` (mind-map) to indented text.
+4. Convert `foo.drakon` (flowchart) to pseudocode.
+5. Concatenate all processed content into `exampleproject/foo.txt`.
+
+The output file `foo.txt` will contain the concatenated text in the exact order specified in `foo.proj`.
+
+### Project File Format
+
+The project file (e.g., `foo.proj`) is a plain text file where each line specifies:
+
+- A file path (relative to the project file) for a text, mind-map, or flowchart file.
+- A directory path to process all files within it recursively.
+

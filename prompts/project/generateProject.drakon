@@ -1,0 +1,87 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 1,
+            "one": "3",
+            "content": "<p>Read project file</p>"
+        },
+        "3": {
+            "type": "action",
+            "content": "<p>project content = read file at targetPath as a UTF-8 string</p>",
+            "one": "4"
+        },
+        "4": {
+            "type": "action",
+            "content": "<p>lines = split project content by end of line symbol</p><p>items = trim each line in lines and take only non-empty ones</p>",
+            "one": "5"
+        },
+        "5": {
+            "type": "action",
+            "content": "<p>output = []</p>",
+            "one": "10"
+        },
+        "9": {
+            "type": "branch",
+            "content": "<p>Write the output file</p>",
+            "one": "11",
+            "branchId": 3
+        },
+        "10": {
+            "type": "branch",
+            "content": "<p>Convert files</p>",
+            "one": "13",
+            "branchId": 2
+        },
+        "11": {
+            "type": "action",
+            "content": "<p>content = concatenate(output, end of line symbol)</p>",
+            "one": "18"
+        },
+        "12": {
+            "type": "loopend",
+            "one": "9",
+            "two": ""
+        },
+        "13": {
+            "type": "loopbegin",
+            "one": "14",
+            "content": "<p>for each item in items</p>",
+            "two": ""
+        },
+        "14": {
+            "type": "action",
+            "content": "<p>full path = concatenate paths(the folder part of targetPath, item)</p><p>normalize full path</p>",
+            "one": "15",
+            "two": ""
+        },
+        "15": {
+            "type": "question",
+            "content": "<p>full path is a directory</p>",
+            "one": "17",
+            "two": "16",
+            "flag1": 0
+        },
+        "16": {
+            "type": "action",
+            "content": "<p>process folder(full path, options, output)</p>",
+            "one": "12"
+        },
+        "17": {
+            "type": "action",
+            "content": "<p>process file(full path, options, output)</p>",
+            "one": "12"
+        },
+        "18": {
+            "type": "action",
+            "content": "<p>await writeOut(content, targetPath, options.output)</p>",
+            "one": "1"
+        }
+    },
+    "type": "drakon",
+    "id": "generateProject.drakon",
+    "params": "<p>arguments:</p><ul><li>targetPath: string, the filepath to the input project file</li><li>options: Options</li></ul><p><br /></p><p>function type: async</p>"
+}

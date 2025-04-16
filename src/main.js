@@ -11,6 +11,7 @@ function displayUsage() {
     drakongen <path>                      Read from <path> and output to standard output
     drakongen --language <lang> <path>    Read from <path> and output to standard output, use the provided language
     drakongen --tree <path>               Read from <path> and output to standard output, use the JSON-tree format
+    drakongen --output <output folder> --project <path> Run in the project mode. 
     drakongen --output <output folder> <path> 
                                       Read from <path> and write to <output folder>
     drakongen                             Display this usage summary.`);
@@ -79,10 +80,6 @@ async function main() {
         console.error(`Node id: ${err.nodeId}`);
         process.exit(1);
     }
-}
-
-async function generateProject(targetPath, options) {
-    
 }
 
 async function getDrakonFiles(dirPath) {    
@@ -167,7 +164,47 @@ async function convertToPseudo(filePath, options) {
     return result
 }
 
+async function processFile(filename, options, output) {
+    const pseudo = await convertToPseudo(filename, options);
+    output.push(pseudo);
+    output.push('');
+    output.push('');
+}
 
+async function processFolder(filename, options, output) {
+    const filenames = await fs.readdir(filename);
+    for (const name of filenames) {
+        const fullPath = path.join(filename, name);
+        const stats = await fs.stat(fullPath);
+        if (stats.isDirectory()) {
+            await processFolder(fullPath, options, output);
+        } else {
+            await processFile(fullPath, options, output);
+        }
+    }
+}
+
+async function generateProject(targetPath, options) {
+    // Read project file
+    const projectContent = await fs.readFile(targetPath, 'utf8');
+    const lines = projectContent.split('\n');
+    const items = lines.map(line => line.trim()).filter(line => line.length > 0);
+    const output = [];
+
+    // Convert files
+    for (const item of items) {
+        const fullPath = path.normalize(path.join(path.dirname(targetPath), item));
+        const stats = await fs.stat(fullPath);
+        if (stats.isDirectory()) {
+            await processFolder(fullPath, options, output);
+        } else {
+            await processFile(fullPath, options, output);
+        }
+    }
+    const content = output.join("\n")
+    // Write the output file
+    await writeOut(content, targetPath, options.output);
+}
 
 // Entry point
 main();

@@ -1,0 +1,53 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "10"
+        },
+        "10": {
+            "type": "action",
+            "content": "<p>filenames = get directory content(filename)</p>",
+            "one": "14"
+        },
+        "13": {
+            "type": "loopend",
+            "one": "1"
+        },
+        "14": {
+            "type": "loopbegin",
+            "one": "15",
+            "content": "<p>for each name in filenames</p>"
+        },
+        "15": {
+            "type": "action",
+            "content": "<p>full path = contacenate path(filename, name)</p>",
+            "one": "18"
+        },
+        "18": {
+            "type": "question",
+            "content": "<p>full path is a directory</p>",
+            "one": "20",
+            "two": "19",
+            "flag1": 0
+        },
+        "19": {
+            "type": "action",
+            "content": "<p>process folder(full path, options, output)</p>",
+            "one": "13",
+            "two": ""
+        },
+        "20": {
+            "type": "action",
+            "content": "<p>process file(full path, options, output)</p>",
+            "one": "13",
+            "two": ""
+        }
+    },
+    "params": "<p>arguments:</p><ul><li>filename: string</li><li>options: Options</li><li>output: an array of strings</li></ul>",
+    "type": "drakon",
+    "id": "process folder.drakon"
+}

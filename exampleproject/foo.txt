@@ -1,0 +1,45 @@
+Generate a JavaScript function "foo".
+Do not use "new", "class", and "this" keywords.
+Use "undefined" instead of "null".
+
+
+## Procedure "approximately equal"
+arguments:
+- left: number
+- right: number
+returns: boolean
+
+Algorithm:
+threshold = 0.00001
+delta = left - right
+If Math.abs(delta) > threshold
+    return true
+Else
+    return false
+
+End of procedure
+
+
+## class Point
+
+x: number
+y: number
+
+
+
+## Procedure "foo"
+arguments:
+- point: Point
+
+returns: number
+
+Algorithm:
+x = point.x
+y = point.y
+If (x > 0 and y > 0) and not (x is approx. equal y)
+    return sqrt(x * x + y * y)
+Else
+    return 0
+
+End of procedure
+
