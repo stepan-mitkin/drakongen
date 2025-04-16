@@ -1,0 +1,3 @@
+Generate a JavaScript function "foo".
+Do not use "new", "class", and "this" keywords.
+Use "undefined" instead of "null".

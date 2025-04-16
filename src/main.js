@@ -29,6 +29,7 @@ async function main() {
 
     let options = {
         language: "en",
+        project: false,
         json: false,
         output: null,
         tree: false
@@ -42,6 +43,9 @@ async function main() {
                 break;
             case '--tree':
                 options.tree = true;
+                break;
+            case '--project':
+                options.project = true;
                 break;                
             case '--output':
                 options.output = args[++i];
@@ -59,11 +63,15 @@ async function main() {
     }
 
     try {
-        const stats = await fs.lstat(targetPath);
-        if (stats.isDirectory()) {
-            await generate(targetPath, options);
+        if (options.project) {
+            await generateProject(targetPath, options)
         } else {
-            await generateOne(targetPath, options);
+            const stats = await fs.lstat(targetPath);
+            if (stats.isDirectory()) {
+                await generate(targetPath, options);
+            } else {
+                await generateOne(targetPath, options);
+            }
         }
     } catch (err) {
         console.error(`${err.message}`);
@@ -71,6 +79,10 @@ async function main() {
         console.error(`Node id: ${err.nodeId}`);
         process.exit(1);
     }
+}
+
+async function generateProject(targetPath, options) {
+    
 }
 
 async function getDrakonFiles(dirPath) {    
