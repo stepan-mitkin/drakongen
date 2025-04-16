@@ -1,4 +1,4 @@
-Procedure "01. Белый"
+## Procedure "01. Белый"
 
 Algorithm:
 

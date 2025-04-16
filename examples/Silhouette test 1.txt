@@ -1,4 +1,4 @@
-Procedure "Silhouette test 1"
+## Procedure "Silhouette test 1"
 
 Algorithm:
 Call subroutine: "Branch1"

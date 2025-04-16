@@ -1,4 +1,4 @@
-Procedure "Adaptive design"
+## Procedure "Adaptive design"
 
 Algorithm:
 If The device type == Large screen

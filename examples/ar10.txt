@@ -1,4 +1,4 @@
-Procedure "ar10"
+## Procedure "ar10"
 
 Algorithm:
 Loop forever

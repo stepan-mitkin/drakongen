@@ -1,4 +1,4 @@
-Procedure "getToken"
+## Procedure "getToken"
 Obtains an access token. Connects to the dataverse if necessary.
 Returns a JWT token as a string.
 An empty return value means the user has cancelled the logon.

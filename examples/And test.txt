@@ -1,4 +1,4 @@
-Procedure "And test"
+## Procedure "And test"
 
 Algorithm:
 If (One and not (Two)) and Three

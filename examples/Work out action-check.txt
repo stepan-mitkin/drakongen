@@ -1,4 +1,4 @@
-Procedure "Work out action-check"
+## Procedure "Work out action-check"
 
 Algorithm:
 Loop forever

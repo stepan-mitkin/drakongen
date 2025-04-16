@@ -1,4 +1,4 @@
-Procedure "Or test"
+## Procedure "Or test"
 
 Algorithm:
 If (One or not (Two)) or Three

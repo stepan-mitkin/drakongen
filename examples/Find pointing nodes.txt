@@ -1,4 +1,4 @@
-Procedure "Find pointing nodes"
+## Procedure "Find pointing nodes"
 
 Algorithm:
 Start with an empty list
