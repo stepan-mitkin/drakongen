@@ -70,7 +70,7 @@
             "one": "5"
         }
     },
-    "params": "<p>Obtains an access token. Connects to the dataverse if necessary.</p><p>Returns a JWT token as a string.</p><p>An empty return value means the user has cancelled the logon.</p><p><br /></p><p>Parameters:</p><ul><li>context: ServerContext</li><li>url: a string with the address of the dataverse instance</li></ul>",
+    "params": "<ul><li>context: ServerContext</li><li>url: a string with the address of the dataverse instance</li></ul><p><br /></p><p>Description:</p><p>Obtains an access token. Connects to the dataverse if necessary.</p><p>Returns a JWT token as a string.</p><p>An empty return value means the user has cancelled the logon.</p>",
     "type": "drakon",
     "id": "getToken.drakon"
 }

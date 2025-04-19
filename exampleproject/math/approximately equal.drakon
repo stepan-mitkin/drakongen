@@ -36,7 +36,7 @@
             "one": "1"
         }
     },
-    "params": "<p>arguments:</p><ul><li>left: number</li><li>right: number</li></ul><p>returns: boolean</p>",
+    "params": "<ul><li>left: number</li><li>right: number</li></ul><p>returns: boolean</p>",
     "type": "drakon",
     "id": "approximately equal.drakon"
 }

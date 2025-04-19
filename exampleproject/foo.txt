@@ -4,7 +4,7 @@ Use "undefined" instead of "null".
 
 
 ## Procedure "approximately equal"
-arguments:
+Parameters:
 - left: number
 - right: number
 returns: boolean
@@ -28,7 +28,7 @@ y: number
 
 
 ## Procedure "foo"
-arguments:
+Parameters:
 - point: Point
 
 returns: number

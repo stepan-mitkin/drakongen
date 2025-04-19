@@ -1,11 +1,12 @@
 ## Procedure "getToken"
-Obtains an access token. Connects to the dataverse if necessary.
-Returns a JWT token as a string.
-An empty return value means the user has cancelled the logon.
-
 Parameters:
 - context: ServerContext
 - url: a string with the address of the dataverse instance
+
+Description:
+Obtains an access token. Connects to the dataverse if necessary.
+Returns a JWT token as a string.
+An empty return value means the user has cancelled the logon.
 
 Algorithm:
 Find an existing connection in context.connections by URL

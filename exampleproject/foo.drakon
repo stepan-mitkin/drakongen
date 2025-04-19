@@ -45,7 +45,7 @@
             "one": "4"
         }
     },
+    "params": "<ul><li>point: Point</li></ul><p><br /></p><p>returns: number</p>",
     "type": "drakon",
-    "id": "foo.drakon",
-    "params": "<p>arguments:</p><ul><li>point: Point</li></ul><p><br /></p><p>returns: number</p>"
+    "id": "foo.drakon"
 }
