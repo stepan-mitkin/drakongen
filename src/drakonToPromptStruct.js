@@ -8,6 +8,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")
     if (diagram.params) {
+        lines.push(translate("Parameters") + ":")
         addRange(lines, htmlToString(diagram.params))
     }    
     lines.push("")

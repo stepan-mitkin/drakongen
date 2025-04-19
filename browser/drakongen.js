@@ -3,7 +3,7 @@
 function htmlToString(html) {
     if (!html) return '';
     if (!html.startsWith('<') || !html.endsWith('>')) {
-        return html.split("\n").map(line => {return line.trim()})
+        return html.split("\n")
     }
 
     const parser = new DOMParser();
@@ -45,6 +45,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")
     if (diagram.params) {
+        lines.push(translate("Parameters") + ":")
         addRange(lines, htmlToString(diagram.params))
     }    
     lines.push("")
@@ -1293,7 +1294,8 @@ var translationsRu = {
     "End of subroutine": "Конец подпрограммы",
     "Description": "Описание",
     "Algorithm": "Алгоритм",
-    Remarks: "Замечания"
+    Remarks: "Замечания",
+    Parameters: "Параметры"
 }
 
 var translationsEn = {
@@ -1322,7 +1324,8 @@ var translationsEn = {
     'End of subroutine': 'End of subroutine',
     Description: 'Description',
     Algorithm: 'Algorithm',
-    Remarks: "Remarks"
+    Remarks: "Remarks",
+    Parameters: "Parameters"
 }
 
 var translationsNo = {
@@ -1351,7 +1354,8 @@ var translationsNo = {
     'End of subroutine': 'Slutt på delprosedyre',
     Description: 'Beskrivelse',
     Algorithm: 'Algoritme',
-    Remarks: "Bemerkninger"
+    Remarks: "Bemerkninger",
+    Parameters: "Parametere"
 };
 
 

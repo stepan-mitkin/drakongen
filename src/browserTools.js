@@ -2,7 +2,7 @@
 function htmlToString(html) {
     if (!html) return '';
     if (!html.startsWith('<') || !html.endsWith('>')) {
-        return html.split("\n").map(line => {return line.trim()})
+        return html.split("\n")
     }
 
     const parser = new DOMParser();

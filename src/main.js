@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
 const {toTree, toPseudocode, toMindTree} = require("./index")
+const package = require("../package.json")
 
 const fs = require('fs').promises;
 const path = require('path');
 
 // Display usage summary
 function displayUsage() {
+    console.log("drakongen " + package.version)
     console.log(`Usage:
     drakongen <path>                      Read from <path> and output to standard output
     drakongen --language <lang> <path>    Read from <path> and output to standard output, use the provided language
@@ -78,6 +80,7 @@ async function main() {
         console.error(`${err.message}`);
         console.error(`Filename: ${err.filename}`);
         console.error(`Node id: ${err.nodeId}`);
+        console.error(`Stack trace: ${err.stack}`);
         process.exit(1);
     }
 }
@@ -159,7 +162,7 @@ async function convertToPseudo(filePath, options) {
     } else if (pname.ext == ".txt") {
         result = content       
     } else {
-        throw new Error("Unknown file type: " + pname.ext)
+        return ""
     }
     return result
 }
