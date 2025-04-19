@@ -603,6 +603,7 @@ function makeIndent(depth) {
 }
 
 function printWithIndent(lines, indent, output) {
+    if (!lines) {return}
     lines.forEach(line => output.push(indent + line))
 }
 
