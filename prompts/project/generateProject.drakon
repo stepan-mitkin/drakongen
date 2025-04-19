@@ -81,7 +81,7 @@
             "one": "1"
         }
     },
+    "params": "<ul><li>targetPath: string, the filepath to the input project file</li><li>options: Options</li></ul><p><br /></p><p>function type: async</p>",
     "type": "drakon",
-    "id": "generateProject.drakon",
-    "params": "<p>arguments:</p><ul><li>targetPath: string, the filepath to the input project file</li><li>options: Options</li></ul><p><br /></p><p>function type: async</p>"
+    "id": "generateProject.drakon"
 }

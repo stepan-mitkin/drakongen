@@ -6,7 +6,7 @@
         "2": {
             "type": "branch",
             "branchId": 0,
-            "one": "10"
+            "one": "21"
         },
         "10": {
             "type": "action",
@@ -45,9 +45,21 @@
             "content": "<p>process file(full path, options, output)</p>",
             "one": "13",
             "two": ""
+        },
+        "21": {
+            "type": "action",
+            "content": "<p>name = get the name part of filename</p>",
+            "one": "22"
+        },
+        "22": {
+            "type": "question",
+            "content": "<p>name starts with \".\"</p>",
+            "one": "10",
+            "two": "1",
+            "flag1": 0
         }
     },
-    "params": "<p>arguments:</p><ul><li>filename: string</li><li>options: Options</li><li>output: an array of strings</li></ul>",
+    "params": "<ul><li>filename: string</li><li>options: Options</li><li>output: an array of strings</li></ul>",
     "type": "drakon",
     "id": "process folder.drakon"
 }

@@ -11,7 +11,7 @@ language: string, language code
 
 
 ## Procedure "process file"
-arguments:
+Parameters:
 - filename: string
 - options: Options
 - output: an array of strings
@@ -25,25 +25,27 @@ End of procedure
 
 
 ## Procedure "process folder"
-arguments:
+Parameters:
 - filename: string
 - options: Options
 - output: an array of strings
 
 Algorithm:
-filenames = get directory content(filename)
-for each name in filenames
-    full path = contacenate path(filename, name)
-    If full path is a directory
-        process folder(full path, options, output)
-    Else
-        process file(full path, options, output)
+name = get the name part of filename
+If not (name starts with ".")
+    filenames = get directory content(filename)
+    for each name in filenames
+        full path = contacenate path(filename, name)
+        If full path is a directory
+            process folder(full path, options, output)
+        Else
+            process file(full path, options, output)
 
 End of procedure
 
 
 ## Procedure "generateProject"
-arguments:
+Parameters:
 - targetPath: string, the filepath to the input project file
 - options: Options
 

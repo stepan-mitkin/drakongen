@@ -24,7 +24,7 @@
             "one": "1"
         }
     },
+    "params": "<ul><li>filename: string</li><li>options: Options</li><li>output: an array of strings</li></ul>",
     "type": "drakon",
-    "id": "process file.drakon",
-    "params": "<p>arguments:</p><ul><li>filename: string</li><li>options: Options</li><li>output: an array of strings</li></ul>"
+    "id": "process file.drakon"
 }

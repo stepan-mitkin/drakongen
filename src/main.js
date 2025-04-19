@@ -175,6 +175,10 @@ async function processFile(filename, options, output) {
 }
 
 async function processFolder(filename, options, output) {
+    const name = path.basename(filename);
+    if (name.startsWith('.')) {
+        return
+    }
     const filenames = await fs.readdir(filename);
     for (const name of filenames) {
         const fullPath = path.join(filename, name);
