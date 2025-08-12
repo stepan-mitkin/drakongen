@@ -1,6 +1,6 @@
 {
   "name": "drakongen",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Generates pseudocode and AST from drakon flowcharts built with DrakonWidget or DrakonHub.",
   "main": "src/index.js",
   "bin": {
