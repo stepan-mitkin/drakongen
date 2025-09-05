@@ -30,6 +30,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
         }
     }
 
+    handleParallel(nodes, undefined, firstNodeId, {}, undefined)
     buildTwoWayConnections(nodes, firstNodeId)
 
     rewireSelectsMarkLoops(nodes, filename)
@@ -42,6 +43,66 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
         params: drakonGraph.params || "",
         description: drakonGraph.description || "",
         branches: branchTrees
+    }
+}
+
+function handleParallel(nodes, prevNode, nodeId, visited, proc) {
+    if (!nodeId) {return}
+    var node = nodes[nodeId]
+    if (node.type === "parend") {
+        if (!proc) {
+            throw new Error("handleParallel: no proc for parend")
+        }
+        var endId = proc.end
+        var end
+        if (endId) {
+            end = nodes[endId]
+        } else {
+            end = {
+                type: "end",
+                id: proc.id + "-" + proc.ordinal + "-end",
+                prev: []
+            }
+            nodes[end.id] = end
+            proc.end = end.id
+            proc.next = node.one
+        }
+        redirectNode(nodes, prevNode, nodeId, end.id)
+        return
+    }
+    if (nodeId in visited) {return}
+    visited[nodeId] = true
+    if (node.type === "parbegin") {
+        node.procs = []
+        var ordinal = 0
+        var current = node
+        while (true) {
+            var start = {
+                id: nodeId + "-" + ordinal + "-start",
+                type: "action",
+                prev: [],
+                one: current.one
+            }
+            nodes[start.id] = start
+            var childProc = {
+                id: nodeId,
+                ordinal: ordinal,
+                start: start.id
+            }
+            var next = current.two
+            node.procs.push(childProc)
+            handleParallel(nodes, start, start.one, {}, childProc)
+            delete current.one
+            delete current.two
+            if (!next) {break}
+            current = nodes[next]
+            ordinal++
+        }
+        node.one = node.procs[0].next
+        handleParallel(nodes, node, node.one, visited, proc)
+    } else {
+        handleParallel(nodes, node, node.one, visited, proc)
+        handleParallel(nodes, node, node.two, visited, proc)
     }
 }
 
@@ -383,6 +444,11 @@ function traverse(nodes, nodeId, visited, action) {
     action(nodes, node)
     traverse(nodes, node.one, visited, action)
     traverse(nodes, node.two, visited, action)
+    if (node.procs) {
+        for (var proc of node.procs) {
+            traverse(nodes, proc.start, visited, action)
+        }
+    }
 }
 
 function connectBack(nodes, node) {
@@ -393,7 +459,7 @@ function connectBack(nodes, node) {
     if (node.two) {
         var two = nodes[node.two]
         two.prev.push(node.id)
-    }    
+    }
 }
 
 function markLoopBody(nodes, start, filename) {

@@ -38,6 +38,21 @@ function buildTree(nodes, nodeId, body, stopId) {
             };
 
             next = node.one;
+        } else if (node.type === "parbegin") {
+            transformed = {
+                id: node.id,
+                type: node.type,
+                procs: []
+            }            
+            for (var proc of node.procs) {
+                var childProc = {
+                    ordinal: proc.ordinal,
+                    body: []
+                }
+                transformed.procs.push(childProc)
+                buildTree(nodes, proc.start, childProc.body, undefined)
+            }
+            next = node.one;
         } else {
             transformed = {
                 id: node.id,

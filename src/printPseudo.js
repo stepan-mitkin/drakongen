@@ -75,9 +75,21 @@ function printPseudo(algorithm, translate, output, htmlToString) {
                 printError(step, indent, output)
             } else if (step.type === "break") {
                 output.push(indent + translate("break"))
+            } else if (step.type === "parbegin") {
+                printParbegin(step, depth, output)
             } else {
                 printOther(step, indent, output)
             }
+        }
+    }
+
+    function printParbegin(step, depth, output) {
+        const indent2 = makeIndent(depth + 1)
+        const indent = makeIndent(depth)
+        printWithIndent([translate("Group of parallel processes")], indent, output)
+        for (var proc of step.procs) {
+            printWithIndent([translate("Parallel process") + " " + (proc.ordinal + 1)], indent2, output)
+            printSteps(proc.body, depth + 2, output)
         }
     }
     

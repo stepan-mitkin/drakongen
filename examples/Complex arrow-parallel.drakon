@@ -1,0 +1,116 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "19"
+        },
+        "17": {
+            "type": "parend",
+            "one": "1"
+        },
+        "18": {
+            "type": "parbegin",
+            "one": "20"
+        },
+        "19": {
+            "type": "parbegin",
+            "one": "17",
+            "two": "18"
+        },
+        "20": {
+            "type": "action",
+            "content": "<p>AAAAAA</p>",
+            "one": "32",
+            "two": ""
+        },
+        "21": {
+            "type": "action",
+            "content": "<p>BBBBB</p>",
+            "one": "22",
+            "two": ""
+        },
+        "22": {
+            "type": "question",
+            "content": "<p>CCCCC</p>",
+            "one": "25",
+            "two": "23",
+            "flag1": 1
+        },
+        "23": {
+            "type": "action",
+            "content": "<p>DDDDDD</p>",
+            "one": "24",
+            "two": ""
+        },
+        "24": {
+            "type": "question",
+            "content": "<p>EEEEEE</p>",
+            "one": "27",
+            "two": "31",
+            "flag1": 1
+        },
+        "25": {
+            "type": "question",
+            "content": "<p>FFFFFF</p>",
+            "one": "33",
+            "two": "27",
+            "flag1": 1
+        },
+        "26": {
+            "type": "loopend",
+            "one": "33",
+            "two": ""
+        },
+        "27": {
+            "type": "loopbegin",
+            "one": "28",
+            "content": "<p>For each GGGGG</p>",
+            "two": ""
+        },
+        "28": {
+            "type": "action",
+            "content": "<p>HHHHH</p>",
+            "one": "29",
+            "two": ""
+        },
+        "29": {
+            "type": "question",
+            "content": "<p>IIIIII</p>",
+            "one": "26",
+            "two": "33",
+            "flag1": 1
+        },
+        "30": {
+            "type": "question",
+            "content": "<p>JJJJ</p>",
+            "one": "32",
+            "two": "31",
+            "flag1": 1
+        },
+        "31": {
+            "type": "arrow-loop",
+            "one": "30",
+            "two": ""
+        },
+        "32": {
+            "type": "arrow-loop",
+            "one": "21",
+            "two": ""
+        },
+        "33": {
+            "type": "action",
+            "content": "<p>KKKK</p>",
+            "one": "17",
+            "two": ""
+        }
+    },
+    "params": "<p>Parameters:</p><p>one - first</p><p>two - second</p>",
+    "type": "drakon",
+    "style": "{\"maxWidth\":210}",
+    "description": "<p>Hello</p><ol><li>Bar</li><li>What is it?</li></ol>",
+    "id": "Complex arrow-parallel.drakon"
+}

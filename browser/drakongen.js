@@ -186,6 +186,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
         }
     }
 
+    handleParallel(nodes, undefined, firstNodeId, {}, undefined)
     buildTwoWayConnections(nodes, firstNodeId)
 
     rewireSelectsMarkLoops(nodes, filename)
@@ -198,6 +199,66 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
         params: drakonGraph.params || "",
         description: drakonGraph.description || "",
         branches: branchTrees
+    }
+}
+
+function handleParallel(nodes, prevNode, nodeId, visited, proc) {
+    if (!nodeId) {return}
+    var node = nodes[nodeId]
+    if (node.type === "parend") {
+        if (!proc) {
+            throw new Error("handleParallel: no proc for parend")
+        }
+        var endId = proc.end
+        var end
+        if (endId) {
+            end = nodes[endId]
+        } else {
+            end = {
+                type: "end",
+                id: proc.id + "-" + proc.ordinal + "-end",
+                prev: []
+            }
+            nodes[end.id] = end
+            proc.end = end.id
+            proc.next = node.one
+        }
+        redirectNode(nodes, prevNode, nodeId, end.id)
+        return
+    }
+    if (nodeId in visited) {return}
+    visited[nodeId] = true
+    if (node.type === "parbegin") {
+        node.procs = []
+        var ordinal = 0
+        var current = node
+        while (true) {
+            var start = {
+                id: nodeId + "-" + ordinal + "-start",
+                type: "action",
+                prev: [],
+                one: current.one
+            }
+            nodes[start.id] = start
+            var childProc = {
+                id: nodeId,
+                ordinal: ordinal,
+                start: start.id
+            }
+            var next = current.two
+            node.procs.push(childProc)
+            handleParallel(nodes, start, start.one, {}, childProc)
+            delete current.one
+            delete current.two
+            if (!next) {break}
+            current = nodes[next]
+            ordinal++
+        }
+        node.one = node.procs[0].next
+        handleParallel(nodes, node, node.one, visited, proc)
+    } else {
+        handleParallel(nodes, node, node.one, visited, proc)
+        handleParallel(nodes, node, node.two, visited, proc)
     }
 }
 
@@ -539,6 +600,11 @@ function traverse(nodes, nodeId, visited, action) {
     action(nodes, node)
     traverse(nodes, node.one, visited, action)
     traverse(nodes, node.two, visited, action)
+    if (node.procs) {
+        for (var proc of node.procs) {
+            traverse(nodes, proc.start, visited, action)
+        }
+    }
 }
 
 function connectBack(nodes, node) {
@@ -549,7 +615,7 @@ function connectBack(nodes, node) {
     if (node.two) {
         var two = nodes[node.two]
         two.prev.push(node.id)
-    }    
+    }
 }
 
 function markLoopBody(nodes, start, filename) {
@@ -674,9 +740,21 @@ function printPseudo(algorithm, translate, output, htmlToString) {
                 printError(step, indent, output)
             } else if (step.type === "break") {
                 output.push(indent + translate("break"))
+            } else if (step.type === "parbegin") {
+                printParbegin(step, depth, output)
             } else {
                 printOther(step, indent, output)
             }
+        }
+    }
+
+    function printParbegin(step, depth, output) {
+        const indent2 = makeIndent(depth + 1)
+        const indent = makeIndent(depth)
+        printWithIndent([translate("Group of parallel processes")], indent, output)
+        for (var proc of step.procs) {
+            printWithIndent([translate("Parallel process") + " " + (proc.ordinal + 1)], indent2, output)
+            printSteps(proc.body, depth + 2, output)
         }
     }
     
@@ -816,6 +894,11 @@ function structFlow(nodes, branches, filename, translate) {
             flowGraph(nodes, node.one, stackOne);
         } else if (node.type === "arrow-stub") {
             decrementBranchingForArrow(nodes, node)
+        } else if (node.type === "parbegin") {
+            for (var proc of node.procs) {
+                flowGraph(nodes, proc.start, []);
+            }
+            flowGraph(nodes, node.one, node.stack);
         } else {
             flowGraph(nodes, node.one, node.stack);
         }
@@ -973,6 +1056,11 @@ function structFlow(nodes, branches, filename, translate) {
             var right = arrowStack.slice()
             rewireArrowsInBranch(nodes, nodeId, node.one, left)
             rewireArrowsInBranch(nodes, nodeId, node.two, right)
+        } else if (node.type === "parbegin") {
+            for (var proc of node.procs) {
+                rewireArrowsInBranch(nodes, undefined, proc.start, [])
+            }
+            rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
         } else {
             rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
         }
@@ -1030,6 +1118,21 @@ function structFlow(nodes, branches, filename, translate) {
                     content: node.content,
                     body: body2
                 })
+            } else if (node.type === "parbegin") {
+                var copy = {
+                    id: node.id,
+                    type: node.type,
+                    procs: []
+                }
+                for (var proc of node.procs) {
+                    var procCopy = {
+                        ordinal: proc.ordinal,
+                        body: []
+                    }
+                    copy.procs.push(procCopy)
+                    rewriteTree(proc.body, 0, undefined, procCopy.body)
+                }
+                output.push(copy)
             } else {
                 output.push(node)
             }
@@ -1180,6 +1283,21 @@ function buildTree(nodes, nodeId, body, stopId) {
                 start: node.arrow
             };
 
+            next = node.one;
+        } else if (node.type === "parbegin") {
+            transformed = {
+                id: node.id,
+                type: node.type,
+                procs: []
+            }            
+            for (var proc of node.procs) {
+                var childProc = {
+                    ordinal: proc.ordinal,
+                    body: []
+                }
+                transformed.procs.push(childProc)
+                buildTree(nodes, proc.start, childProc.body, undefined)
+            }
             next = node.one;
         } else {
             transformed = {
@@ -1393,6 +1511,8 @@ function optimizeTree(steps) {
         var copy
         if (step.type === "question") {
             copy = optimizeQuestion(step)
+        } else if (step.type === "parbegin") {
+            copy = optimizeParbegin(step)
         } else if (step.type === "loop") {
             copy = optimizeLoop(step)
         } else {
@@ -1402,6 +1522,22 @@ function optimizeTree(steps) {
     }
 
     return result
+}
+
+function optimizeParbegin(step) {
+    var procs = []
+    for (var proc of step.procs) {
+        var procCopy = {
+            ordinal: proc.ordinal,
+            body: optimizeTree(proc.body)
+        }
+        procs.push(procCopy)
+    }
+    return {
+        id: step.id,
+        type: step.type,
+        procs: procs
+    }
 }
 
 function optimizeLoop(step) {

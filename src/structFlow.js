@@ -58,6 +58,11 @@ function structFlow(nodes, branches, filename, translate) {
             flowGraph(nodes, node.one, stackOne);
         } else if (node.type === "arrow-stub") {
             decrementBranchingForArrow(nodes, node)
+        } else if (node.type === "parbegin") {
+            for (var proc of node.procs) {
+                flowGraph(nodes, proc.start, []);
+            }
+            flowGraph(nodes, node.one, node.stack);
         } else {
             flowGraph(nodes, node.one, node.stack);
         }
@@ -215,6 +220,11 @@ function structFlow(nodes, branches, filename, translate) {
             var right = arrowStack.slice()
             rewireArrowsInBranch(nodes, nodeId, node.one, left)
             rewireArrowsInBranch(nodes, nodeId, node.two, right)
+        } else if (node.type === "parbegin") {
+            for (var proc of node.procs) {
+                rewireArrowsInBranch(nodes, undefined, proc.start, [])
+            }
+            rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
         } else {
             rewireArrowsInBranch(nodes, nodeId, node.one, arrowStack)
         }
@@ -272,6 +282,21 @@ function structFlow(nodes, branches, filename, translate) {
                     content: node.content,
                     body: body2
                 })
+            } else if (node.type === "parbegin") {
+                var copy = {
+                    id: node.id,
+                    type: node.type,
+                    procs: []
+                }
+                for (var proc of node.procs) {
+                    var procCopy = {
+                        ordinal: proc.ordinal,
+                        body: []
+                    }
+                    copy.procs.push(procCopy)
+                    rewriteTree(proc.body, 0, undefined, procCopy.body)
+                }
+                output.push(copy)
             } else {
                 output.push(node)
             }
