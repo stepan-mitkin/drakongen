@@ -1406,6 +1406,7 @@ function optimizeTree(steps) {
 
 function optimizeLoop(step) {
     return {
+        id: step.id,
         type: step.type,
         content: step.content,
         body: optimizeTree(step.body)
