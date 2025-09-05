@@ -220,7 +220,7 @@ function rewireSelect(nodes, selectNode, filename) {
             if (!caseNode.two) {
                 var errorId = caseNode.id + "-unexpected"
                 var errorAction = insertIcon(nodes, "error", errorId,  selectNode.content)
-                errorAction.message = "Unexpected case value"
+                errorAction.message = translate("Unexpected case value")
 
                 caseNode.two = errorId
                 errorAction.prev.push(caseNode.id)

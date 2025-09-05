@@ -376,7 +376,7 @@ function rewireSelect(nodes, selectNode, filename) {
             if (!caseNode.two) {
                 var errorId = caseNode.id + "-unexpected"
                 var errorAction = insertIcon(nodes, "error", errorId,  selectNode.content)
-                errorAction.message = "Unexpected case value"
+                errorAction.message = translate("Unexpected case value")
 
                 caseNode.two = errorId
                 errorAction.prev.push(caseNode.id)
@@ -1284,6 +1284,7 @@ var translationsRu = {
     "A Loop begin icon must have content": "Икона начала цикла ДЛЯ должна содержать данные",
     "A Question icon must have content": "Икона Вопрос должна содержать данные",
     "A Select icon must have content": "Икона Выбор должна содержать данные",
+    "Unexpected case value": "Неожиданное значение иконы Вариант",
     "Loop end expected here": "Здесь ожидается конец цикла",
     "An exit from the loop must lead to the point right after the loop end": "Выход из цикла должен вести в точку сразу за его концом",
     "A silhouette branch is not referenced": "Нет ссылок на ветку силуэта",
@@ -1314,6 +1315,7 @@ var translationsEn = {
     'A Loop begin icon must have content': 'A Loop begin icon must have content',
     'A Question icon must have content': 'A Question icon must have content',
     'A Select icon must have content': 'A Select icon must have content',
+    "Unexpected case value": "Unexpected case value",
     'Loop end expected here': 'Loop end expected here',
     'An exit from the loop must lead to the point right after the loop end': 'An exit from the loop must lead to the point right after the loop end',
     'A silhouette branch is not referenced': 'A silhouette branch is not referenced',
@@ -1344,6 +1346,7 @@ var translationsNo = {
     'A Loop begin icon must have content': 'Et Loop-startikon må ha innhold',
     'A Question icon must have content': 'Et Spørsmål-ikon må ha innhold',
     'A Select icon must have content': 'Et Velg-ikon må ha innhold',
+    "Unexpected case value": "Uventet tilfelle verdi",
     'Loop end expected here': 'Slutt på løkke forventet her',
     'An exit from the loop must lead to the point right after the loop end': 'En utgang fra løkken må føre til punktet rett etter løkkens slutt',
     'A silhouette branch is not referenced': 'En silhuettgren er ikke referert',

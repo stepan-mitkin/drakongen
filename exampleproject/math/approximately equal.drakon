@@ -10,33 +10,41 @@
         },
         "3": {
             "type": "action",
-            "content": "<p>delta = left - right</p>",
+            "content": "delta = left - right",
             "one": "4"
         },
         "4": {
             "type": "question",
-            "content": "<p>Math.abs(delta) &gt; threshold</p>",
+            "content": "Math.abs(delta) < threshold",
             "one": "6",
             "two": "7",
             "flag1": 1
         },
         "5": {
             "type": "action",
-            "content": "<p>threshold = 0.00001</p>",
+            "content": "threshold = 0.00001",
             "one": "3"
         },
         "6": {
             "type": "action",
-            "content": "<p>return true</p>",
+            "content": "return true",
             "one": "1"
         },
         "7": {
             "type": "action",
-            "content": "<p>return false</p>",
+            "content": "return false",
             "one": "1"
         }
     },
-    "params": "<ul><li>left: number</li><li>right: number</li></ul><p>returns: boolean</p>",
+    "params": "left: number\nright: number\n\nreturns: boolean",
     "type": "drakon",
-    "id": "approximately equal.drakon"
+    "id": "approximately equal.drakon",
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    }
 }
