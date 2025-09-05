@@ -1,0 +1,227 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 1,
+            "one": "6",
+            "content": "Gren1"
+        },
+        "3": {
+            "type": "branch",
+            "content": "Utgang",
+            "one": "1",
+            "branchId": 5
+        },
+        "4": {
+            "type": "branch",
+            "content": "Gren2",
+            "one": "34",
+            "branchId": 2
+        },
+        "5": {
+            "type": "action",
+            "content": "<p>action</p>",
+            "one": "13"
+        },
+        "6": {
+            "type": "question",
+            "content": "<p>question</p>",
+            "one": "5",
+            "two": "7",
+            "flag1": 1
+        },
+        "7": {
+            "type": "insertion",
+            "content": "<p>insertion</p>",
+            "one": "13"
+        },
+        "8": {
+            "type": "ctrlstart",
+            "content": "<p>начало блока</p>",
+            "one": "9"
+        },
+        "9": {
+            "type": "ctrlend",
+            "content": "<p>конец блока</p>",
+            "one": "33"
+        },
+        "10": {
+            "type": "case",
+            "one": "17"
+        },
+        "11": {
+            "type": "case",
+            "one": "16",
+            "two": "10",
+            "content": "<p>вариант 2</p>"
+        },
+        "12": {
+            "type": "case",
+            "one": "14",
+            "two": "11",
+            "content": "<p>вариант 1</p>"
+        },
+        "13": {
+            "type": "select",
+            "one": "12",
+            "content": "<p>выбор</p>",
+            "side": "42"
+        },
+        "14": {
+            "type": "simpleinput",
+            "content": "<p>простой ввод</p>",
+            "one": "15"
+        },
+        "15": {
+            "type": "simpleoutput",
+            "content": "<p>простой вывод</p>",
+            "one": "4"
+        },
+        "16": {
+            "type": "shelf",
+            "content": "<p>Нижняя полка</p>",
+            "one": "4",
+            "secondary": "<p>Верхняя полка</p>"
+        },
+        "17": {
+            "type": "comment",
+            "content": "<p>комментарий</p>",
+            "one": "4"
+        },
+        "18": {
+            "type": "parend",
+            "one": "8"
+        },
+        "19": {
+            "type": "parbegin",
+            "one": "22",
+            "two": "23"
+        },
+        "20": {
+            "type": "parbegin",
+            "one": "21",
+            "two": "19"
+        },
+        "21": {
+            "type": "process",
+            "content": "<p>Мотор</p>",
+            "one": "18",
+            "secondary": "<p>Запустить</p>"
+        },
+        "22": {
+            "type": "input",
+            "content": "<p>ввод внизу</p>",
+            "one": "18",
+            "secondary": "<p>ввод наверху</p>"
+        },
+        "23": {
+            "type": "parbegin",
+            "one": "24"
+        },
+        "24": {
+            "type": "output",
+            "content": "<p>вывод внизу</p>",
+            "one": "18",
+            "secondary": "<p>вывод наверху</p>"
+        },
+        "25": {
+            "type": "branch",
+            "branchId": 4,
+            "content": "Gren3",
+            "one": "32"
+        },
+        "26": {
+            "type": "loopend",
+            "one": "3"
+        },
+        "27": {
+            "type": "loopbegin",
+            "one": "28",
+            "content": "<p>цикл ДЛЯ</p>"
+        },
+        "28": {
+            "type": "question",
+            "content": "<p>можно?</p>",
+            "one": "29",
+            "two": "3",
+            "flag1": 0
+        },
+        "29": {
+            "type": "action",
+            "content": "<p>работай</p>",
+            "one": "26"
+        },
+        "30": {
+            "type": "question",
+            "content": "<p>устал</p>",
+            "one": "27",
+            "two": "32",
+            "flag1": 1
+        },
+        "31": {
+            "type": "action",
+            "content": "<p>подними</p>",
+            "one": "30"
+        },
+        "32": {
+            "type": "arrow-loop",
+            "one": "31"
+        },
+        "33": {
+            "type": "branch",
+            "branchId": 3,
+            "content": "Gren4",
+            "one": "35"
+        },
+        "34": {
+            "type": "pause",
+            "content": "<p>10 секунд</p>",
+            "one": "20"
+        },
+        "35": {
+            "type": "timer",
+            "content": "<p>T=0</p>",
+            "one": "36"
+        },
+        "36": {
+            "type": "action",
+            "content": "<p>первое</p>",
+            "one": "37",
+            "side": "39"
+        },
+        "37": {
+            "type": "action",
+            "content": "<p>второе</p>",
+            "one": "38",
+            "side": "40"
+        },
+        "38": {
+            "type": "insertion",
+            "content": "<p>третье</p>",
+            "one": "25",
+            "side": "41"
+        },
+        "39": {
+            "type": "duration",
+            "content": "<p>T=1</p>"
+        },
+        "40": {
+            "type": "duration",
+            "content": "<p>T=2</p>"
+        },
+        "41": {
+            "type": "duration",
+            "content": "<p>20 сек</p>"
+        },
+        "42": {
+            "type": "duration",
+            "content": "<p>1 hr</p>"
+        }
+    },
+    "type": "drakon",
+    "id": "all icons.drakon",
+    "params": "<p>первый</p><p>второй!</p>"
+}

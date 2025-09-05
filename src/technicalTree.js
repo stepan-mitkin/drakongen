@@ -71,7 +71,9 @@ function buildTree(nodes, nodeId, body, stopId) {
             )
             next = node.one;
         }
-
+        if (node.side) {
+            transformed.side = node.side
+        }
         body.push(transformed);
         nodeId = next;
     }

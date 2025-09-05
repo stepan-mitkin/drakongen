@@ -3,7 +3,7 @@ const {printPseudo, printWithIndent, makeIndent} = require('./printPseudo');
 const {addRange, sortByProperty} = require("./tools")
 
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
-    var diagram = drakonToStruct(drakonJson, name, filename, translate)
+    var diagram = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
     var lines = []
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")

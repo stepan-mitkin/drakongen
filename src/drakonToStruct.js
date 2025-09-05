@@ -3,7 +3,7 @@ const { createError, remove } = require("./tools");
 
 var translate
 
-function drakonToStruct(drakonJson, name, filename, translateFunction) {
+function drakonToStruct(drakonJson, name, filename, translateFunction, htmlToString) {
     translate = translateFunction
     let drakonGraph;
     try {
@@ -31,7 +31,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
     }
 
     handleParallel(nodes, undefined, firstNodeId, {}, undefined)
-    buildTwoWayConnections(nodes, firstNodeId)
+    buildTwoWayConnections(nodes, firstNodeId, htmlToString)
 
     rewireSelectsMarkLoops(nodes, filename)
     branches.forEach(branch => checkBranchIsReferenced(branch, firstNodeId, filename))
@@ -217,14 +217,18 @@ function addFakeEnd(nodes, prev, node, end, addresses) {
     node.prev = remove(node.prev, prev.id)
 }
 
-function buildTwoWayConnections(nodes, firstNodeId) {
+function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
     for (var id in nodes) {
         var node = nodes[id]
         node.id = id
         node.prev = []        
     }
 
-    traverse(nodes, firstNodeId, {}, connectBack)
+    var visitor = function(nodes, node) {
+        return connectBack(nodes, node, htmlToString)
+    }
+
+    traverse(nodes, firstNodeId, {}, visitor)
 }
 
 function findStartNode(nodes, filename, branches) {
@@ -271,6 +275,7 @@ function rewireSelectsMarkLoops(nodes, filename) {
 
 function rewireSelect(nodes, selectNode, filename) {
     var caseNodeId = selectNode.one
+    var caseNode0 = nodes[caseNodeId]
     while (caseNodeId) {
         var caseNode = nodes[caseNodeId]
         caseNodeId = caseNode.two
@@ -297,6 +302,7 @@ function rewireSelect(nodes, selectNode, filename) {
             removeNodeOne(nodes, caseNode.id)
         }
     }
+    caseNode0.side = selectNode.side
     removeNodeOne(nodes, selectNode.id)
 }
 
@@ -451,7 +457,7 @@ function traverse(nodes, nodeId, visited, action) {
     }
 }
 
-function connectBack(nodes, node) {
+function connectBack(nodes, node, htmlToString) {
     if (node.one) {
         var one = nodes[node.one]
         one.prev.push(node.id)
@@ -459,6 +465,25 @@ function connectBack(nodes, node) {
     if (node.two) {
         var two = nodes[node.two]
         two.prev.push(node.id)
+    }
+
+    if (node.side) {
+        var side = nodes[node.side].content
+        if (side) {
+            node.side = decodeSide(side, htmlToString)
+        } else {
+            delete node.side
+        }
+    }
+}
+
+function decodeSide(content, htmlToString) {
+    var text = htmlToString(content)
+    var oneLine = text.join(" ")
+    if (oneLine.indexOf("=") === -1) {
+        return translate("Do for") + " " + oneLine        
+    } else {
+        return translate("Start at") + " " + oneLine
     }
 }
 

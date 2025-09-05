@@ -18,7 +18,7 @@ window.drakongen = {
 
     toTree: function (drakonJson, name, filename, language) {
         setUpLanguage(language)
-        var result = drakonToStruct(drakonJson, name, filename, translate)
+        var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
         return JSON.stringify(result, null, 4)
     }
 }

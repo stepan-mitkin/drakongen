@@ -1,0 +1,67 @@
+## Procedure "all icons"
+Parameters:
+первый
+второй!
+
+Algorithm:
+Call subroutine: "Gren1"
+
+Subroutine: "Gren1"
+If question
+    action
+Else
+    insertion
+If выбор == вариант 1
+    простой ввод
+    простой вывод
+Else
+    If выбор == вариант 2
+        Верхняя полка
+        Нижняя полка
+    Else
+        комментарий
+Call subroutine "Gren2"
+End of subroutine
+
+Subroutine: "Gren2"
+10 секунд
+Group of parallel processes
+    Parallel process 1
+        Запустить
+        Мотор
+    Parallel process 2
+        ввод наверху
+        ввод внизу
+    Parallel process 3
+        вывод наверху
+        вывод внизу
+начало блока
+конец блока
+Call subroutine "Gren4"
+End of subroutine
+
+Subroutine: "Gren4"
+T=0
+первое
+второе
+третье
+Call subroutine "Gren3"
+End of subroutine
+
+Subroutine: "Gren3"
+Loop forever
+    подними
+    If устал
+        break
+цикл ДЛЯ
+    If можно?
+        break
+    Else
+        работай
+Call subroutine "Utgang"
+End of subroutine
+
+Subroutine: "Utgang"
+End of subroutine
+
+End of procedure

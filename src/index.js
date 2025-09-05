@@ -17,7 +17,7 @@ function toMindTree(mindJson, name, filename, language) {
 
 function toTree(drakonJson, name, filename, language) {
     setUpLanguage(language)
-    var result = drakonToStruct(drakonJson, name, filename, translate)
+    var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
     return JSON.stringify(result, null, 4)
 }
 module.exports = { toPseudocode, toTree, toMindTree }

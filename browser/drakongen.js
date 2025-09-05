@@ -40,7 +40,7 @@ const {printPseudo, printWithIndent, makeIndent} = require('./printPseudo');
 const {addRange, sortByProperty} = require("./tools")
 
 function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
-    var diagram = drakonToStruct(drakonJson, name, filename, translate)
+    var diagram = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
     var lines = []
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")
@@ -159,7 +159,7 @@ const { createError, remove } = require("./tools");
 
 var translate
 
-function drakonToStruct(drakonJson, name, filename, translateFunction) {
+function drakonToStruct(drakonJson, name, filename, translateFunction, htmlToString) {
     translate = translateFunction
     let drakonGraph;
     try {
@@ -187,7 +187,7 @@ function drakonToStruct(drakonJson, name, filename, translateFunction) {
     }
 
     handleParallel(nodes, undefined, firstNodeId, {}, undefined)
-    buildTwoWayConnections(nodes, firstNodeId)
+    buildTwoWayConnections(nodes, firstNodeId, htmlToString)
 
     rewireSelectsMarkLoops(nodes, filename)
     branches.forEach(branch => checkBranchIsReferenced(branch, firstNodeId, filename))
@@ -373,14 +373,18 @@ function addFakeEnd(nodes, prev, node, end, addresses) {
     node.prev = remove(node.prev, prev.id)
 }
 
-function buildTwoWayConnections(nodes, firstNodeId) {
+function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
     for (var id in nodes) {
         var node = nodes[id]
         node.id = id
         node.prev = []        
     }
 
-    traverse(nodes, firstNodeId, {}, connectBack)
+    var visitor = function(nodes, node) {
+        return connectBack(nodes, node, htmlToString)
+    }
+
+    traverse(nodes, firstNodeId, {}, visitor)
 }
 
 function findStartNode(nodes, filename, branches) {
@@ -427,6 +431,7 @@ function rewireSelectsMarkLoops(nodes, filename) {
 
 function rewireSelect(nodes, selectNode, filename) {
     var caseNodeId = selectNode.one
+    var caseNode0 = nodes[caseNodeId]
     while (caseNodeId) {
         var caseNode = nodes[caseNodeId]
         caseNodeId = caseNode.two
@@ -453,6 +458,7 @@ function rewireSelect(nodes, selectNode, filename) {
             removeNodeOne(nodes, caseNode.id)
         }
     }
+    caseNode0.side = selectNode.side
     removeNodeOne(nodes, selectNode.id)
 }
 
@@ -607,7 +613,7 @@ function traverse(nodes, nodeId, visited, action) {
     }
 }
 
-function connectBack(nodes, node) {
+function connectBack(nodes, node, htmlToString) {
     if (node.one) {
         var one = nodes[node.one]
         one.prev.push(node.id)
@@ -615,6 +621,25 @@ function connectBack(nodes, node) {
     if (node.two) {
         var two = nodes[node.two]
         two.prev.push(node.id)
+    }
+
+    if (node.side) {
+        var side = nodes[node.side].content
+        if (side) {
+            node.side = decodeSide(side, htmlToString)
+        } else {
+            delete node.side
+        }
+    }
+}
+
+function decodeSide(content, htmlToString) {
+    var text = htmlToString(content)
+    var oneLine = text.join(" ")
+    if (oneLine.indexOf("=") === -1) {
+        return translate("Do for") + " " + oneLine        
+    } else {
+        return translate("Start at") + " " + oneLine
     }
 }
 
@@ -658,7 +683,7 @@ window.drakongen = {
 
     toTree: function (drakonJson, name, filename, language) {
         setUpLanguage(language)
-        var result = drakonToStruct(drakonJson, name, filename, translate)
+        var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
         return JSON.stringify(result, null, 4)
     }
 }
@@ -675,8 +700,11 @@ function printWithIndent(lines, indent, output) {
 }
 
 function printPseudo(algorithm, translate, output, htmlToString) {
-    function printStructuredContent(content, indent, output) {
+    function printStructuredContent(content, indent, output, side) {
         var lines = printStructuredContentNoIdent(content)
+        if (side) {
+            lines[0] = side + ": " + lines[0]
+        }
         printWithIndent(lines, indent, output)
     }
 
@@ -759,12 +787,20 @@ function printPseudo(algorithm, translate, output, htmlToString) {
     }
     
     function printOther(step, indent, output) {
+        var side = step.side
         if (!step.content && !step.secondary) {return}
         if (step.secondary) {            
-            printStructuredContent(step.secondary, indent, output)
+            printStructuredContent(step.secondary, indent, output, side)
+            side = undefined
         }
         if (step.content) {
-            printStructuredContent(step.content, indent, output)
+            var content = step.content
+            if (step.type === "pause") {
+                content = translate("Pause") + " " + htmlToString(content).join(" ")
+            } else if (step.type === "timer") {
+                content = translate("Start timer") + " " + htmlToString(content).join(" ")
+            }
+            printStructuredContent(content, indent, output, side)
         }
     }
 
@@ -805,6 +841,9 @@ function printPseudo(algorithm, translate, output, htmlToString) {
         var content = step.content
         var lines = printStructuredContentNoIdent(content)
         lines[0] = translate("if") + " " + lines[0]
+        if (step.side) {
+            lines[0] = step.side + ": " + lines[0]
+        }
         printWithIndent(lines, indent, output)
         addRange(output, yesBody)            
         if (!empty(noBody)) {
@@ -1089,6 +1128,12 @@ function structFlow(nodes, branches, filename, translate) {
         return stub
     }
 
+    function copySide(dst, src) {
+        if (src.side) {
+            dst.side = src.side
+        }
+    }
+
     function rewriteTree(body, index, endId, output) {
         while (index < body.length) {
             var node = body[index]
@@ -1098,6 +1143,7 @@ function structFlow(nodes, branches, filename, translate) {
             }
             if (node.type === "question") {
                 var transformed = rewriteQuestionTree(node, output)
+                copySide(transformed, node)
                 if (endId) {                    
                     var breakYes = findLoopEnd(transformed.yes, endId)
                     var breakNo = findLoopEnd(transformed.no, endId) 
@@ -1317,7 +1363,9 @@ function buildTree(nodes, nodeId, body, stopId) {
             )
             next = node.one;
         }
-
+        if (node.side) {
+            transformed.side = node.side
+        }
         body.push(transformed);
         nodeId = next;
     }
@@ -1414,7 +1462,13 @@ var translationsRu = {
     "Description": "Описание",
     "Algorithm": "Алгоритм",
     Remarks: "Замечания",
-    Parameters: "Параметры"
+    Parameters: "Параметры",
+    "Group of parallel processes": "Группа параллельных процессов",
+    "Parallel process": "Параллельный процесс",
+    "Start at": "Начать в",
+    "Do for": "Делать в течение",
+    "Pause": "Пауза",
+    "Start timer": "Запустить таймер"    
 }
 
 var translationsEn = {
@@ -1445,7 +1499,13 @@ var translationsEn = {
     Description: 'Description',
     Algorithm: 'Algorithm',
     Remarks: "Remarks",
-    Parameters: "Parameters"
+    Parameters: "Parameters",
+    "Group of parallel processes": "Group of parallel processes",
+    "Parallel process": "Parallel process",
+    "Start at": "Start at",
+    "Do for": "Do for",
+    "Pause": "Pause",
+    "Start timer": "Start timer",
 }
 
 var translationsNo = {
@@ -1476,7 +1536,13 @@ var translationsNo = {
     Description: 'Beskrivelse',
     Algorithm: 'Algoritme',
     Remarks: "Bemerkninger",
-    Parameters: "Parametere"
+    Parameters: "Parametere",
+    "Group of parallel processes": "Gruppe av parallelle prosesser",
+    "Parallel process": "Parallell prosess",
+    "Start at": "Start ved",
+    "Do for": "Gjør i",
+    "Pause": "Pause",
+    "Start timer": "Start tidtaker"
 };
 
 
@@ -1554,6 +1620,7 @@ function optimizeQuestion(step) {
     var no = optimizeTree(step.no)
     if (yes.length === 0 && no.length === 0) {
         return {
+            side: step.side,
             type: step.type,
             content: step.content,
             yes: [],
@@ -1562,6 +1629,7 @@ function optimizeQuestion(step) {
     }
     if (yes.length === 0) {
         return {
+            side: step.side,
             type: step.type,
             content: {operator:"not",operand:step.content},
             yes: no,
@@ -1569,6 +1637,7 @@ function optimizeQuestion(step) {
         }
     }
     return {
+        side: step.side,
         type: step.type,
         content: step.content,
         yes: yes,

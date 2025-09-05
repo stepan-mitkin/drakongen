@@ -253,6 +253,12 @@ function structFlow(nodes, branches, filename, translate) {
         return stub
     }
 
+    function copySide(dst, src) {
+        if (src.side) {
+            dst.side = src.side
+        }
+    }
+
     function rewriteTree(body, index, endId, output) {
         while (index < body.length) {
             var node = body[index]
@@ -262,6 +268,7 @@ function structFlow(nodes, branches, filename, translate) {
             }
             if (node.type === "question") {
                 var transformed = rewriteQuestionTree(node, output)
+                copySide(transformed, node)
                 if (endId) {                    
                     var breakYes = findLoopEnd(transformed.yes, endId)
                     var breakNo = findLoopEnd(transformed.no, endId) 
