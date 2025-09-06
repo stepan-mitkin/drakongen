@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {toTree, toPseudocode, toMindTree} = require("./index")
+const {toTree, toPseudocode, toMindTree, freeToText} = require("./index")
 const package = require("../package.json")
 
 const fs = require('fs').promises;
@@ -159,6 +159,8 @@ async function convertToPseudo(filePath, options) {
         result = toPseudocode(content, name, filePath, options.language);
     } else if (pname.ext == ".graf") {
         result = toMindTree(content, name, filePath, options.language);
+    } else if (pname.ext == ".free") {
+        result = freeToText(content, name, filePath, options.language);        
     } else if (pname.ext == ".txt") {
         result = content       
     } else {

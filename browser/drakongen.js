@@ -44,11 +44,12 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate)
     var lines = []
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")
+    lines.push("")
     if (diagram.params) {
         lines.push(translate("Parameters") + ":")
         addRange(lines, htmlToString(diagram.params))
+        lines.push("")
     }    
-    lines.push("")
     lines.push(translate("Algorithm") + ":")    
     
     if (diagram.branches.length === 0) {
@@ -153,7 +154,7 @@ function createMindNode(name) {
 }
 
 module.exports = { drakonToPseudocode, mindToTree };
-},{"./drakonToStruct":3,"./printPseudo":5,"./tools":8}],3:[function(require,module,exports){
+},{"./drakonToStruct":3,"./printPseudo":6,"./tools":9}],3:[function(require,module,exports){
 const { structFlow, redirectNode } = require("./structFlow");
 const { createError, remove } = require("./tools");
 
@@ -662,11 +663,12 @@ function markLoopBody(nodes, start, filename) {
 }
 
 module.exports = { drakonToStruct, drakonToGraph };
-},{"./structFlow":6,"./tools":8}],4:[function(require,module,exports){
+},{"./structFlow":7,"./tools":9}],4:[function(require,module,exports){
 const { drakonToPseudocode, mindToTree } = require('./drakonToPromptStruct');
 const { htmlToString } = require("./browserTools")
 const { setUpLanguage, translate } = require("./translate")
 const { drakonToStruct } = require("./drakonToStruct");
+const { freeDiagramToText } = require("./free");
 
 
 window.drakongen = {
@@ -681,13 +683,89 @@ window.drakongen = {
         return result.text
     },    
 
+    freeToText: function (freeJson, name, filename, language) {
+        setUpLanguage(language)    
+        var result = freeDiagramToText(freeJson, name, filename, translate, htmlToString)
+        return result.text
+    },      
+
     toTree: function (drakonJson, name, filename, language) {
         setUpLanguage(language)
         var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
         return JSON.stringify(result, null, 4)
     }
 }
-},{"./browserTools":1,"./drakonToPromptStruct":2,"./drakonToStruct":3,"./translate":9}],5:[function(require,module,exports){
+},{"./browserTools":1,"./drakonToPromptStruct":2,"./drakonToStruct":3,"./free":5,"./translate":10}],5:[function(require,module,exports){
+var {addRange} = require("./tools")
+const { createError } = require("./tools");
+
+var translate
+
+function compareVertically(box1, box2) {
+  if (box1.top + box1.height <= box2.top) return -1;
+  if (box2.top + box2.height <= box1.top) return 1;
+  return 0;
+}
+
+function compareHorizontally(box1, box2) {
+  if (box1.left + box1.width <= box2.left) return -1;
+  if (box2.left + box2.width <= box1.left) return 1;
+  return 0;
+}
+
+function byTopLeft(box1, box2) {
+    var vertical = compareVertically(box1, box2)
+    if (vertical == 0) {
+        return compareHorizontally(box1, box2)
+    }
+    return vertical
+}
+
+function parseDiagram(freeJson, filename) {
+    let diagram;
+    try {
+        freeJson = freeJson || ""
+        freeJson = freeJson.trim()
+        freeJson = freeJson || "{}"
+        diagram = JSON.parse(freeJson);
+    } catch (error) {
+        var message = translate("Error parsing JSON") + ": " + error.message
+        throw createError(message, filename)
+    }    
+    return diagram
+}
+
+function sortedItems(diagram) {    
+    var items = diagram.items || {};
+    var result = [];
+    for (var id in items) {
+        var item = items[id];
+        if (item.content && item.top && item.left && item.width && item.height) {
+            result.push(item);
+        }
+    }
+    result.sort(byTopLeft);
+    return result;
+}
+
+function freeDiagramToText(freeJson, name, filename, translateFunction, htmlToString) {
+    translate = translateFunction
+    var diagram = parseDiagram(freeJson, filename)
+    var sorted = sortedItems(diagram)
+    var lines = []
+    lines.push("## " + name)
+    lines.push("")
+    for (var item of sorted) {
+        var content = htmlToString(item.content)
+        addRange(lines, content)
+        lines.push("")
+    }
+    var text = lines.join("\n")
+    return {text:text}
+}
+
+module.exports = {freeDiagramToText}
+},{"./tools":9}],6:[function(require,module,exports){
 var {addRange} = require("./tools")
 
 function makeIndent(depth) {
@@ -872,7 +950,7 @@ function printPseudo(algorithm, translate, output, htmlToString) {
 }
 
 module.exports = {printPseudo, printWithIndent, makeIndent}
-},{"./tools":8}],6:[function(require,module,exports){
+},{"./tools":9}],7:[function(require,module,exports){
 var {buildTree} = require("./technicalTree")
 const { createError, sortByProperty } = require("./tools");
 const { optimizeTree } = require("./treeTools")
@@ -1289,7 +1367,7 @@ function structFlow(nodes, branches, filename, translate) {
     return structMain()
 }
 module.exports = { structFlow, redirectNode };
-},{"./technicalTree":7,"./tools":8,"./treeTools":10}],7:[function(require,module,exports){
+},{"./technicalTree":8,"./tools":9,"./treeTools":11}],8:[function(require,module,exports){
 function buildTree(nodes, nodeId, body, stopId) {
     while (nodeId) {
         if (nodeId === stopId) {return;}
@@ -1392,7 +1470,7 @@ function reserveNext(nodes, node) {
 
 module.exports = {buildTree}
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 function createError(message, filename, nodeId) {
     var error = new Error(message)
@@ -1433,7 +1511,7 @@ function addRange(to, from) {
     }
 }
 module.exports = { createError, sortByProperty, addRange, remove }
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var translationsRu = {
     "error": "ОШИБКА",
     "not": "не",
@@ -1566,7 +1644,7 @@ function setUpLanguage(language) {
 
 
 module.exports = { setUpLanguage, translate };
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 function optimizeTree(steps) {
     var result = []

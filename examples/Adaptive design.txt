@@ -1,5 +1,6 @@
 ## Procedure "Adaptive design"
 
+
 Algorithm:
 If The device type == Large screen
     Use large background image

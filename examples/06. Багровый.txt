@@ -1,4 +1,5 @@
-## Procedure "06. Багровый"
+## Procedure "06. Багровый"
+
 
 Algorithm:
 If 3

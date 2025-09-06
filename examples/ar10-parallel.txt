@@ -1,5 +1,6 @@
 ## Procedure "ar10-parallel"
 
+
 Algorithm:
 Group of parallel processes
     Parallel process 1

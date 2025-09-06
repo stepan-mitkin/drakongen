@@ -1,4 +1,5 @@
 ## Procedure "all icons"
+
 Parameters:
 первый
 второй!
@@ -11,7 +12,7 @@ If question
     action
 Else
     insertion
-If выбор == вариант 1
+Do for 1 hr: If выбор == вариант 1
     простой ввод
     простой вывод
 Else
@@ -24,7 +25,7 @@ Call subroutine "Gren2"
 End of subroutine
 
 Subroutine: "Gren2"
-10 секунд
+Pause 10 секунд
 Group of parallel processes
     Parallel process 1
         Запустить
@@ -41,10 +42,10 @@ Call subroutine "Gren4"
 End of subroutine
 
 Subroutine: "Gren4"
-T=0
-первое
-второе
-третье
+Start timer T=0
+Start at T=1: первое
+Start at T=2: второе
+Do for 20 сек: третье
 Call subroutine "Gren3"
 End of subroutine
 

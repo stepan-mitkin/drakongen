@@ -1,5 +1,6 @@
 ## Procedure "parallel-3"
 
+
 Algorithm:
 Group of parallel processes
     Parallel process 1
