@@ -1,0 +1,9 @@
+## Procedure "Logical_Or"
+
+Algorithm:
+If A or B
+    C
+Else
+    D
+
+End of procedure

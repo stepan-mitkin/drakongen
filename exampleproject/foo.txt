@@ -5,14 +5,15 @@ Use "undefined" instead of "null".
 
 ## Procedure "approximately equal"
 Parameters:
-- left: number
-- right: number
+left: number
+right: number
+
 returns: boolean
 
 Algorithm:
 threshold = 0.00001
 delta = left - right
-If Math.abs(delta) > threshold
+If Math.abs(delta) < threshold
     return true
 Else
     return false
@@ -29,15 +30,21 @@ y: number
 
 ## Procedure "foo"
 Parameters:
-- point: Point
+point: Point
 
 returns: number
 
 Algorithm:
 x = point.x
-y = point.y
+		y = point.y
+		Error:	Error	invoking remote method 'openFolder'.
+
+Error:		Invalid folder path
+Lomma.js:	11308
 If (x > 0 and y > 0) and not (x is approx. equal y)
-    return sqrt(x * x + y * y)
+    return sqrt(
+        x * x + y * y
+    )
 Else
     return 0
 
