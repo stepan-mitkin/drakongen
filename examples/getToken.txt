@@ -1,4 +1,5 @@
 ## Procedure "getToken"
+
 Parameters:
 - context: ServerContext
 - url: a string with the address of the dataverse instance

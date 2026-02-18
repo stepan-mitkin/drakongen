@@ -10,8 +10,11 @@ function printWithIndent(lines, indent, output) {
 }
 
 function printPseudo(algorithm, translate, output, htmlToString) {
-    function printStructuredContent(content, indent, output) {
+    function printStructuredContent(content, indent, output, side) {
         var lines = printStructuredContentNoIdent(content)
+        if (side) {
+            lines[0] = side + ": " + lines[0]
+        }
         printWithIndent(lines, indent, output)
     }
 
@@ -75,19 +78,39 @@ function printPseudo(algorithm, translate, output, htmlToString) {
                 printError(step, indent, output)
             } else if (step.type === "break") {
                 output.push(indent + translate("break"))
+            } else if (step.type === "parbegin") {
+                printParbegin(step, depth, output)
             } else {
                 printOther(step, indent, output)
             }
         }
     }
+
+    function printParbegin(step, depth, output) {
+        const indent2 = makeIndent(depth + 1)
+        const indent = makeIndent(depth)
+        printWithIndent([translate("Group of parallel processes")], indent, output)
+        for (var proc of step.procs) {
+            printWithIndent([translate("Parallel process") + " " + (proc.ordinal + 1)], indent2, output)
+            printSteps(proc.body, depth + 2, output)
+        }
+    }
     
     function printOther(step, indent, output) {
+        var side = step.side
         if (!step.content && !step.secondary) {return}
         if (step.secondary) {            
-            printStructuredContent(step.secondary, indent, output)
+            printStructuredContent(step.secondary, indent, output, side)
+            side = undefined
         }
         if (step.content) {
-            printStructuredContent(step.content, indent, output)
+            var content = step.content
+            if (step.type === "pause") {
+                content = translate("Pause") + " " + htmlToString(content).join(" ")
+            } else if (step.type === "timer") {
+                content = translate("Start timer") + " " + htmlToString(content).join(" ")
+            }
+            printStructuredContent(content, indent, output, side)
         }
     }
 
@@ -128,6 +151,9 @@ function printPseudo(algorithm, translate, output, htmlToString) {
         var content = step.content
         var lines = printStructuredContentNoIdent(content)
         lines[0] = translate("if") + " " + lines[0]
+        if (step.side) {
+            lines[0] = step.side + ": " + lines[0]
+        }
         printWithIndent(lines, indent, output)
         addRange(output, yesBody)            
         if (!empty(noBody)) {

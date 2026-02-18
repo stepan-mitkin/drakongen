@@ -8,6 +8,8 @@ function optimizeTree(steps) {
         var copy
         if (step.type === "question") {
             copy = optimizeQuestion(step)
+        } else if (step.type === "parbegin") {
+            copy = optimizeParbegin(step)
         } else if (step.type === "loop") {
             copy = optimizeLoop(step)
         } else {
@@ -17,6 +19,22 @@ function optimizeTree(steps) {
     }
 
     return result
+}
+
+function optimizeParbegin(step) {
+    var procs = []
+    for (var proc of step.procs) {
+        var procCopy = {
+            ordinal: proc.ordinal,
+            body: optimizeTree(proc.body)
+        }
+        procs.push(procCopy)
+    }
+    return {
+        id: step.id,
+        type: step.type,
+        procs: procs
+    }
 }
 
 function optimizeLoop(step) {
@@ -33,6 +51,7 @@ function optimizeQuestion(step) {
     var no = optimizeTree(step.no)
     if (yes.length === 0 && no.length === 0) {
         return {
+            side: step.side,
             type: step.type,
             content: step.content,
             yes: [],
@@ -41,6 +60,7 @@ function optimizeQuestion(step) {
     }
     if (yes.length === 0) {
         return {
+            side: step.side,
             type: step.type,
             content: {operator:"not",operand:step.content},
             yes: no,
@@ -48,6 +68,7 @@ function optimizeQuestion(step) {
         }
     }
     return {
+        side: step.side,
         type: step.type,
         content: step.content,
         yes: yes,

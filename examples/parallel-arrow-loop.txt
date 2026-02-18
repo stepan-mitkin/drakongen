@@ -1,0 +1,12 @@
+## Procedure "parallel-arrow-loop"
+
+Algorithm:
+Group of parallel processes
+    Parallel process 1
+    Parallel process 2
+        Loop forever
+            two
+            If three
+                break
+
+End of procedure

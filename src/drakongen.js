@@ -2,6 +2,7 @@ const { drakonToPseudocode, mindToTree } = require('./drakonToPromptStruct');
 const { htmlToString } = require("./browserTools")
 const { setUpLanguage, translate } = require("./translate")
 const { drakonToStruct } = require("./drakonToStruct");
+const { freeDiagramToText } = require("./free");
 
 
 window.drakongen = {
@@ -16,9 +17,15 @@ window.drakongen = {
         return result.text
     },    
 
+    freeToText: function (freeJson, name, filename, language) {
+        setUpLanguage(language)    
+        var result = freeDiagramToText(freeJson, name, filename, translate, htmlToString)
+        return result.text
+    },      
+
     toTree: function (drakonJson, name, filename, language) {
         setUpLanguage(language)
-        var result = drakonToStruct(drakonJson, name, filename, translate)
+        var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
         return JSON.stringify(result, null, 4)
     }
 }

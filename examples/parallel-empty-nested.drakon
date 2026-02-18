@@ -1,0 +1,40 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "5"
+        },
+        "3": {
+            "type": "parend",
+            "one": "1"
+        },
+        "4": {
+            "type": "parbegin",
+            "one": "8"
+        },
+        "5": {
+            "type": "parbegin",
+            "one": "3",
+            "two": "4"
+        },
+        "6": {
+            "type": "parend",
+            "one": "3"
+        },
+        "7": {
+            "type": "parbegin",
+            "one": "6"
+        },
+        "8": {
+            "type": "parbegin",
+            "one": "6",
+            "two": "7"
+        }
+    },
+    "type": "drakon",
+    "id": "parallel-empty-nested.drakon"
+}

@@ -38,7 +38,7 @@ async function processDrakonFiles() {
         const files = await fs.readdir(examplesFolder);
 
         // Filter for .drakon files
-        const drakonFiles = files.filter(file => file.endsWith('.drakon') || file.endsWith('.graf'));
+        const drakonFiles = files.filter(file => file.endsWith('.drakon') || file.endsWith('.graf') || file.endsWith('.free'));
 
         // Process each .drakon file
         for (const file of drakonFiles) {

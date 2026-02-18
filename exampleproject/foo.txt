@@ -4,6 +4,7 @@ Use "undefined" instead of "null".
 
 
 ## Procedure "approximately equal"
+
 Parameters:
 left: number
 right: number
@@ -29,6 +30,7 @@ y: number
 
 
 ## Procedure "foo"
+
 Parameters:
 point: Point
 

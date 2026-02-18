@@ -1,0 +1,12 @@
+## Procedure "parallel-3"
+
+Algorithm:
+Group of parallel processes
+    Parallel process 1
+        one
+    Parallel process 2
+        If three
+            two
+    Parallel process 3
+
+End of procedure

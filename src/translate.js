@@ -26,7 +26,13 @@ var translationsRu = {
     "Description": "Описание",
     "Algorithm": "Алгоритм",
     Remarks: "Замечания",
-    Parameters: "Параметры"
+    Parameters: "Параметры",
+    "Group of parallel processes": "Группа параллельных процессов",
+    "Parallel process": "Параллельный процесс",
+    "Start at": "Начать в",
+    "Do for": "Делать в течение",
+    "Pause": "Пауза",
+    "Start timer": "Запустить таймер"    
 }
 
 var translationsEn = {
@@ -57,7 +63,13 @@ var translationsEn = {
     Description: 'Description',
     Algorithm: 'Algorithm',
     Remarks: "Remarks",
-    Parameters: "Parameters"
+    Parameters: "Parameters",
+    "Group of parallel processes": "Group of parallel processes",
+    "Parallel process": "Parallel process",
+    "Start at": "Start at",
+    "Do for": "Do for",
+    "Pause": "Pause",
+    "Start timer": "Start timer",
 }
 
 var translationsNo = {
@@ -88,7 +100,13 @@ var translationsNo = {
     Description: 'Beskrivelse',
     Algorithm: 'Algoritme',
     Remarks: "Bemerkninger",
-    Parameters: "Parametere"
+    Parameters: "Parametere",
+    "Group of parallel processes": "Gruppe av parallelle prosesser",
+    "Parallel process": "Parallell prosess",
+    "Start at": "Start ved",
+    "Do for": "Gjør i",
+    "Pause": "Pause",
+    "Start timer": "Start tidtaker"
 };
 
 
