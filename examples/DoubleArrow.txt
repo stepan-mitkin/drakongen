@@ -1,6 +1,5 @@
 ## Procedure "DoubleArrow"
 
-
 Algorithm:
 Loop forever
     If CCCCC

@@ -1,6 +1,5 @@
 ## Procedure "ar02"
 
-
 Algorithm:
 Loop forever
     If 3

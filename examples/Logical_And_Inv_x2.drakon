@@ -1,0 +1,91 @@
+{
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "4"
+        },
+        "3": {
+            "type": "action",
+            "one": "1",
+            "content": "C"
+        },
+        "4": {
+            "type": "question",
+            "one": "5",
+            "two": "14",
+            "flag1": 0,
+            "content": "A"
+        },
+        "5": {
+            "type": "question",
+            "one": "8",
+            "two": "14",
+            "flag1": 0,
+            "content": "B"
+        },
+        "6": {
+            "type": "action",
+            "one": "1",
+            "content": "E"
+        },
+        "8": {
+            "type": "question",
+            "one": "3",
+            "two": "9",
+            "flag1": 0,
+            "content": "X"
+        },
+        "9": {
+            "type": "question",
+            "one": "3",
+            "two": "11",
+            "flag1": 0,
+            "content": "Y"
+        },
+        "11": {
+            "type": "question",
+            "one": "3",
+            "two": "12",
+            "flag1": 0,
+            "content": "Z"
+        },
+        "12": {
+            "type": "action",
+            "one": "1",
+            "two": "",
+            "content": "D"
+        },
+        "14": {
+            "type": "question",
+            "one": "6",
+            "two": "15",
+            "flag1": 0,
+            "content": "X"
+        },
+        "15": {
+            "type": "question",
+            "one": "6",
+            "two": "16",
+            "flag1": 0,
+            "content": "Y"
+        },
+        "16": {
+            "type": "question",
+            "one": "6",
+            "two": "17",
+            "flag1": 0,
+            "content": "Z"
+        },
+        "17": {
+            "type": "action",
+            "one": "1",
+            "two": "",
+            "content": "F"
+        }
+    }
+}

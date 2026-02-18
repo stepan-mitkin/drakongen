@@ -1,6 +1,5 @@
 ## Procedure "And test"
 
-
 Algorithm:
 If (One and not (Two)) and Three
     Do it!

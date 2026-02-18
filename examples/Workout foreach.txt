@@ -1,6 +1,5 @@
 ## Procedure "Workout foreach"
 
-
 Algorithm:
 Warm up
 For each exercize in the program

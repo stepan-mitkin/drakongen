@@ -1,6 +1,5 @@
 ## Procedure "07. Фиолетовый"
 
-
 Algorithm:
 If 3
     5

@@ -1,0 +1,15 @@
+## Procedure "Logical_And_Inv_x2"
+
+Algorithm:
+If A or B
+    If (X and Y) and Z
+        F
+    Else
+        E
+Else
+    If (X and Y) and Z
+        D
+    Else
+        C
+
+End of procedure

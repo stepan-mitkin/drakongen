@@ -1,6 +1,5 @@
 ## Procedure "Find pointing nodes"
 
-
 Algorithm:
 Start with an empty list
 If node.prev

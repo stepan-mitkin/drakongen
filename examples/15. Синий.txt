@@ -1,6 +1,5 @@
 ## Procedure "15. Синий"
 
-
 Algorithm:
 If 3
     5

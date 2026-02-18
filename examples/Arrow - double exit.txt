@@ -1,6 +1,5 @@
 ## Procedure "Arrow - double exit"
 
-
 Algorithm:
 Loop forever
     If CCCCC

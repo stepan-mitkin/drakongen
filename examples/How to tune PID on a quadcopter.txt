@@ -28,13 +28,13 @@ With good P, the control should feel precise
 Loop forever
     Cruise around
     Do some sharp turns
-    If not (Does the quad dip to one side (like a wobble)?) and not (Do slow oscillations occur?)
+    If Does the quad dip to one side (like a wobble)? or Do slow oscillations occur?
+        Increase P on Roll
+    Else
         If Do fast oscilations occur?
             Decrease P on Roll
         Else
             break
-    Else
-        Increase P on Roll
 When P is right, you should get minimum oscillations when doing sharp turns.
 Call subroutine "P on Pitch"
 End of subroutine
@@ -46,10 +46,10 @@ Loop forever
     If Does the quad pitch up more than it should?
         Increase P on Pitch
     Else
-        If not (Do fast oscilations occur?) and not (Are the motors making a twitching sound?)
-            break
-        Else
+        If Do fast oscilations occur? or Are the motors making a twitching sound?
             Decrease P on Pitch
+        Else
+            break
 The quad feels very responsive and nimble
 Call subroutine "TPA"
 End of subroutine
@@ -68,13 +68,13 @@ End of subroutine
 Subroutine: "D on Roll and Pitch"
 Loop forever
     Do aggressive maneuvers like flips and rolls
-    If not (Does the quad overshoot at the end of the move then bounce back?) and not (Does prop wash happen? (oscillation when you descent))
+    If Does the quad overshoot at the end of the move then bounce back? or Does prop wash happen? (oscillation when you descent)
+        Increase D on the affected axis
+    Else
         If Do fast oscillation happen at the end of a roll or flip?
             Decrease D on the affected axis
         Else
             break
-    Else
-        Increase D on the affected axis
 Note that to eliminate bounces at the end of a flip or roll, you can also use Setpoint Transition
 Call subroutine "I on Roll"
 End of subroutine
@@ -84,10 +84,10 @@ Loop forever
     Bank your quad to the left and right
     Release stick
     If Is the quad holding the angle well?
-        If not (Does the quad have stiff, robotic feeling?) and not (Does the quad have oscilations?)
-            break
-        Else
+        If Does the quad have stiff, robotic feeling? or Does the quad have oscilations?
             Decrease I on Roll
+        Else
+            break
     Else
         Increase I on Roll
 You might want to increase I a bit more on a windy day

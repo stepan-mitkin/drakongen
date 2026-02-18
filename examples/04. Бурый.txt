@@ -1,6 +1,5 @@
 ## Procedure "04. Бурый"
 
-
 Algorithm:
 If 3
     4

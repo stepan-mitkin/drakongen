@@ -1,6 +1,5 @@
 ## Procedure "10. Розовый"
 
-
 Algorithm:
 If 3
     If 4

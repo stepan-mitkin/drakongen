@@ -1,6 +1,5 @@
 ## Procedure "ar08"
 
-
 Algorithm:
 Loop forever
     If 3 == 4

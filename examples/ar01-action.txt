@@ -1,6 +1,5 @@
 ## Procedure "ar01-action"
 
-
 Algorithm:
 Loop forever
     act

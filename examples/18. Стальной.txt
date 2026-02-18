@@ -1,6 +1,5 @@
 ## Procedure "18. Стальной"
 
-
 Algorithm:
 If 3
     If 4
