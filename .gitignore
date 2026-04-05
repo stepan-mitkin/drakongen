@@ -1,5 +1,6 @@
 .drakontech
 .DS_Store
+.vscode
 
 tmp
 # Logs
