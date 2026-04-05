@@ -1,31 +1,49 @@
-const { drakonToPseudocode, mindToTree } = require('./drakonToPromptStruct');
-const { htmlToString } = require("./browserTools")
-const { setUpLanguage, translate } = require("./translate")
+const { drakonToPseudocode, mindToTree } = require("./drakonToPromptStruct");
+const { htmlToString } = require("./browserTools");
+const { setUpLanguage, translate } = require("./translate");
 const { drakonToStruct } = require("./drakonToStruct");
 const { freeDiagramToText } = require("./free");
 
-
 window.drakongen = {
-    toPseudocode: function (drakonJson, name, filename, language) {
-        setUpLanguage(language)
-        return drakonToPseudocode(drakonJson, name, filename, htmlToString, translate).text
-    },
+  toPseudocode: function (drakonJson, name, filename, language) {
+    setUpLanguage(language);
+    return drakonToPseudocode(
+      drakonJson,
+      name,
+      filename,
+      htmlToString,
+      translate,
+    ).text;
+  },
 
-    toMindTree: function (mindJson, name, filename, language) {
-        setUpLanguage(language)    
-        var result = mindToTree(mindJson, name, filename, htmlToString)
-        return result.text
-    },    
+  toMindTree: function (mindJson, name, filename, language) {
+    setUpLanguage(language);
+    var result = mindToTree(mindJson, name, filename, htmlToString);
+    return result.text;
+  },
 
-    freeToText: function (freeJson, name, filename, language) {
-        setUpLanguage(language)    
-        var result = freeDiagramToText(freeJson, name, filename, translate, htmlToString)
-        return result.text
-    },      
+  freeToText: function (freeJson, name, filename, language) {
+    setUpLanguage(language);
+    var result = freeDiagramToText(
+      freeJson,
+      name,
+      filename,
+      translate,
+      htmlToString,
+    );
+    return result.text;
+  },
 
-    toTree: function (drakonJson, name, filename, language) {
-        setUpLanguage(language)
-        var result = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
-        return JSON.stringify(result, null, 4)
-    }
-}
+  toTree: function (drakonJson, name, filename, language, options) {
+    setUpLanguage(language);
+    var result = drakonToStruct(
+      drakonJson,
+      name,
+      filename,
+      translate,
+      htmlToString,
+      options,
+    );
+    return JSON.stringify(result, null, 4);
+  },
+};

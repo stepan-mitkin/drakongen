@@ -1,0 +1,72 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 1,
+            "one": "6",
+            "content": "<p>Good</p>"
+        },
+        "3": {
+            "type": "branch",
+            "content": "Utgang",
+            "one": "5",
+            "branchId": 4
+        },
+        "4": {
+            "type": "branch",
+            "content": "<p>Bad</p>",
+            "one": "8",
+            "branchId": 3
+        },
+        "5": {
+            "type": "action",
+            "content": "<p>return bar</p>",
+            "one": "1"
+        },
+        "6": {
+            "type": "action",
+            "content": "<p>foo = 20</p>",
+            "one": "7"
+        },
+        "7": {
+            "type": "action",
+            "content": "<p>bar = arg + foo</p>",
+            "one": "10"
+        },
+        "8": {
+            "type": "action",
+            "content": "<p>console.log(\"Too bad...\")</p>",
+            "one": "9"
+        },
+        "9": {
+            "type": "action",
+            "content": "<p>return 1200</p>",
+            "one": "3"
+        },
+        "10": {
+            "type": "question",
+            "content": "<p>arg1 &gt;= 10</p>",
+            "one": "11",
+            "two": "3",
+            "flag1": 0
+        },
+        "11": {
+            "type": "branch",
+            "branchId": 2,
+            "content": "<p>Good 2</p>",
+            "one": "12"
+        },
+        "12": {
+            "type": "action",
+            "content": "<p>bar *= 2</p>",
+            "one": "3"
+        }
+    },
+    "params": "<p>arg1</p><p><br /></p><p>on error goto Bad</p>",
+    "type": "drakon",
+    "style": "{\"maxWidth\":190}",
+    "id": "Secondary.drakon"
+}
