@@ -198,21 +198,25 @@ function checkBranchIsReferenced(
   if (branch.id === firstNodeId) {
     return;
   }
-  var isError = branch.prev.length === 0;
   if (options && htmlToString) {
     var branchName = htmlToString(branch.content)[0];
     if (branchName === options.secondary) {
-      isError = branch.prev.length > 0;
+      if (branch.prev.length > 0) {
+        throw createError(
+          translate("A secondary branch is referenced"),
+          filename,
+          branch.id,
+        );
+      }
     } else {
-      isError = branch.prev.length === 0;
+      if (branch.prev.length === 0) {
+        throw createError(
+          translate("A silhouette branch is not referenced"),
+          filename,
+          branch.id,
+        );
+      }
     }
-  }
-  if (isError) {
-    throw createError(
-      translate("A silhouette branch is not referenced"),
-      filename,
-      branch.id,
-    );
   }
 }
 
