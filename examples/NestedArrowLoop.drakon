@@ -1,0 +1,38 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "one": "8",
+            "branchId": 0
+        },
+        "4": {
+            "flag1": 0,
+            "type": "question",
+            "one": "1",
+            "two": "12",
+            "content": "<p>Are you hungry?</p>"
+        },
+        "8": {
+            "type": "arrow-loop",
+            "one": "4"
+        },
+        "9": {
+            "flag1": 0,
+            "type": "question",
+            "one": "8",
+            "two": "12",
+            "content": "<p>Are you hungry?</p>"
+        },
+        "12": {
+            "type": "arrow-loop",
+            "one": "9",
+            "two": ""
+        }
+    },
+    "type": "drakon",
+    "name": "Eating Donuts",
+    "description": "<p>We eat donuts until we are full.</p><p><br /></p><p>If we are not hungry from the beginning, there is no reason to sit at the table.</p><p><br /></p><p>This is an arrow loop of the WHILE type.</p>"
+}
