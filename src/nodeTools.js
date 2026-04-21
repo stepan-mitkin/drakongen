@@ -12,7 +12,7 @@ function htmlToString(html) {
 
     root.childNodes.forEach((node) => {
         if (node.tagName === 'P') {
-            output.push(node.text.trim());
+            output.push(node.text);
         } else if (node.tagName === 'UL') {
             node.childNodes.forEach((item) => {
                 if (item.tagName === 'LI') {

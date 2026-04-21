@@ -4,6 +4,7 @@ Parameters:
 - context: ServerContext
 - url: a string with the address of the dataverse instance
 
+
 Description:
 Obtains an access token. Connects to the dataverse if necessary.
 Returns a JWT token as a string.

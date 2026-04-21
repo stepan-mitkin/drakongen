@@ -13,6 +13,8 @@ End of procedure
 
 We eat donuts until we are full.
 
+
 If we are not hungry from the beginning, there is no reason to sit at the table.
+
 
 This is an arrow loop of the WHILE type.
