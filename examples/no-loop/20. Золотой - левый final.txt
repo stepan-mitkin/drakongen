@@ -1,0 +1,16 @@
+## Procedure "20. Золотой - левый final"
+
+Algorithm:
+If 3
+    If 8
+        I am final
+    9
+    10
+Else
+    If 4
+        6
+    Else
+        7
+    11
+
+End of procedure

@@ -1,6 +1,7 @@
 var { buildTree } = require("./technicalTree");
 const { createError, sortByProperty } = require("./tools");
 const { optimizeTree } = require("./treeTools");
+const { flow_no_loop } = require("./noloop")
 
 function redirectNode(nodes, node, from, to) {
   if (node.one === from) {
@@ -20,7 +21,7 @@ function redirectNode(nodes, node, from, to) {
   }
 }
 
-function structFlow(nodes, branches, filename, translate) {
+function structFlow(nodes, branches, filename, translate, options) {
   function flowGraph(nodes, nodeId, branchingStack) {
     if (!nodeId) {
       return;
@@ -399,8 +400,13 @@ function structFlow(nodes, branches, filename, translate) {
     rewireArrows(nodes, branches);
     prepareQuestions(nodes);
     var result = [];
+
     for (var branch of branches) {
-      flowGraph(nodes, branch.next, []);
+      if (options.noLoop) {
+        flow_no_loop(nodes, branch.next, []);
+      } else {
+        flowGraph(nodes, branch.next, []);
+      }
     }
 
     for (var branch of branches) {

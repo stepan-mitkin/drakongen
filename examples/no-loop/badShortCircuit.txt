@@ -1,0 +1,7 @@
+## Procedure "badShortCircuit"
+
+Algorithm:
+If not (not (childName === lowname) or id === widget.folderId)
+    return tr("Name is not unique")
+
+End of procedure

@@ -35,12 +35,16 @@ async function main() {
         project: false,
         json: false,
         output: null,
-        tree: false
+        tree: false,
+        noLoop: false
     };
     let targetPath = null;
 
     for (let i = 0; i < args.length; i++) {
         switch (args[i]) {
+            case "--no-loop":
+                options.noLoop = true
+                break
             case '--language':
                 options.language = args[++i];
                 break;
@@ -144,7 +148,7 @@ async function convertToTree(filePath, options) {
 
     var pname = path.parse(filePath)
     const name = pname.name    
-    var result = toTree(content, name, filePath, options.language)
+    var result = toTree(content, name, filePath, options.language, options)
     return JSON.parse(result)
 }
 
@@ -156,7 +160,7 @@ async function convertToPseudo(filePath, options) {
     const name = pname.name
     var result
     if (pname.ext == ".drakon") {
-        result = toPseudocode(content, name, filePath, options.language);
+        result = toPseudocode(content, name, filePath, options.language, options);
     } else if (pname.ext == ".graf") {
         result = toMindTree(content, name, filePath, options.language);
     } else if (pname.ext == ".free") {

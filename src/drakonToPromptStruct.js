@@ -2,8 +2,8 @@ const {drakonToStruct} = require("./drakonToStruct");
 const {printPseudo, printWithIndent, makeIndent} = require('./printPseudo');
 const {addRange, sortByProperty} = require("./tools")
 
-function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate) {    
-    var diagram = drakonToStruct(drakonJson, name, filename, translate, htmlToString)
+function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate, options) {    
+    var diagram = drakonToStruct(drakonJson, name, filename, translate, htmlToString, options)
     var lines = []
 
     lines.push("## " + translate("Procedure") + " \"" + diagram.name + "\"")

@@ -53,7 +53,7 @@ function drakonToStruct(
   );
   rewireShortcircuit(nodes, filename);
   branches.forEach((branch) => cutOffBranch(nodes, branch));
-  var branchTrees = structFlow(nodes, branches, filename, translate);
+  var branchTrees = structFlow(nodes, branches, filename, translate, options);
   return {
     name: name,
     params: drakonGraph.params || "",
@@ -343,6 +343,9 @@ function findStartNode(nodes, filename, branches) {
           id,
         );
       }
+    } else if (node.final) {
+      delete node.one
+      delete node.two
     }
   }
 

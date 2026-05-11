@@ -1,0 +1,65 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "3"
+        },
+        "3": {
+            "type": "action",
+            "one": "4",
+            "text": "<p>context = {</p><p>    nodes: nodes,</p><p>    waiting_list: new set</p><p>}</p>"
+        },
+        "4": {
+            "type": "action",
+            "one": "8",
+            "text": "<p>traverse_node(</p><p>    context,</p><p>    start_node_id,</p><p>    []</p><p>)</p>"
+        },
+        "5": {
+            "type": "question",
+            "one": "1",
+            "two": "10",
+            "flag1": 1,
+            "text": "<p>delayed is empty</p>"
+        },
+        "8": {
+            "type": "arrow-loop",
+            "one": "9"
+        },
+        "9": {
+            "type": "action",
+            "one": "5",
+            "text": "<p>delayed = keys(context.waiting_list)</p>"
+        },
+        "10": {
+            "type": "action",
+            "one": "12",
+            "two": "",
+            "text": "<p>context.waiting_list = new set</p>"
+        },
+        "11": {
+            "type": "loopend",
+            "one": "8",
+            "two": ""
+        },
+        "12": {
+            "type": "loopbegin",
+            "one": "13",
+            "two": "",
+            "text": "<p>for each delayed_id in delayed</p>"
+        },
+        "13": {
+            "type": "action",
+            "one": "11",
+            "two": "",
+            "text": "<p>process_delayed_node(</p><p>    context,</p><p>    delayed_id</p><p>)</p>"
+        }
+    },
+    "params": "<p>nodes: map string &gt; Node</p><p>start_node_id: string</p>",
+    "description": "<p>\"nodes\" is a program graph extracted from a flow chart.</p><p>A node may have two next nodes:</p><ul><li>one</li><li>two</li></ul><p>The function's goal is to enrich the nodes graph with information for building an ast graph.</p><p>To do that, set \"next\" property for \"question\" nodes.</p><p>\"next\" means the next node after the question node and its \"then\" and \"else\" subgraphs.</p><p>If \"next\" is empty, it means that the question node is the last in the algorithm.</p>",
+    "name": "flow_no_loop",
+    "type": "drakon"
+}
