@@ -11,51 +11,12 @@
         "3": {
             "type": "action",
             "one": "4",
-            "text": "<p>context = {</p><p>    nodes: nodes,</p><p>    waiting_list: new set</p><p>}</p>"
+            "text": "<p>context = {</p><p>    nodes: nodes</p><p>}</p>"
         },
         "4": {
             "type": "action",
-            "one": "8",
-            "text": "<p>traverse_node(</p><p>    context,</p><p>    start_node_id,</p><p>    []</p><p>)</p>"
-        },
-        "5": {
-            "type": "question",
             "one": "1",
-            "two": "10",
-            "flag1": 1,
-            "text": "<p>delayed is empty</p>"
-        },
-        "8": {
-            "type": "arrow-loop",
-            "one": "9"
-        },
-        "9": {
-            "type": "action",
-            "one": "5",
-            "text": "<p>delayed = keys(context.waiting_list)</p>"
-        },
-        "10": {
-            "type": "action",
-            "one": "12",
-            "two": "",
-            "text": "<p>context.waiting_list = new set</p>"
-        },
-        "11": {
-            "type": "loopend",
-            "one": "8",
-            "two": ""
-        },
-        "12": {
-            "type": "loopbegin",
-            "one": "13",
-            "two": "",
-            "text": "<p>for each delayed_id in delayed</p>"
-        },
-        "13": {
-            "type": "action",
-            "one": "11",
-            "two": "",
-            "text": "<p>process_delayed_node(</p><p>    context,</p><p>    delayed_id</p><p>)</p>"
+            "text": "<p>traverse_node(</p><p>    context,</p><p>    start_node_id,</p><p>    []</p><p>)</p>"
         }
     },
     "params": "<p>nodes: map string &gt; Node</p><p>start_node_id: string</p>",

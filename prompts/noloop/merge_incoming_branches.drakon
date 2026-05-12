@@ -44,7 +44,7 @@
         },
         "21": {
             "type": "action",
-            "one": "39",
+            "one": "41",
             "two": "",
             "text": "<p>if_node = context.nodes[id]</p>"
         },
@@ -87,15 +87,16 @@
         "39": {
             "type": "question",
             "one": "22",
-            "two": "40",
+            "two": "26",
             "flag1": 0,
             "text": "<p>if_node.branching === 1</p>"
         },
-        "40": {
-            "type": "action",
-            "one": "26",
-            "two": "",
-            "text": "<p>node.refs--</p>"
+        "41": {
+            "type": "question",
+            "one": "39",
+            "two": "19",
+            "flag1": 0,
+            "text": "<p>if_node.next</p>"
         }
     },
     "params": "<p>context</p><p>node_id</p><p>node</p><p>stack</p>",

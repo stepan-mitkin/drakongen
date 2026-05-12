@@ -45,27 +45,15 @@
         },
         "49": {
             "type": "question",
-            "one": "52",
-            "two": "50",
+            "one": "51",
+            "two": "1",
             "flag1": 0,
             "text": "<p>node.refs &gt; 0</p>"
-        },
-        "50": {
-            "type": "action",
-            "one": "1",
-            "two": "",
-            "text": "<p>Add node_id to context.waiting_list</p>"
         },
         "51": {
             "type": "action",
             "one": "1",
             "text": "<p>recurse_traversal(</p><p>    context,</p><p>    node_id,</p><p>    node</p><p>)</p>"
-        },
-        "52": {
-            "type": "action",
-            "one": "51",
-            "two": "",
-            "text": "<p>Remove node_id from context.waiting_list</p>"
         }
     },
     "params": "<p>context</p><p>node_id: string</p><p>stack: array of strings</p>",
