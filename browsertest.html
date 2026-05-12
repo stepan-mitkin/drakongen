@@ -36,6 +36,10 @@
             <option value="no">Norsk</option>
             <option value="ru">Русский</option>
         </select></div>
+        <label>
+        <input type="checkbox" id="no-loop">
+        no-loop
+        </label>        
         <button onclick="convert()">Convert to pseudocode</button>
         <div></div>
         <pre id="output"></pre>
@@ -70,7 +74,11 @@
                 } else if (format.value === "graf") {
                     content = drakongen.toMindTree(input.value, "Drakongen browser test", "Drakongen browser test.graf")                    
                 } else {
-                    content = drakongen.toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
+                    var no_loop = document.getElementById("no-loop").checked;
+                    var options = {
+                        noLoop: no_loop
+                    }
+                    content = drakongen.toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value, options)
                 }
                 setText(output, content)
             } catch (ex) {
