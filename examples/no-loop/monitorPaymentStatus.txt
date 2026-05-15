@@ -1,0 +1,25 @@
+## Procedure "monitorPaymentStatus"
+
+Parameters:
+paymentId
+
+Algorithm:
+Call subroutine: "Check payment on server"
+
+Subroutine: "Check payment on server"
+If res.status == 200
+    If data.status == "completed"
+        Call subroutine "Exit"
+    Else
+        If data.status == "waiting"
+            Call subroutine "Check payment on server"
+        Else
+            Call subroutine "Exit"
+Else
+    Call subroutine "Exit"
+End of subroutine
+
+Subroutine: "Exit"
+End of subroutine
+
+End of procedure

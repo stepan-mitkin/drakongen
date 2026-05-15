@@ -1,0 +1,56 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "branchId": 1,
+            "one": "7",
+            "type": "branch",
+            "content": "Check payment on server"
+        },
+        "7": {
+            "flag1": 1,
+            "type": "question",
+            "one": "13",
+            "two": "14",
+            "content": "res.status == 200"
+        },
+        "10": {
+            "type": "case",
+            "one": "14"
+        },
+        "11": {
+            "one": "2",
+            "type": "case",
+            "two": "10",
+            "content": "\"waiting\""
+        },
+        "12": {
+            "one": "14",
+            "type": "case",
+            "two": "11",
+            "content": "\"completed\""
+        },
+        "13": {
+            "type": "select",
+            "one": "12",
+            "content": "data.status"
+        },
+        "14": {
+            "branchId": 2,
+            "one": "1",
+            "type": "branch",
+            "content": "Exit"
+        }
+    },
+    "keywords": {
+        "scenario": false,
+        "async": true,
+        "export": false,
+        "function": true,
+        "algoprop": false
+    },
+    "type": "drakon",
+    "params": "paymentId"
+}
