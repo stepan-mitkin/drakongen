@@ -6,9 +6,9 @@ const { spawn } = require('child_process');
 const examplesFolder = path.join(__dirname, 'examples');
 
 // Function to execute a command with a file
-async function executeCommand(filePath) {
+function executeCommand(filePath, args) {
     return new Promise((resolve, reject) => {
-        const process = spawn('node', ['src/main.js', "--output", examplesFolder, filePath]);
+        const process = spawn('node', args);
 
         // Handle stdout
         process.stdout.on('data', data => {
@@ -31,6 +31,53 @@ async function executeCommand(filePath) {
     });
 }
 
+async function isNoLoopPossible(filePath) {
+    var content = await fs.readFile(filePath, "utf-8")
+    var diagram = JSON.parse(content)
+    if (diagram.items) {
+        for (var itemId in diagram.items) {
+            var item = diagram.items[itemId]
+            if (item.type === "loopbegin" || item.type === "arrow-loop" || item.type === "parbegin") {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+async function hasFinal(filePath) {
+    var content = await fs.readFile(filePath, "utf-8")
+    var diagram = JSON.parse(content)
+    if (diagram.items) {
+        for (var itemId in diagram.items) {
+            var item = diagram.items[itemId]
+            if (item.final) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+async function convertDrakon(filePath) {
+    var noLoopPossible = await isNoLoopPossible(filePath)
+    var final = await hasFinal(filePath)
+    if (!final) {
+        await executeCommand(filePath, ['src/main.js', "--output", examplesFolder, filePath])
+    }
+    if (noLoopPossible && filePath.endsWith(".drakon")) {
+        var noLoopFolder = path.join(examplesFolder, "no-loop")
+        await executeCommand(filePath, ['src/main.js', "--no-loop", "--output", noLoopFolder, filePath])
+        if (final) {return}
+        var name = path.basename(filePath).replace(".drakon", ".txt")
+        var normal = await fs.readFile(path.join(examplesFolder, name), "utf-8")
+        var noloop = await fs.readFile(path.join(noLoopFolder, name), "utf-8")
+        if (normal !== noloop) {
+            console.log("Discrepancy detected", filePath)
+        }
+    }
+}
+
 // Main function to process .drakon files
 async function processDrakonFiles() {
     try {
@@ -44,7 +91,7 @@ async function processDrakonFiles() {
         for (const file of drakonFiles) {
             const filePath = path.join(examplesFolder, file);
             try {
-                await executeCommand(filePath);
+                await convertDrakon(filePath);
                 console.log(`Processed file: ${file}`);
             } catch (error) {
                 console.error(`Error processing file ${file}: ${error.message}`);

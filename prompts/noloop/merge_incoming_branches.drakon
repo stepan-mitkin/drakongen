@@ -1,0 +1,105 @@
+{
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 1,
+            "one": "3",
+            "text": "<p>Merge stacks</p>"
+        },
+        "3": {
+            "type": "action",
+            "one": "4",
+            "text": "<p>common = concatenate(</p><p>    node.stack,</p><p>    stack</p><p>)</p>"
+        },
+        "4": {
+            "type": "action",
+            "one": "18",
+            "text": "<p>counts_by_id = group_stack_by_id(common)</p>"
+        },
+        "17": {
+            "type": "branch",
+            "one": "29",
+            "branchId": 3,
+            "text": "Completion"
+        },
+        "18": {
+            "type": "branch",
+            "one": "24",
+            "branchId": 2,
+            "text": "<p>Decrement count for merged ifs</p>"
+        },
+        "19": {
+            "type": "loopend",
+            "one": "17",
+            "two": ""
+        },
+        "20": {
+            "type": "loopbegin",
+            "one": "21",
+            "two": "",
+            "text": "<p>for each id, count in counts_by_id</p>"
+        },
+        "21": {
+            "type": "action",
+            "one": "41",
+            "two": "",
+            "text": "<p>if_node = context.nodes[id]</p>"
+        },
+        "22": {
+            "type": "action",
+            "one": "23",
+            "two": "",
+            "text": "<p>if_node.branching -= (count - 1)</p>"
+        },
+        "23": {
+            "type": "question",
+            "one": "25",
+            "two": "26",
+            "flag1": 0,
+            "text": "<p>if_node.branching === 1</p>"
+        },
+        "24": {
+            "type": "action",
+            "one": "20",
+            "two": "",
+            "text": "<p>processed_stack = empty list</p>"
+        },
+        "25": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "text": "<p>Add id to processed_stack</p>"
+        },
+        "26": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "text": "<p>if_node.next = node_id</p>"
+        },
+        "29": {
+            "type": "action",
+            "one": "1",
+            "text": "<p>node.stack = processed_stack</p>"
+        },
+        "39": {
+            "type": "question",
+            "one": "22",
+            "two": "26",
+            "flag1": 0,
+            "text": "<p>if_node.branching === 1</p>"
+        },
+        "41": {
+            "type": "question",
+            "one": "39",
+            "two": "19",
+            "flag1": 0,
+            "text": "<p>if_node.next</p>"
+        }
+    },
+    "params": "<p>context</p><p>node_id</p><p>node</p><p>stack</p>",
+    "name": "merge_incoming_branches",
+    "type": "drakon"
+}

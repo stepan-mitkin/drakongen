@@ -70,6 +70,9 @@ function buildTree(nodes, nodeId, body, stopId) {
                 ]
             )
             next = node.one;
+            if (node.final) {
+                next = undefined
+            }
         }
         if (node.side) {
             transformed.side = node.side
@@ -89,6 +92,9 @@ function copyFields(dst, src, fields) {
 }
 
 function reserveNext(nodes, node) {
+    if (!node.next) {
+        return undefined
+    }
     const target = nodes[node.next];
     if (target.targetTaken) {
         return undefined;
