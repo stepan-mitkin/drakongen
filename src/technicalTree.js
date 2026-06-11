@@ -7,7 +7,7 @@ function buildTree(nodes, nodeId, body, stopId) {
 
         if (node.type === "question") {
             next = reserveNext(nodes, node)
-
+            
             transformed = {
                 id: node.id,
                 type: "question",

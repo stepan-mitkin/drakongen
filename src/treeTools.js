@@ -51,6 +51,7 @@ function optimizeQuestion(step) {
     var no = optimizeTree(step.no)
     if (yes.length === 0 && no.length === 0) {
         return {
+            id: step.id,
             side: step.side,
             type: step.type,
             content: step.content,
@@ -60,6 +61,7 @@ function optimizeQuestion(step) {
     }
     if (yes.length === 0) {
         return {
+            id: step.id,
             side: step.side,
             type: step.type,
             content: {operator:"not",operand:step.content},
@@ -68,6 +70,7 @@ function optimizeQuestion(step) {
         }
     }
     return {
+        id: step.id,
         side: step.side,
         type: step.type,
         content: step.content,
