@@ -27,19 +27,22 @@ function drakonToStruct(
   const nodes = drakonGraph.items || {};
 
   var branches = [];
-  var firstNodeId = findStartNode(nodes, filename, branches);
+  var firstNodeId = findStartNode(nodes, filename, branches, htmlToString);
+  var params = decodeContent(drakonGraph.params, htmlToString);
+  var description = decodeContent(drakonGraph.description, htmlToString);
+
 
   if (!firstNodeId) {
     return {
       name: name,
-      params: drakonGraph.params || "",
-      description: drakonGraph.description || "",
+      params:  params,
+      description: description,
       branches: [],
     };
   }
 
   handleParallel(nodes, undefined, firstNodeId, {}, undefined);
-  buildTwoWayConnections(nodes, firstNodeId, htmlToString);
+  buildTwoWayConnections(nodes, firstNodeId);
 
   rewireSelectsMarkLoops(nodes, filename);
   branches.forEach((branch) =>
@@ -47,8 +50,7 @@ function drakonToStruct(
       branch,
       firstNodeId,
       filename,
-      options,
-      htmlToString,
+      options
     ),
   );
   rewireShortcircuit(nodes, filename);
@@ -56,20 +58,20 @@ function drakonToStruct(
   var branchTrees = structFlow(nodes, branches, filename, translate, options);
   return {
     name: name,
-    params: drakonGraph.params || "",
-    description: drakonGraph.description || "",
+    params: params,
+    description: description,
     branches: branchTrees,
-    secondary: findSecondary(branchTrees, options, htmlToString),
+    secondary: findSecondary(branchTrees, options),
   };
 }
 
-function findSecondary(branchTrees, options, htmlToString) {
+function findSecondary(branchTrees, options) {
   if (!options || !options.secondary) {
     return undefined;
   }
   var ordinal = 0;
   for (var branch of branchTrees) {
-    var name = htmlToString(branch.name)[0];
+    var name = branch.name;
     if (name === options.secondary) {
       return ordinal;
     }
@@ -192,14 +194,13 @@ function checkBranchIsReferenced(
   branch,
   firstNodeId,
   filename,
-  options,
-  htmlToString,
+  options  
 ) {
   if (branch.id === firstNodeId) {
     return;
   }
-  if (options && htmlToString) {
-    var branchName = htmlToString(branch.content)[0];
+  if (options) {
+    var branchName = branch.content;
     if (branchName === options.secondary) {
       if (branch.prev.length > 0) {
         throw createError(
@@ -293,7 +294,7 @@ function addFakeEnd(nodes, prev, node, end, addresses) {
   node.prev = remove(node.prev, prev.id);
 }
 
-function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
+function buildTwoWayConnections(nodes, firstNodeId) {
   for (var id in nodes) {
     var node = nodes[id];
     node.id = id;
@@ -301,17 +302,18 @@ function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
   }
 
   var visitor = function (nodes, node) {
-    return connectBack(nodes, node, htmlToString);
+    return connectBack(nodes, node);
   };
 
   traverse(nodes, firstNodeId, {}, visitor);
 }
 
-function findStartNode(nodes, filename, branches) {
+function findStartNode(nodes, filename, branches, htmlToString) {
   var firstNodeId = undefined;
   var minBranchId = 10000;
   for (var id in nodes) {
     var node = nodes[id];
+    decodeNodeContent(node, htmlToString);
     if (node.type === "branch") {
       if (node.branchId < minBranchId) {
         firstNodeId = id;
@@ -350,6 +352,24 @@ function findStartNode(nodes, filename, branches) {
   }
 
   return firstNodeId;
+}
+
+function decodeNodeContent(node, htmlToString) {
+  if (node.content) {
+    node.content = decodeContent(node.content, htmlToString);
+  }
+
+  if (node.secondary) {
+    node.secondary = decodeContent(node.secondary, htmlToString);
+  }
+}
+
+function decodeContent(content, htmlToString) {
+  if (!content) {
+    return ""
+  }
+  var lines = htmlToString(content);
+  return lines.join("\n");
 }
 
 function rewireSelectsMarkLoops(nodes, filename) {
@@ -590,7 +610,7 @@ function traverse(nodes, nodeId, visited, action) {
   }
 }
 
-function connectBack(nodes, node, htmlToString) {
+function connectBack(nodes, node) {
   if (node.one) {
     var one = nodes[node.one];
     one.prev.push(node.id);
@@ -603,20 +623,18 @@ function connectBack(nodes, node, htmlToString) {
   if (node.side) {
     var side = nodes[node.side].content;
     if (side) {
-      node.side = decodeSide(side, htmlToString);
+      node.side = decodeSide(side);
     } else {
       delete node.side;
     }
   }
 }
 
-function decodeSide(content, htmlToString) {
-  var text = htmlToString(content);
-  var oneLine = text.join(" ");
-  if (oneLine.indexOf("=") === -1) {
-    return translate("Do for") + " " + oneLine;
+function decodeSide(content) {
+  if (content.indexOf("=") === -1) {
+    return translate("Do for") + " " + content;
   } else {
-    return translate("Start at") + " " + oneLine;
+    return translate("Start at") + " " + content;
   }
 }
 
