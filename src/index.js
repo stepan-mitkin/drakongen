@@ -19,7 +19,13 @@ function toPseudocode(drakonJson, name, filename, language, options) {
 
 function toMindTree(mindJson, name, filename, language) {
   setUpLanguage(language);
-  var result = mindToTree(mindJson, name, filename, htmlToString);
+  var result = mindToTree(mindJson, name, filename, htmlToString, false);
+  return result.text;
+}
+
+function toMindTreeJson(mindJson, name, filename, language) {
+  setUpLanguage(language);
+  var result = mindToTree(mindJson, name, filename, htmlToString, true);
   return result.text;
 }
 
@@ -47,4 +53,4 @@ function toTree(drakonJson, name, filename, language, options) {
   );
   return JSON.stringify(result, null, 4);
 }
-module.exports = { toPseudocode, toTree, toMindTree, freeToText };
+module.exports = { toPseudocode, toTree, toMindTree, freeToText, toMindTreeJson };

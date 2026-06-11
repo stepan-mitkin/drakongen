@@ -27,14 +27,19 @@
         <h1>Drakongen browser test</h1>
         <textarea id="input" rows="30" autocorrect="false" placeholder="Enter drakon Json here" spellcheck="false"></textarea>
         <div><select id="format">
-            <option value="pseudo">Pseudocode</option>
-            <option value="graf">Graf mind-map</option>
-            <option value="tree">Tree</option>
+            <option value="pseudo">DRAKON-human</option>
+            <option value="tree">DRAKON-machine</option>
+            <option value="graf">Graf-human</option>
+            <option value="graf-json">Graf-machine</option>
         </select></div>
         <div><select id="language">
             <option value="en">English</option>
             <option value="no">Norsk</option>
             <option value="ru">Русский</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="lt">Lietuvių</option>
         </select></div>
         <label>
         <input type="checkbox" id="no-loop">
@@ -72,7 +77,9 @@
                 if (format.value === "pseudo") {
                     content = drakongen.toPseudocode(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
                 } else if (format.value === "graf") {
-                    content = drakongen.toMindTree(input.value, "Drakongen browser test", "Drakongen browser test.graf")                    
+                    content = drakongen.toMindTree(input.value, "Drakongen browser test", "Drakongen browser test.graf")
+                } else if (format.value === "graf-json") {
+                    content = drakongen.toMindTreeJson(input.value, "Drakongen browser test", "Drakongen browser test.graf")
                 } else {
                     var no_loop = document.getElementById("no-loop").checked;
                     var options = {

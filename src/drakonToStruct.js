@@ -31,14 +31,16 @@ function drakonToStruct(
   var params = decodeContent(drakonGraph.params, htmlToString);
   var description = decodeContent(drakonGraph.description, htmlToString);
 
+  var result = {
+    name: name,
+    type: "drakon",
+    params:  params,
+    description: description,
+    branches: []
+  };
 
   if (!firstNodeId) {
-    return {
-      name: name,
-      params:  params,
-      description: description,
-      branches: [],
-    };
+    return result
   }
 
   handleParallel(nodes, undefined, firstNodeId, {}, undefined);
@@ -56,13 +58,10 @@ function drakonToStruct(
   rewireShortcircuit(nodes, filename);
   branches.forEach((branch) => cutOffBranch(nodes, branch));
   var branchTrees = structFlow(nodes, branches, filename, translate, options);
-  return {
-    name: name,
-    params: params,
-    description: description,
-    branches: branchTrees,
-    secondary: findSecondary(branchTrees, options),
-  };
+
+  result.branches = branchTrees
+  result.secondary = findSecondary(branchTrees, options)
+  return result
 }
 
 function findSecondary(branchTrees, options) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {toTree, toPseudocode, toMindTree, freeToText} = require("./index")
+const {toTree, toPseudocode, toMindTree, freeToText, toMindTreeJson} = require("./index")
 const package = require("../package.json")
 
 const fs = require('fs').promises;
@@ -148,7 +148,12 @@ async function convertToTree(filePath, options) {
 
     var pname = path.parse(filePath)
     const name = pname.name    
-    var result = toTree(content, name, filePath, options.language, options)
+    var result = "{}"
+    if (pname.ext == ".drakon") {
+        result = toTree(content, name, filePath, options.language, options);
+    } else if (pname.ext == ".graf") {
+        result = toMindTreeJson(content, name, filePath, options.language);
+    }
     return JSON.parse(result)
 }
 
