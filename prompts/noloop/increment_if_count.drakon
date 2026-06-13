@@ -15,20 +15,20 @@
         "4": {
             "type": "loopbegin",
             "one": "5",
-            "text": "<p>for each if_id in node.stack</p>"
+            "text": "for each if_id in node.stack</p>"
         },
         "5": {
             "type": "action",
             "one": "6",
-            "text": "<p>if_node = context.nodes[if_id]</p>"
+            "text": "if_node = context.nodes[if_id]</p>"
         },
         "6": {
             "type": "action",
             "one": "3",
-            "text": "<p>if_node.branching++</p>"
+            "text": "if_node.branching++</p>"
         }
     },
-    "params": "<p>context</p><p>node</p>",
+    "params": "context</p>node</p>",
     "name": "increment_if_count",
     "type": "drakon"
 }

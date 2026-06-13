@@ -1,0 +1,1 @@
+{"params":"context\nnode","items":{"2":{"type":"branch","one":"7","branchId":0},"8":{"type":"action","content":"algonode.branching--","one":"1"},"1":{"type":"end"},"7":{"type":"action","content":"algonode = context.nodes[node.arrow]","one":"8"}},"type":"drakon"}

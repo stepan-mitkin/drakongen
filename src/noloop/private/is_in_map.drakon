@@ -1,0 +1,1 @@
+{"params":"map\nkey","items":{"4":{"type":"action","content":"return key in map","one":"1"},"1":{"type":"end"},"5":{"type":"action","content":"return false","one":"1"},"2":{"type":"branch","one":"3","branchId":0},"3":{"content":"map","flag1":1,"type":"question","two":"5","one":"4"}},"type":"drakon"}

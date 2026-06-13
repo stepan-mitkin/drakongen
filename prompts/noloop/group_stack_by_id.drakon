@@ -11,12 +11,12 @@
         "3": {
             "type": "action",
             "one": "6",
-            "text": "<p>counts_by_id = empty map</p>"
+            "text": "counts_by_id = empty map</p>"
         },
         "4": {
             "type": "action",
             "one": "1",
-            "text": "<p>return counts_by_id</p>"
+            "text": "return counts_by_id</p>"
         },
         "5": {
             "type": "loopend",
@@ -25,32 +25,32 @@
         "6": {
             "type": "loopbegin",
             "one": "10",
-            "text": "<p>for each element in stack</p>"
+            "text": "for each element in stack</p>"
         },
         "7": {
             "type": "action",
             "one": "9",
-            "text": "<p>existing = counts_by_id[element]</p>"
+            "text": "existing = counts_by_id[element]</p>"
         },
         "9": {
             "type": "action",
             "one": "5",
-            "text": "<p>counts_by_id[element] = existing + 1</p>"
+            "text": "counts_by_id[element] = existing + 1</p>"
         },
         "10": {
             "type": "question",
             "one": "7",
             "two": "11",
             "flag1": 1,
-            "text": "<p>element in counts_by_id</p>"
+            "text": "element in counts_by_id</p>"
         },
         "11": {
             "type": "action",
             "one": "9",
-            "text": "<p>existing = 0</p>"
+            "text": "existing = 0</p>"
         }
     },
-    "params": "<p>stack: array of strings</p>",
+    "params": "stack: array of strings</p>",
     "name": "group_stack_by_id",
     "type": "drakon"
 }

@@ -8,10 +8,9 @@ If 3
         9
     10
 Else
-    If 4
-        6
-        11
-    Else
+    If not (4)
         I am final
+    6
+    11
 
 End of procedure

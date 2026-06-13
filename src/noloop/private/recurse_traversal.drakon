@@ -1,0 +1,131 @@
+{
+    "params": "context\nnode_id\nnode",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "one": "23",
+            "branchId": 0
+        },
+        "20": {
+            "type": "case",
+            "one": "33"
+        },
+        "21": {
+            "content": "\"arrow-loop\"",
+            "one": "43",
+            "type": "case",
+            "two": "24"
+        },
+        "22": {
+            "content": "\"question\"",
+            "one": "31",
+            "type": "case",
+            "two": "21"
+        },
+        "23": {
+            "type": "select",
+            "content": "node.type",
+            "one": "22"
+        },
+        "24": {
+            "content": "\"arrow-stub\"",
+            "one": "42",
+            "type": "case",
+            "two": "20"
+        },
+        "25": {
+            "content": "traverse_node(\n    context,\n    node.one,\n    stack1\n)",
+            "one": "1",
+            "type": "action",
+            "two": ""
+        },
+        "27": {
+            "content": "stack1 = node.stack.slice()",
+            "one": "28",
+            "type": "action",
+            "two": ""
+        },
+        "28": {
+            "content": "stack1.push(node_id)",
+            "one": "29",
+            "type": "action",
+            "two": ""
+        },
+        "29": {
+            "content": "stack2 = node.stack.slice()",
+            "one": "30",
+            "type": "action",
+            "two": ""
+        },
+        "30": {
+            "content": "stack2.push(node_id)",
+            "one": "46",
+            "type": "action",
+            "two": ""
+        },
+        "31": {
+            "content": "increment_if_count(\n    context,\n    node\n)",
+            "one": "27",
+            "type": "action",
+            "two": ""
+        },
+        "32": {
+            "content": "traverse_node(context, node.one, stack1)",
+            "one": "1",
+            "type": "action",
+            "two": ""
+        },
+        "33": {
+            "content": "node.final",
+            "flag1": 0,
+            "type": "question",
+            "one": "45",
+            "two": "34"
+        },
+        "34": {
+            "content": "decrement_if_count(\n    context,\n    node\n)",
+            "one": "1",
+            "type": "action",
+            "two": ""
+        },
+        "38": {
+            "content": "traverse_node(\n    context,\n    node.one,\n    stack1\n)",
+            "one": "1",
+            "type": "action",
+            "two": ""
+        },
+        "42": {
+            "type": "action",
+            "one": "1",
+            "content": "decrement_arrow_count(context, node)"
+        },
+        "43": {
+            "one": "44",
+            "type": "action",
+            "two": "",
+            "content": "stack1 = node.stack.slice()"
+        },
+        "44": {
+            "one": "38",
+            "type": "action",
+            "two": "",
+            "content": "stack1.push(node_id)"
+        },
+        "45": {
+            "one": "32",
+            "type": "action",
+            "two": "",
+            "content": "stack1 = node.stack.slice()"
+        },
+        "46": {
+            "one": "25",
+            "type": "action",
+            "two": "",
+            "content": "traverse_node(\n    context,\n    node.two,\n    stack2\n)"
+        }
+    },
+    "type": "drakon"
+}

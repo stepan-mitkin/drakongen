@@ -37,7 +37,7 @@ async function isNoLoopPossible(filePath) {
     if (diagram.items) {
         for (var itemId in diagram.items) {
             var item = diagram.items[itemId]
-            if (item.type === "loopbegin" || item.type === "arrow-loop" || item.type === "parbegin") {
+            if (item.type === "loopbegin" || item.type === "parbegin") {
                 return false
             }
         }

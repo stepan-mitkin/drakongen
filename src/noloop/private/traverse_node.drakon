@@ -1,0 +1,69 @@
+{
+    "params": "context\nnode_id\nstack",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "branchId": 0,
+            "content": "",
+            "one": "3",
+            "type": "branch"
+        },
+        "3": {
+            "content": "node_id",
+            "one": "5",
+            "type": "question",
+            "flag1": 1,
+            "two": "1"
+        },
+        "5": {
+            "type": "action",
+            "content": "node = context.nodes[node_id]",
+            "one": "25"
+        },
+        "25": {
+            "content": "node.stack",
+            "one": "47",
+            "type": "question",
+            "flag1": 1,
+            "two": "26"
+        },
+        "26": {
+            "type": "action",
+            "content": "node.stack = []\nnode.refs = node.prev.length",
+            "one": "47"
+        },
+        "47": {
+            "type": "action",
+            "content": "node.refs--",
+            "one": "48"
+        },
+        "48": {
+            "type": "action",
+            "content": "merge_converging_branches(\n    context,\n    node_id,\n    node,\n    stack\n)",
+            "one": "49"
+        },
+        "49": {
+            "content": "node.refs > 0",
+            "one": "51",
+            "type": "question",
+            "flag1": 0,
+            "two": "1"
+        },
+        "51": {
+            "type": "action",
+            "content": "recurse_traversal(\n    context,\n    node_id,\n    node\n)",
+            "one": "1"
+        }
+    },
+    "type": "drakon",
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    }
+}

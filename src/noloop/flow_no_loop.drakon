@@ -1,0 +1,33 @@
+{
+    "params": "nodes\nstart_node_id",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "one": "3",
+            "branchId": 0
+        },
+        "3": {
+            "type": "action",
+            "content": "context = {\n    nodes: nodes\n}",
+            "one": "4"
+        },
+        "4": {
+            "type": "action",
+            "content": "traverse_node(\n    context,\n    start_node_id,\n    []\n)",
+            "one": "1"
+        }
+    },
+    "type": "drakon",
+    "description": "\"nodes\" is a program graph extracted from a flow chart.\nA node may have two next nodes:<ul><li>one</li><li>two</li></ul>The function's goal is to enrich the nodes graph with information for building an ast graph.\nTo do that, set \"next\" property for \"question\" nodes.\n\"next\" means the next node after the question node and its \"then\" and \"else\" subgraphs.\nIf \"next\" is empty, it means that the question node is the last in the algorithm.",
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": true,
+        "algoprop": false,
+        "lazy": false
+    }
+}
