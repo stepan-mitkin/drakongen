@@ -1,10 +1,12 @@
-function buildTree(nodes, nodeId, body, stopId, afterLoop) {
+function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
     while (nodeId) {
         if (nodeId === afterLoop) {
-            body.push({type: "break"})
+            body.push({type: "break"}) 
             return
         }
-        if (nodeId === stopId) {return;}
+        if (nodeId === stopId) {
+            return;
+        }
         const node = nodes[nodeId];
         let transformed;
         let next;
@@ -23,8 +25,8 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop) {
             const yesNodeId = node.flag1 === 1 ? node.one : node.two;
             const noNodeId = node.flag1 === 1 ? node.two : node.one;
 
-            buildTree(nodes, yesNodeId, transformed.yes, node.next, afterLoop);
-            buildTree(nodes, noNodeId, transformed.no, node.next, afterLoop);
+            buildTree(nodes, yesNodeId, transformed.yes, node.next, afterLoop, onError);
+            buildTree(nodes, noNodeId, transformed.no, node.next, afterLoop, onError);
             if (next === afterLoop) {
                 next = undefined
             }
@@ -37,9 +39,15 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop) {
                 body: []
             };
             var end = nodes[node.end]
-            buildTree(nodes, node.one, transformed.body, node.end, end.one)
+            buildTree(nodes, node.one, transformed.body, node.end, end.one, onError)
             next = node.next;   
         } else if (node.type == "loopend") {
+            if (stopId !== afterLoop) {
+                onError(
+                    "An exit from the loop must lead to the point right after the loop end",
+                    node.id
+                )
+            }
             return            
         } else if (node.type === "arrow-loop") {
             transformed = {
@@ -50,7 +58,7 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop) {
                 body: []
             };
             var end = nodes[node.stub]
-            buildTree(nodes, node.one, transformed.body, node.stub, end.one)
+            buildTree(nodes, node.one, transformed.body, node.stub, end.one, onError)
             next = node.next;  
         } else if (node.type === "arrow-stub") {
             return
@@ -66,7 +74,7 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop) {
                     body: []
                 }
                 transformed.procs.push(childProc)
-                buildTree(nodes, proc.start, childProc.body, undefined)
+                buildTree(nodes, proc.start, childProc.body, undefined, undefined, buildTree)
             }
             next = node.one;
         } else {

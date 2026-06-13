@@ -30,7 +30,7 @@
         },
         "61": {
             "type": "loopend",
-            "one": "58",
+            "one": "65",
             "content": "",
             "two": ""
         },
@@ -50,8 +50,13 @@
         "64": {
             "type": "action",
             "content": "<p>Say: huff da</p>",
-            "one": "58",
+            "one": "65",
             "two": ""
+        },
+        "65": {
+            "type": "action",
+            "content": "<p>Rest</p>",
+            "one": "58"
         },
         "header": {
             "type": "header",

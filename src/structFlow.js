@@ -396,6 +396,14 @@ function structFlow(nodes, branches, filename, translate, options) {
     return transformed;
   }
 
+  function onError(message, nodeId) {
+    throw createError(
+      translate(message),
+      filename,
+      nodeId
+    );
+  }
+
   function structMain() {
     rewireArrows(nodes, branches);
     prepareQuestions(nodes);
@@ -411,7 +419,7 @@ function structFlow(nodes, branches, filename, translate, options) {
 
     for (var branch of branches) {
       var body = [];
-      buildTree(nodes, branch.next, body, "<dummy id>", undefined);
+      buildTree(nodes, branch.next, body, "<dummy id>", undefined, onError);
 
       result.push({
         name: branch.content,

@@ -8,5 +8,6 @@ For each exercize in the program
         If Tired?
             Say: huff da
             break
+    Rest
 
 End of procedure
