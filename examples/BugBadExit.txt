@@ -1,0 +1,17 @@
+## Procedure "BugBadExit"
+
+Algorithm:
+LaLaLa
+    If AAAA
+        If XXXX
+            BBBB
+    Else
+        If KKKKK
+            If DDDDD
+                CCCC
+            break
+        Else
+            If not (FFFFFF)
+                break
+
+End of procedure
