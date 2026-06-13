@@ -411,15 +411,14 @@ function structFlow(nodes, branches, filename, translate, options) {
 
     for (var branch of branches) {
       var body = [];
-      buildTree(nodes, branch.next, body, "<dummy id>");
-      var body2 = [];
-      rewriteTree(body, 0, undefined, body2);
+      buildTree(nodes, branch.next, body, "<dummy id>", undefined);
+
       result.push({
         name: branch.content,
         branchId: branch.branchId,
         id: branch.id,        
         refs: branch.prev.length,
-        body: optimizeTree(body2),
+        body: optimizeTree(body),
       });
     }
 

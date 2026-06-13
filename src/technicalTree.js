@@ -1,5 +1,9 @@
-function buildTree(nodes, nodeId, body, stopId) {
+function buildTree(nodes, nodeId, body, stopId, afterLoop) {
     while (nodeId) {
+        if (nodeId === afterLoop) {
+            body.push({type: "break"})
+            return
+        }
         if (nodeId === stopId) {return;}
         const node = nodes[nodeId];
         let transformed;
@@ -19,25 +23,37 @@ function buildTree(nodes, nodeId, body, stopId) {
             const yesNodeId = node.flag1 === 1 ? node.one : node.two;
             const noNodeId = node.flag1 === 1 ? node.two : node.one;
 
-            buildTree(nodes, yesNodeId, transformed.yes, node.next);
-            buildTree(nodes, noNodeId, transformed.no, node.next);
+            buildTree(nodes, yesNodeId, transformed.yes, node.next, afterLoop);
+            buildTree(nodes, noNodeId, transformed.no, node.next, afterLoop);
+            if (next === afterLoop) {
+                next = undefined
+            }
+        } else if (node.type == "loopbegin") {
+            transformed = {
+                id: node.id,
+                type: "loopbegin",
+                content: node.content,
+                end: node.end,
+                body: []
+            };
+            var end = nodes[node.end]
+            buildTree(nodes, node.one, transformed.body, node.end, end.one)
+            next = node.next;   
+        } else if (node.type == "loopend") {
+            return            
         } else if (node.type === "arrow-loop") {
             transformed = {
                 id: node.id,
                 type: "loopbegin",
                 content: "",
-                end: node.stub
+                end: node.stub,
+                body: []
             };
-
-            next = node.one;
+            var end = nodes[node.stub]
+            buildTree(nodes, node.one, transformed.body, node.stub, end.one)
+            next = node.next;  
         } else if (node.type === "arrow-stub") {
-            transformed = {
-                id: node.id,
-                type: "loopend",
-                start: node.arrow
-            };
-
-            next = node.one;
+            return
         } else if (node.type === "parbegin") {
             transformed = {
                 id: node.id,

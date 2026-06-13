@@ -9,7 +9,6 @@ LaLaLa
         If KKKKK
             If DDDDD
                 CCCC
-            break
         Else
             If not (FFFFFF)
                 break
