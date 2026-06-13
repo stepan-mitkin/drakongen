@@ -109,6 +109,153 @@ var translationsNo = {
     "Start timer": "Start tidtaker"
 };
 
+var translationsFr = {
+    error: 'Erreur',
+    not: 'non',
+    break: 'quitter la boucle',
+    and: 'et',
+    or: 'ou',
+    if: 'Si',
+    else: 'Sinon',
+    empty: 'Vide',
+    'loop forever': 'Boucler indéfiniment',
+    pass: 'Ignorer',
+    'Only the rightmost Case icon can be empty': "Seule l'icône Case la plus à droite peut être vide",
+    'Error parsing JSON': "Erreur lors de l'analyse du JSON",
+    'A Loop begin icon must have content': "Une icône de début de boucle doit avoir un contenu",
+    'A Question icon must have content': "Une icône Question doit avoir un contenu",
+    'A Select icon must have content': "Une icône Select doit avoir un contenu",
+    'Unexpected case value': 'Valeur de cas inattendue',
+    'Loop end expected here': 'Fin de boucle attendue ici',
+    'An exit from the loop must lead to the point right after the loop end': 'Une sortie de boucle doit mener au point situé juste après la fin de la boucle',
+    'A silhouette branch is not referenced': "Une branche de silhouette n'est pas référencée",
+    'Call subroutine': 'Appeler la sous-routine',
+    Procedure: 'Procédure',
+    'End of procedure': 'Fin de la procédure',
+    Subroutine: 'Sous-routine',
+    'End of subroutine': 'Fin de la sous-routine',
+    Description: 'Description',
+    Algorithm: 'Algorithme',
+    Remarks: 'Remarques',
+    Parameters: 'Paramètres',
+    'Group of parallel processes': 'Groupe de processus parallèles',
+    'Parallel process': 'Processus parallèle',
+    'Start at': 'Commencer à',
+    'Do for': 'Exécuter pendant',
+    'Pause': 'Pause',
+    'Start timer': 'Démarrer le minuteur'
+};
+
+var translationsDe = {
+    error: 'Fehler',
+    not: 'nicht',
+    break: 'Schleife beenden',
+    and: 'und',
+    or: 'oder',
+    if: 'Wenn',
+    else: 'Sonst',
+    empty: 'Leer',
+    'loop forever': 'Endlos wiederholen',
+    pass: 'Überspringen',
+    'Only the rightmost Case icon can be empty': 'Nur das äußerste rechte Case-Symbol darf leer sein',
+    'Error parsing JSON': 'Fehler beim Parsen von JSON',
+    'A Loop begin icon must have content': 'Ein Schleifenstart-Symbol muss Inhalt haben',
+    'A Question icon must have content': 'Ein Frage-Symbol muss Inhalt haben',
+    'A Select icon must have content': 'Ein Auswahl-Symbol muss Inhalt haben',
+    'Unexpected case value': 'Unerwarteter Fallwert',
+    'Loop end expected here': 'Schleifenende wird hier erwartet',
+    'An exit from the loop must lead to the point right after the loop end': 'Ein Ausgang aus der Schleife muss direkt hinter das Schleifenende führen',
+    'A silhouette branch is not referenced': 'Ein Silhouettenzweig wird nicht referenziert',
+    'Call subroutine': 'Unterprogramm aufrufen',
+    Procedure: 'Prozedur',
+    'End of procedure': 'Ende der Prozedur',
+    Subroutine: 'Unterprogramm',
+    'End of subroutine': 'Ende des Unterprogramms',
+    Description: 'Beschreibung',
+    Algorithm: 'Algorithmus',
+    Remarks: 'Bemerkungen',
+    Parameters: 'Parameter',
+    'Group of parallel processes': 'Gruppe paralleler Prozesse',
+    'Parallel process': 'Paralleler Prozess',
+    'Start at': 'Starten bei',
+    'Do for': 'Ausführen für',
+    'Pause': 'Pause',
+    'Start timer': 'Timer starten'
+};
+
+var translationsEs = {
+    error: 'Error',
+    not: 'no',
+    break: 'salir del bucle',
+    and: 'y',
+    or: 'o',
+    if: 'Si',
+    else: 'De lo contrario',
+    empty: 'Vacío',
+    'loop forever': 'Repetir para siempre',
+    pass: 'Omitir',
+    'Only the rightmost Case icon can be empty': 'Solo el icono Case más a la derecha puede estar vacío',
+    'Error parsing JSON': 'Error al analizar JSON',
+    'A Loop begin icon must have content': 'Un icono de inicio de bucle debe tener contenido',
+    'A Question icon must have content': 'Un icono de Pregunta debe tener contenido',
+    'A Select icon must have content': 'Un icono de Selección debe tener contenido',
+    'Unexpected case value': 'Valor de caso inesperado',
+    'Loop end expected here': 'Se esperaba el final del bucle aquí',
+    'An exit from the loop must lead to the point right after the loop end': 'Una salida del bucle debe conducir al punto inmediatamente después del final del bucle',
+    'A silhouette branch is not referenced': 'Una rama de silueta no está referenciada',
+    'Call subroutine': 'Llamar subrutina',
+    Procedure: 'Procedimiento',
+    'End of procedure': 'Fin del procedimiento',
+    Subroutine: 'Subrutina',
+    'End of subroutine': 'Fin de la subrutina',
+    Description: 'Descripción',
+    Algorithm: 'Algoritmo',
+    Remarks: 'Observaciones',
+    Parameters: 'Parámetros',
+    'Group of parallel processes': 'Grupo de procesos paralelos',
+    'Parallel process': 'Proceso paralelo',
+    'Start at': 'Comenzar en',
+    'Do for': 'Ejecutar durante',
+    'Pause': 'Pausa',
+    'Start timer': 'Iniciar temporizador'
+};
+
+var translationsLt = {
+    error: 'Klaida',
+    not: 'ne',
+    break: 'nutraukti ciklą',
+    and: 'ir',
+    or: 'arba',
+    if: 'Jei',
+    else: 'Kitaip',
+    empty: 'Tuščias',
+    'loop forever': 'Kartoti amžinai',
+    pass: 'Praleisti',
+    'Only the rightmost Case icon can be empty': 'Tik dešiniausia Case piktograma gali būti tuščia',
+    'Error parsing JSON': 'Klaida analizuojant JSON',
+    'A Loop begin icon must have content': 'Ciklo pradžios piktograma turi turėti turinį',
+    'A Question icon must have content': 'Klausimo piktograma turi turėti turinį',
+    'A Select icon must have content': 'Pasirinkimo piktograma turi turėti turinį',
+    'Unexpected case value': 'Netikėta atvejo reikšmė',
+    'Loop end expected here': 'Čia tikimasi ciklo pabaigos',
+    'An exit from the loop must lead to the point right after the loop end': 'Išėjimas iš ciklo turi vesti į tašką iškart po ciklo pabaigos',
+    'A silhouette branch is not referenced': 'Silueto šaka nėra susieta',
+    'Call subroutine': 'Kviesti paprogramę',
+    Procedure: 'Procedūra',
+    'End of procedure': 'Procedūros pabaiga',
+    Subroutine: 'Paprogramė',
+    'End of subroutine': 'Paprogramės pabaiga',
+    Description: 'Aprašymas',
+    Algorithm: 'Algoritmas',
+    Remarks: 'Pastabos',
+    Parameters: 'Parametrai',
+    'Group of parallel processes': 'Lygiagrečių procesų grupė',
+    'Parallel process': 'Lygiagretus procesas',
+    'Start at': 'Pradėti nuo',
+    'Do for': 'Vykdyti',
+    'Pause': 'Pauzė',
+    'Start timer': 'Paleisti laikmatį'
+};
 
 var translations = translationsEn
 
@@ -123,10 +270,17 @@ function setUpLanguage(language) {
         translations = translationsNo
     } else if (language === "en") {
         translations = translationsEn
+    } else if (language === "fr") {
+        translations = translationsFr
+    } else if (language === "de") {
+        translations = translationsDe
+    } else if (language === "es") {
+        translations = translationsEs
+    } else if (language === "lt") {
+        translations = translationsLt
     } else {
         translations = {}
     }
 }
-
 
 module.exports = { setUpLanguage, translate };

@@ -18,7 +18,13 @@ window.drakongen = {
 
   toMindTree: function (mindJson, name, filename, language) {
     setUpLanguage(language);
-    var result = mindToTree(mindJson, name, filename, htmlToString);
+    var result = mindToTree(mindJson, name, filename, htmlToString, false);
+    return result.text;
+  },
+
+  toMindTreeJson: function (mindJson, name, filename, language) {
+    setUpLanguage(language);
+    var result = mindToTree(mindJson, name, filename, htmlToString, true);
     return result.text;
   },
 

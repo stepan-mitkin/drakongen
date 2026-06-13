@@ -44,7 +44,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate,
 }
 
 
-function mindToTree(drakonJson, name, filename, htmlToString) {
+function mindToTree(drakonJson, name, filename, htmlToString, outputToJson) {
     let drakonGraph;
     try {
         drakonJson = drakonJson || ""
@@ -57,14 +57,40 @@ function mindToTree(drakonJson, name, filename, htmlToString) {
     }
 
     const nodes = drakonGraph.items || {};
-    var root = createMindNode("## " + name)
-    nodes["root"] = root
-    connectMindNodesToParent(nodes)
-    sortMindChildren(nodes)
-    var lines = []
-    printMindNode(root, 0, lines, htmlToString, true)
-    lines.push("")
-    var text = lines.join("\n")
+    for (var id in nodes) {
+        var node = nodes[id]
+        node.id = id
+        delete node.type
+        delete node.treeType
+        if (node.content) {
+            node.content = htmlToString(node.content).join("\n")
+        }
+    }
+
+    var text;
+    if (outputToJson) {
+        var root = createMindNode(name)
+        root.name = root.content
+        delete root.content
+        nodes["root"] = root
+        connectMindNodesToParent(nodes)
+        sortMindChildren(nodes)
+        for (var id in nodes) {
+            var node = nodes[id]
+            delete node.parent
+            delete node.ordinal
+        }
+        text = JSON.stringify(root, null, 4)
+    } else {
+        var root = createMindNode("## " + name)
+        nodes["root"] = root
+        connectMindNodesToParent(nodes)
+        sortMindChildren(nodes)
+        var lines = []
+        printMindNode(root, 0, lines, htmlToString, true)
+        lines.push("")
+        text = lines.join("\n")
+    }
     return {text:text}
 }
 
@@ -108,10 +134,9 @@ function printMindNode(node, depth, lines, htmlToString, first) {
 
 function createMindNode(name) {
     return {
-        "type": "idea",
-        "content": "<p>" + name + "</p>",
+        "type": "graf",
+        "content": name,
         "parent": undefined,
-        "treeType": "treeview",
         "ordinal": 0
     }
 }

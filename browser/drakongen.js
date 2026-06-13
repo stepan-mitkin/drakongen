@@ -81,7 +81,7 @@ function drakonToPseudocode(drakonJson, name, filename, htmlToString, translate,
 }
 
 
-function mindToTree(drakonJson, name, filename, htmlToString) {
+function mindToTree(drakonJson, name, filename, htmlToString, outputToJson) {
     let drakonGraph;
     try {
         drakonJson = drakonJson || ""
@@ -94,14 +94,40 @@ function mindToTree(drakonJson, name, filename, htmlToString) {
     }
 
     const nodes = drakonGraph.items || {};
-    var root = createMindNode("## " + name)
-    nodes["root"] = root
-    connectMindNodesToParent(nodes)
-    sortMindChildren(nodes)
-    var lines = []
-    printMindNode(root, 0, lines, htmlToString, true)
-    lines.push("")
-    var text = lines.join("\n")
+    for (var id in nodes) {
+        var node = nodes[id]
+        node.id = id
+        delete node.type
+        delete node.treeType
+        if (node.content) {
+            node.content = htmlToString(node.content).join("\n")
+        }
+    }
+
+    var text;
+    if (outputToJson) {
+        var root = createMindNode(name)
+        root.name = root.content
+        delete root.content
+        nodes["root"] = root
+        connectMindNodesToParent(nodes)
+        sortMindChildren(nodes)
+        for (var id in nodes) {
+            var node = nodes[id]
+            delete node.parent
+            delete node.ordinal
+        }
+        text = JSON.stringify(root, null, 4)
+    } else {
+        var root = createMindNode("## " + name)
+        nodes["root"] = root
+        connectMindNodesToParent(nodes)
+        sortMindChildren(nodes)
+        var lines = []
+        printMindNode(root, 0, lines, htmlToString, true)
+        lines.push("")
+        text = lines.join("\n")
+    }
     return {text:text}
 }
 
@@ -145,10 +171,9 @@ function printMindNode(node, depth, lines, htmlToString, first) {
 
 function createMindNode(name) {
     return {
-        "type": "idea",
-        "content": "<p>" + name + "</p>",
+        "type": "graf",
+        "content": name,
         "parent": undefined,
-        "treeType": "treeview",
         "ordinal": 0
     }
 }
@@ -184,19 +209,24 @@ function drakonToStruct(
   const nodes = drakonGraph.items || {};
 
   var branches = [];
-  var firstNodeId = findStartNode(nodes, filename, branches);
+  var firstNodeId = findStartNode(nodes, filename, branches, htmlToString);
+  var params = decodeContent(drakonGraph.params, htmlToString);
+  var description = decodeContent(drakonGraph.description, htmlToString);
+
+  var result = {
+    name: name,
+    type: "drakon",
+    params:  params,
+    description: description,
+    branches: []
+  };
 
   if (!firstNodeId) {
-    return {
-      name: name,
-      params: drakonGraph.params || "",
-      description: drakonGraph.description || "",
-      branches: [],
-    };
+    return result
   }
 
   handleParallel(nodes, undefined, firstNodeId, {}, undefined);
-  buildTwoWayConnections(nodes, firstNodeId, htmlToString);
+  buildTwoWayConnections(nodes, firstNodeId);
 
   rewireSelectsMarkLoops(nodes, filename);
   branches.forEach((branch) =>
@@ -204,29 +234,25 @@ function drakonToStruct(
       branch,
       firstNodeId,
       filename,
-      options,
-      htmlToString,
+      options
     ),
   );
   rewireShortcircuit(nodes, filename);
   branches.forEach((branch) => cutOffBranch(nodes, branch));
   var branchTrees = structFlow(nodes, branches, filename, translate, options);
-  return {
-    name: name,
-    params: drakonGraph.params || "",
-    description: drakonGraph.description || "",
-    branches: branchTrees,
-    secondary: findSecondary(branchTrees, options, htmlToString),
-  };
+
+  result.branches = branchTrees
+  result.secondary = findSecondary(branchTrees, options)
+  return result
 }
 
-function findSecondary(branchTrees, options, htmlToString) {
+function findSecondary(branchTrees, options) {
   if (!options || !options.secondary) {
     return undefined;
   }
   var ordinal = 0;
   for (var branch of branchTrees) {
-    var name = htmlToString(branch.name)[0];
+    var name = branch.name;
     if (name === options.secondary) {
       return ordinal;
     }
@@ -349,14 +375,13 @@ function checkBranchIsReferenced(
   branch,
   firstNodeId,
   filename,
-  options,
-  htmlToString,
+  options  
 ) {
   if (branch.id === firstNodeId) {
     return;
   }
-  if (options && htmlToString) {
-    var branchName = htmlToString(branch.content)[0];
+  if (options) {
+    var branchName = branch.content;
     if (branchName === options.secondary) {
       if (branch.prev.length > 0) {
         throw createError(
@@ -450,7 +475,7 @@ function addFakeEnd(nodes, prev, node, end, addresses) {
   node.prev = remove(node.prev, prev.id);
 }
 
-function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
+function buildTwoWayConnections(nodes, firstNodeId) {
   for (var id in nodes) {
     var node = nodes[id];
     node.id = id;
@@ -458,17 +483,18 @@ function buildTwoWayConnections(nodes, firstNodeId, htmlToString) {
   }
 
   var visitor = function (nodes, node) {
-    return connectBack(nodes, node, htmlToString);
+    return connectBack(nodes, node);
   };
 
   traverse(nodes, firstNodeId, {}, visitor);
 }
 
-function findStartNode(nodes, filename, branches) {
+function findStartNode(nodes, filename, branches, htmlToString) {
   var firstNodeId = undefined;
   var minBranchId = 10000;
   for (var id in nodes) {
     var node = nodes[id];
+    decodeNodeContent(node, htmlToString);
     if (node.type === "branch") {
       if (node.branchId < minBranchId) {
         firstNodeId = id;
@@ -507,6 +533,24 @@ function findStartNode(nodes, filename, branches) {
   }
 
   return firstNodeId;
+}
+
+function decodeNodeContent(node, htmlToString) {
+  if (node.content) {
+    node.content = decodeContent(node.content, htmlToString);
+  }
+
+  if (node.secondary) {
+    node.secondary = decodeContent(node.secondary, htmlToString);
+  }
+}
+
+function decodeContent(content, htmlToString) {
+  if (!content) {
+    return ""
+  }
+  var lines = htmlToString(content);
+  return lines.join("\n");
 }
 
 function rewireSelectsMarkLoops(nodes, filename) {
@@ -747,7 +791,7 @@ function traverse(nodes, nodeId, visited, action) {
   }
 }
 
-function connectBack(nodes, node, htmlToString) {
+function connectBack(nodes, node) {
   if (node.one) {
     var one = nodes[node.one];
     one.prev.push(node.id);
@@ -760,20 +804,18 @@ function connectBack(nodes, node, htmlToString) {
   if (node.side) {
     var side = nodes[node.side].content;
     if (side) {
-      node.side = decodeSide(side, htmlToString);
+      node.side = decodeSide(side);
     } else {
       delete node.side;
     }
   }
 }
 
-function decodeSide(content, htmlToString) {
-  var text = htmlToString(content);
-  var oneLine = text.join(" ");
-  if (oneLine.indexOf("=") === -1) {
-    return translate("Do for") + " " + oneLine;
+function decodeSide(content) {
+  if (content.indexOf("=") === -1) {
+    return translate("Do for") + " " + content;
   } else {
-    return translate("Start at") + " " + oneLine;
+    return translate("Start at") + " " + content;
   }
 }
 
@@ -818,7 +860,13 @@ window.drakongen = {
 
   toMindTree: function (mindJson, name, filename, language) {
     setUpLanguage(language);
-    var result = mindToTree(mindJson, name, filename, htmlToString);
+    var result = mindToTree(mindJson, name, filename, htmlToString, false);
+    return result.text;
+  },
+
+  toMindTreeJson: function (mindJson, name, filename, language) {
+    setUpLanguage(language);
+    var result = mindToTree(mindJson, name, filename, htmlToString, true);
     return result.text;
   },
 
@@ -1705,7 +1753,7 @@ function structFlow(nodes, branches, filename, translate, options) {
       result.push({
         name: branch.content,
         branchId: branch.branchId,
-        start: branch.next,
+        id: branch.id,        
         refs: branch.prev.length,
         body: optimizeTree(body2),
       });
@@ -1728,7 +1776,7 @@ function buildTree(nodes, nodeId, body, stopId) {
 
         if (node.type === "question") {
             next = reserveNext(nodes, node)
-
+            
             transformed = {
                 id: node.id,
                 type: "question",
@@ -1980,6 +2028,153 @@ var translationsNo = {
     "Start timer": "Start tidtaker"
 };
 
+var translationsFr = {
+    error: 'Erreur',
+    not: 'non',
+    break: 'quitter la boucle',
+    and: 'et',
+    or: 'ou',
+    if: 'Si',
+    else: 'Sinon',
+    empty: 'Vide',
+    'loop forever': 'Boucler indéfiniment',
+    pass: 'Ignorer',
+    'Only the rightmost Case icon can be empty': "Seule l'icône Case la plus à droite peut être vide",
+    'Error parsing JSON': "Erreur lors de l'analyse du JSON",
+    'A Loop begin icon must have content': "Une icône de début de boucle doit avoir un contenu",
+    'A Question icon must have content': "Une icône Question doit avoir un contenu",
+    'A Select icon must have content': "Une icône Select doit avoir un contenu",
+    'Unexpected case value': 'Valeur de cas inattendue',
+    'Loop end expected here': 'Fin de boucle attendue ici',
+    'An exit from the loop must lead to the point right after the loop end': 'Une sortie de boucle doit mener au point situé juste après la fin de la boucle',
+    'A silhouette branch is not referenced': "Une branche de silhouette n'est pas référencée",
+    'Call subroutine': 'Appeler la sous-routine',
+    Procedure: 'Procédure',
+    'End of procedure': 'Fin de la procédure',
+    Subroutine: 'Sous-routine',
+    'End of subroutine': 'Fin de la sous-routine',
+    Description: 'Description',
+    Algorithm: 'Algorithme',
+    Remarks: 'Remarques',
+    Parameters: 'Paramètres',
+    'Group of parallel processes': 'Groupe de processus parallèles',
+    'Parallel process': 'Processus parallèle',
+    'Start at': 'Commencer à',
+    'Do for': 'Exécuter pendant',
+    'Pause': 'Pause',
+    'Start timer': 'Démarrer le minuteur'
+};
+
+var translationsDe = {
+    error: 'Fehler',
+    not: 'nicht',
+    break: 'Schleife beenden',
+    and: 'und',
+    or: 'oder',
+    if: 'Wenn',
+    else: 'Sonst',
+    empty: 'Leer',
+    'loop forever': 'Endlos wiederholen',
+    pass: 'Überspringen',
+    'Only the rightmost Case icon can be empty': 'Nur das äußerste rechte Case-Symbol darf leer sein',
+    'Error parsing JSON': 'Fehler beim Parsen von JSON',
+    'A Loop begin icon must have content': 'Ein Schleifenstart-Symbol muss Inhalt haben',
+    'A Question icon must have content': 'Ein Frage-Symbol muss Inhalt haben',
+    'A Select icon must have content': 'Ein Auswahl-Symbol muss Inhalt haben',
+    'Unexpected case value': 'Unerwarteter Fallwert',
+    'Loop end expected here': 'Schleifenende wird hier erwartet',
+    'An exit from the loop must lead to the point right after the loop end': 'Ein Ausgang aus der Schleife muss direkt hinter das Schleifenende führen',
+    'A silhouette branch is not referenced': 'Ein Silhouettenzweig wird nicht referenziert',
+    'Call subroutine': 'Unterprogramm aufrufen',
+    Procedure: 'Prozedur',
+    'End of procedure': 'Ende der Prozedur',
+    Subroutine: 'Unterprogramm',
+    'End of subroutine': 'Ende des Unterprogramms',
+    Description: 'Beschreibung',
+    Algorithm: 'Algorithmus',
+    Remarks: 'Bemerkungen',
+    Parameters: 'Parameter',
+    'Group of parallel processes': 'Gruppe paralleler Prozesse',
+    'Parallel process': 'Paralleler Prozess',
+    'Start at': 'Starten bei',
+    'Do for': 'Ausführen für',
+    'Pause': 'Pause',
+    'Start timer': 'Timer starten'
+};
+
+var translationsEs = {
+    error: 'Error',
+    not: 'no',
+    break: 'salir del bucle',
+    and: 'y',
+    or: 'o',
+    if: 'Si',
+    else: 'De lo contrario',
+    empty: 'Vacío',
+    'loop forever': 'Repetir para siempre',
+    pass: 'Omitir',
+    'Only the rightmost Case icon can be empty': 'Solo el icono Case más a la derecha puede estar vacío',
+    'Error parsing JSON': 'Error al analizar JSON',
+    'A Loop begin icon must have content': 'Un icono de inicio de bucle debe tener contenido',
+    'A Question icon must have content': 'Un icono de Pregunta debe tener contenido',
+    'A Select icon must have content': 'Un icono de Selección debe tener contenido',
+    'Unexpected case value': 'Valor de caso inesperado',
+    'Loop end expected here': 'Se esperaba el final del bucle aquí',
+    'An exit from the loop must lead to the point right after the loop end': 'Una salida del bucle debe conducir al punto inmediatamente después del final del bucle',
+    'A silhouette branch is not referenced': 'Una rama de silueta no está referenciada',
+    'Call subroutine': 'Llamar subrutina',
+    Procedure: 'Procedimiento',
+    'End of procedure': 'Fin del procedimiento',
+    Subroutine: 'Subrutina',
+    'End of subroutine': 'Fin de la subrutina',
+    Description: 'Descripción',
+    Algorithm: 'Algoritmo',
+    Remarks: 'Observaciones',
+    Parameters: 'Parámetros',
+    'Group of parallel processes': 'Grupo de procesos paralelos',
+    'Parallel process': 'Proceso paralelo',
+    'Start at': 'Comenzar en',
+    'Do for': 'Ejecutar durante',
+    'Pause': 'Pausa',
+    'Start timer': 'Iniciar temporizador'
+};
+
+var translationsLt = {
+    error: 'Klaida',
+    not: 'ne',
+    break: 'nutraukti ciklą',
+    and: 'ir',
+    or: 'arba',
+    if: 'Jei',
+    else: 'Kitaip',
+    empty: 'Tuščias',
+    'loop forever': 'Kartoti amžinai',
+    pass: 'Praleisti',
+    'Only the rightmost Case icon can be empty': 'Tik dešiniausia Case piktograma gali būti tuščia',
+    'Error parsing JSON': 'Klaida analizuojant JSON',
+    'A Loop begin icon must have content': 'Ciklo pradžios piktograma turi turėti turinį',
+    'A Question icon must have content': 'Klausimo piktograma turi turėti turinį',
+    'A Select icon must have content': 'Pasirinkimo piktograma turi turėti turinį',
+    'Unexpected case value': 'Netikėta atvejo reikšmė',
+    'Loop end expected here': 'Čia tikimasi ciklo pabaigos',
+    'An exit from the loop must lead to the point right after the loop end': 'Išėjimas iš ciklo turi vesti į tašką iškart po ciklo pabaigos',
+    'A silhouette branch is not referenced': 'Silueto šaka nėra susieta',
+    'Call subroutine': 'Kviesti paprogramę',
+    Procedure: 'Procedūra',
+    'End of procedure': 'Procedūros pabaiga',
+    Subroutine: 'Paprogramė',
+    'End of subroutine': 'Paprogramės pabaiga',
+    Description: 'Aprašymas',
+    Algorithm: 'Algoritmas',
+    Remarks: 'Pastabos',
+    Parameters: 'Parametrai',
+    'Group of parallel processes': 'Lygiagrečių procesų grupė',
+    'Parallel process': 'Lygiagretus procesas',
+    'Start at': 'Pradėti nuo',
+    'Do for': 'Vykdyti',
+    'Pause': 'Pauzė',
+    'Start timer': 'Paleisti laikmatį'
+};
 
 var translations = translationsEn
 
@@ -1994,11 +2189,18 @@ function setUpLanguage(language) {
         translations = translationsNo
     } else if (language === "en") {
         translations = translationsEn
+    } else if (language === "fr") {
+        translations = translationsFr
+    } else if (language === "de") {
+        translations = translationsDe
+    } else if (language === "es") {
+        translations = translationsEs
+    } else if (language === "lt") {
+        translations = translationsLt
     } else {
         translations = {}
     }
 }
-
 
 module.exports = { setUpLanguage, translate };
 },{}],12:[function(require,module,exports){
@@ -2055,6 +2257,7 @@ function optimizeQuestion(step) {
     var no = optimizeTree(step.no)
     if (yes.length === 0 && no.length === 0) {
         return {
+            id: step.id,
             side: step.side,
             type: step.type,
             content: step.content,
@@ -2064,6 +2267,7 @@ function optimizeQuestion(step) {
     }
     if (yes.length === 0) {
         return {
+            id: step.id,
             side: step.side,
             type: step.type,
             content: {operator:"not",operand:step.content},
@@ -2072,6 +2276,7 @@ function optimizeQuestion(step) {
         }
     }
     return {
+        id: step.id,
         side: step.side,
         type: step.type,
         content: step.content,

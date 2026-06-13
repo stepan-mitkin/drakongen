@@ -417,7 +417,7 @@ function structFlow(nodes, branches, filename, translate, options) {
       result.push({
         name: branch.content,
         branchId: branch.branchId,
-        start: branch.next,
+        id: branch.id,        
         refs: branch.prev.length,
         body: optimizeTree(body2),
       });
