@@ -32,16 +32,6 @@ function executeCommand(filePath, args) {
 }
 
 async function isNoLoopPossible(filePath) {
-    var content = await fs.readFile(filePath, "utf-8")
-    var diagram = JSON.parse(content)
-    if (diagram.items) {
-        for (var itemId in diagram.items) {
-            var item = diagram.items[itemId]
-            if (item.type === "parbegin") {
-                return false
-            }
-        }
-    }
     return true
 }
 

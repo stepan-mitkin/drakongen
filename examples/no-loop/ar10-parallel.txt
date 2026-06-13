@@ -1,0 +1,20 @@
+## Procedure "ar10-parallel"
+
+Algorithm:
+Group of parallel processes
+    Parallel process 1
+        Loop forever
+            If 3 == 4
+                break
+            Else
+                If 3 == 5
+                    If not (7)
+                        8
+                Else
+                    If not (3 == 6)
+                        Error:
+                            Unexpected case value
+                                3
+    Parallel process 2
+
+End of procedure

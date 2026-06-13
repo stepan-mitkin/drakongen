@@ -1,0 +1,16 @@
+## Procedure "parallel-nested"
+
+Algorithm:
+Group of parallel processes
+    Parallel process 1
+        Group of parallel processes
+            Parallel process 1
+            Parallel process 2
+                four
+        one
+    Parallel process 2
+        If three
+            two
+    Parallel process 3
+
+End of procedure

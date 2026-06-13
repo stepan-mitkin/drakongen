@@ -34,7 +34,7 @@
             "content": "\"arrow-stub\"",
             "one": "42",
             "type": "case",
-            "two": "20"
+            "two": "47"
         },
         "25": {
             "content": "traverse_node(\n    context,\n    node.one,\n    stack1\n)",
@@ -125,6 +125,27 @@
             "type": "action",
             "two": "",
             "content": "traverse_node(\n    context,\n    node.two,\n    stack2\n)"
+        },
+        "47": {
+            "one": "49",
+            "type": "case",
+            "two": "20",
+            "content": "\"parbegin\""
+        },
+        "48": {
+            "type": "loopend",
+            "one": "1",
+            "content": ""
+        },
+        "49": {
+            "type": "loopbegin",
+            "one": "50",
+            "content": "proc; node.procs"
+        },
+        "50": {
+            "type": "action",
+            "one": "48",
+            "content": "flow_no_loop(context.nodes, proc.start)"
         }
     },
     "type": "drakon"

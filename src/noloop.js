@@ -81,7 +81,7 @@ function merge_converging_branches(context, node_id, node, stack) {
     node.stack = processed_stack;
 }
 function recurse_traversal(context, node_id, node) {
-    var _selectValue_18, stack1, stack2;
+    var _collection_20, _selectValue_18, proc, stack1, stack2;
     _selectValue_18 = node.type;
     if (_selectValue_18 === 'question') {
         increment_if_count(context, node);
@@ -100,11 +100,18 @@ function recurse_traversal(context, node_id, node) {
             if (_selectValue_18 === 'arrow-stub') {
                 decrement_arrow_count(context, node);
             } else {
-                if (node.final) {
-                    decrement_if_count(context, node);
+                if (_selectValue_18 === 'parbegin') {
+                    _collection_20 = node.procs;
+                    for (proc of _collection_20) {
+                        flow_no_loop(context.nodes, proc.start);
+                    }
                 } else {
-                    stack1 = node.stack.slice();
-                    traverse_node(context, node.one, stack1);
+                    if (node.final) {
+                        decrement_if_count(context, node);
+                    } else {
+                        stack1 = node.stack.slice();
+                        traverse_node(context, node.one, stack1);
+                    }
                 }
             }
         }
