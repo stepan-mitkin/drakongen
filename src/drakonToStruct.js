@@ -354,11 +354,11 @@ function findStartNode(nodes, filename, branches, htmlToString) {
 }
 
 function decodeNodeContent(node, htmlToString) {
-  if (node.content) {
+  if (node.content && typeof node.content === "string") {
     node.content = decodeContent(node.content, htmlToString);
   }
 
-  if (node.secondary) {
+  if (node.secondary && typeof node.secondary === "string") {
     node.secondary = decodeContent(node.secondary, htmlToString);
   }
 }
