@@ -1,0 +1,186 @@
+{
+    "params": "context\nnode_id\nnode\nstack",
+    "style": "",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "branchId": 1,
+            "content": "Merge stacks",
+            "one": "3",
+            "type": "branch"
+        },
+        "3": {
+            "type": "action",
+            "content": "common = node.stack.concat(stack)",
+            "one": "4"
+        },
+        "4": {
+            "type": "action",
+            "content": "counts_by_id = group_stack_by_id(common)",
+            "one": "67"
+        },
+        "17": {
+            "branchId": 4,
+            "content": "Completion",
+            "one": "29",
+            "type": "branch"
+        },
+        "18": {
+            "branchId": 3,
+            "content": "Decrement count for merged ifs",
+            "one": "92",
+            "type": "branch"
+        },
+        "19": {
+            "type": "loopend",
+            "one": "17",
+            "two": ""
+        },
+        "20": {
+            "content": "algonode_id, count; counts_by_id",
+            "one": "21",
+            "type": "loopbegin",
+            "two": ""
+        },
+        "21": {
+            "content": "algonode = context.nodes[algonode_id]",
+            "one": "48",
+            "type": "action",
+            "two": ""
+        },
+        "29": {
+            "type": "action",
+            "content": "node.stack = processed_stack",
+            "one": "1"
+        },
+        "43": {
+            "content": "algonode.branching -= (count - 1)",
+            "one": "44",
+            "type": "action",
+            "two": ""
+        },
+        "44": {
+            "content": "algonode.branching > 1",
+            "one": "99",
+            "type": "question",
+            "two": "93",
+            "flag1": 0
+        },
+        "48": {
+            "content": "algonode.next",
+            "one": "95",
+            "type": "question",
+            "flag1": 0,
+            "two": "19"
+        },
+        "67": {
+            "type": "branch",
+            "branchId": 2,
+            "one": "70",
+            "content": "Any exits from arrow loops?"
+        },
+        "69": {
+            "type": "loopend",
+            "one": "18",
+            "two": ""
+        },
+        "70": {
+            "one": "71",
+            "type": "loopbegin",
+            "two": "",
+            "content": "algonode_id, count; counts_by_id"
+        },
+        "71": {
+            "one": "77",
+            "type": "action",
+            "two": "",
+            "content": "algonode = context.nodes[algonode_id]"
+        },
+        "77": {
+            "one": "96",
+            "type": "question",
+            "flag1": 0,
+            "two": "69",
+            "content": "algonode.next"
+        },
+        "86": {
+            "flag1": 0,
+            "type": "question",
+            "one": "89",
+            "two": "69",
+            "content": "is_in_map(node.astack, algonode_id)"
+        },
+        "87": {
+            "one": "69",
+            "type": "action",
+            "two": "",
+            "content": "algonode.next = node_id"
+        },
+        "88": {
+            "type": "action",
+            "one": "87",
+            "two": "",
+            "content": "stub.one = node_id"
+        },
+        "89": {
+            "type": "action",
+            "one": "91",
+            "two": "",
+            "content": "stub = context.nodes[algonode.stub]"
+        },
+        "91": {
+            "type": "action",
+            "one": "88",
+            "two": "",
+            "content": "decrement_if_count(context, stub)"
+        },
+        "92": {
+            "one": "20",
+            "type": "action",
+            "two": "",
+            "content": "processed_stack = []"
+        },
+        "93": {
+            "one": "19",
+            "type": "action",
+            "two": "",
+            "content": "processed_stack.push(algonode_id)"
+        },
+        "95": {
+            "flag1": 1,
+            "type": "question",
+            "one": "43",
+            "two": "93",
+            "content": "algonode.type == \"question\""
+        },
+        "96": {
+            "flag1": 1,
+            "type": "question",
+            "one": "98",
+            "two": "69",
+            "content": "algonode.type == \"arrow-loop\""
+        },
+        "97": {
+            "one": "86",
+            "type": "question",
+            "two": "69",
+            "flag1": 0,
+            "content": "algonode.branching > 1"
+        },
+        "98": {
+            "one": "97",
+            "type": "action",
+            "two": "",
+            "content": "algonode.branching -= (count - 1)"
+        },
+        "99": {
+            "one": "19",
+            "type": "action",
+            "two": "",
+            "content": "algonode.next = node_id"
+        }
+    },
+    "type": "drakon"
+}

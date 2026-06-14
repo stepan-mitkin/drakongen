@@ -1,0 +1,9 @@
+## Procedure "ar01-action"
+
+Algorithm:
+Loop forever
+    act
+    If 3
+        break
+
+End of procedure

@@ -1,0 +1,63 @@
+{
+    "params": "stack",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "one": "3",
+            "branchId": 0
+        },
+        "3": {
+            "type": "action",
+            "content": "counts_by_id = {}",
+            "one": "6"
+        },
+        "4": {
+            "type": "action",
+            "content": "return counts_by_id",
+            "one": "1"
+        },
+        "5": {
+            "type": "loopend",
+            "one": "4"
+        },
+        "6": {
+            "type": "loopbegin",
+            "content": "element; stack",
+            "one": "10"
+        },
+        "7": {
+            "type": "action",
+            "content": "existing = counts_by_id[element]",
+            "one": "9"
+        },
+        "9": {
+            "type": "action",
+            "content": "counts_by_id[element] = existing + 1",
+            "one": "5"
+        },
+        "10": {
+            "content": "element in counts_by_id",
+            "one": "7",
+            "type": "question",
+            "flag1": 1,
+            "two": "11"
+        },
+        "11": {
+            "type": "action",
+            "content": "existing = 0",
+            "one": "9"
+        }
+    },
+    "type": "drakon",
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    }
+}

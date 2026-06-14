@@ -4,8 +4,9 @@ Algorithm:
 If 3
     If 8
         I am final
-    9
-    10
+    Else
+        9
+        10
 Else
     If 4
         6

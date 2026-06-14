@@ -35,15 +35,13 @@ async function main() {
         project: false,
         json: false,
         output: null,
-        tree: false,
-        noLoop: false
+        tree: false
     };
     let targetPath = null;
 
     for (let i = 0; i < args.length; i++) {
         switch (args[i]) {
             case "--no-loop":
-                options.noLoop = true
                 break
             case '--language':
                 options.language = args[++i];

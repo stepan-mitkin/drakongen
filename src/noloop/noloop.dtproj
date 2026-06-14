@@ -1,0 +1,6 @@
+{
+    "language": "JS2604",
+    "outputFile": "../noloop.js",
+    "format": "CommonJS",
+    "dependencies": ""
+}

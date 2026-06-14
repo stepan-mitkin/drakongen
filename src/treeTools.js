@@ -5,23 +5,21 @@ function optimizeTree(steps) {
     for (var step of steps) {
         if (step.type === "end" || step.type === "branch" || step.type === "loopend") { continue }
         if ((step.type === "action" || step.type === "comment") && !step.content) { continue }
-        var copy
         if (step.type === "question") {
-            copy = optimizeQuestion(step)
+            optimizeQuestion(step, result)
         } else if (step.type === "parbegin") {
-            copy = optimizeParbegin(step)
-        } else if (step.type === "loop") {
-            copy = optimizeLoop(step)
+            optimizeParbegin(step, result)
+        } else if (step.type === "loop" || step.type === "loopbegin") {
+            optimizeLoop(step, result)
         } else {
-            copy = step
+            result.push(step)
         }
-        result.push(copy)
     }
 
     return result
 }
 
-function optimizeParbegin(step) {
+function optimizeParbegin(step, output) {
     var procs = []
     for (var proc of step.procs) {
         var procCopy = {
@@ -30,53 +28,62 @@ function optimizeParbegin(step) {
         }
         procs.push(procCopy)
     }
-    return {
+    output.push({
         id: step.id,
         type: step.type,
         procs: procs
-    }
+    })
 }
 
-function optimizeLoop(step) {
-    return {
+function optimizeLoop(step, output) {
+    output.push({
         id: step.id,
-        type: step.type,
+        type: "loop",
         content: step.content,
         body: optimizeTree(step.body)
-    }
+    })
 }
 
-function optimizeQuestion(step) {
+function endsWithBreak(body) {
+    if (body.length === 0) {
+        return false
+    }
+    var lastId = body.length - 1
+    return body[lastId].type === "break"
+}
+
+function optimizeQuestion(step, output) {
     var yes = optimizeTree(step.yes)
     var no = optimizeTree(step.no)
-    if (yes.length === 0 && no.length === 0) {
-        return {
-            id: step.id,
-            side: step.side,
-            type: step.type,
-            content: step.content,
-            yes: [],
-            no: []
-        }    
-    }
-    if (yes.length === 0) {
-        return {
-            id: step.id,
-            side: step.side,
-            type: step.type,
-            content: {operator:"not",operand:step.content},
-            yes: no,
-            no: []
-        }
-    }
-    return {
+    var breakYes = endsWithBreak(yes)
+    var breakNo = endsWithBreak(no)
+
+    var result = {
         id: step.id,
         side: step.side,
-        type: step.type,
-        content: step.content,
-        yes: yes,
-        no: no
+        type: step.type
+    }
+    if (breakYes && breakNo) {
+        yes.pop()
+        no.pop()
     }    
+    if (yes.length === 0 && no.length === 0) {
+        result.content = step.content
+        result.yes = []
+        result.no = []
+    } else if (yes.length === 0) {
+        result.content = {operator:"not",operand:step.content}
+        result.yes = no
+        result.no = []
+    } else {
+        result.content = step.content,
+        result.yes = yes,
+        result.no = no
+    }
+    output.push(result)
+    if (breakYes && breakNo) {
+        output.push({type: "break"})
+    }
 }
 
 
