@@ -1,0 +1,115 @@
+{
+    "items": {
+        "1": {
+            "type": "idea",
+            "content": "<p>first start</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "2": {
+            "type": "idea",
+            "content": "<p>normal operation</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "4": {
+            "type": "idea",
+            "content": "<p>delta = 0</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 2
+        },
+        "5": {
+            "type": "idea",
+            "content": "<p>yes(state == paused)</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "6": {
+            "type": "idea",
+            "content": "<p>state = running</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 3
+        },
+        "7": {
+            "type": "idea",
+            "content": "<p>yes(state == running)</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 0
+        },
+        "9": {
+            "type": "idea",
+            "content": "<p>assert(prev == 0)</p>",
+            "parent": "1",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "11": {
+            "type": "idea",
+            "content": "<p>dt = advance frame()</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 1
+        },
+        "12": {
+            "type": "idea",
+            "content": "<p>yes(dt &lt; max frame duration)</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 2
+        },
+        "13": {
+            "type": "idea",
+            "content": "<p>delta = dt</p>",
+            "parent": "2",
+            "treeType": "treeview",
+            "ordinal": 3
+        },
+        "14": {
+            "type": "idea",
+            "content": "<p>slow frame</p>",
+            "parent": "root",
+            "treeType": "treeview",
+            "ordinal": 2
+        },
+        "15": {
+            "type": "idea",
+            "content": "<p>yes(state == running)</p>",
+            "parent": "14",
+            "treeType": "treeview",
+            "ordinal": 0,
+            "w": ""
+        },
+        "18": {
+            "type": "idea",
+            "content": "<p>dt = advance frame()</p>",
+            "parent": "14",
+            "treeType": "treeview",
+            "ordinal": 1,
+            "w": ""
+        },
+        "19": {
+            "type": "idea",
+            "content": "<p>no(dt &lt; max frame duration)</p>",
+            "parent": "14",
+            "treeType": "treeview",
+            "ordinal": 2,
+            "w": ""
+        },
+        "20": {
+            "type": "idea",
+            "content": "<p>delta = max frame duration</p>",
+            "parent": "14",
+            "treeType": "treeview",
+            "ordinal": 3,
+            "w": ""
+        }
+    },
+    "type": "graf",
+    "name": "update"
+}

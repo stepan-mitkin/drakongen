@@ -148,7 +148,7 @@ function sortMindChildren(nodes) {
     for (var id in nodes) {
         var node = nodes[id]
         if (node.children) {
-            sortByProperty(node.children, "ordinal")
+            node.children = sortByProperty(node.children, "ordinal")
         }
     }
 }

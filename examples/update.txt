@@ -1,0 +1,17 @@
+## update
+
+first start
+    yes(state == paused)
+    assert(prev == 0)
+    delta = 0
+    state = running
+normal operation
+    yes(state == running)
+    dt = advance frame()
+    yes(dt < max frame duration)
+    delta = dt
+slow frame
+    yes(state == running)
+    dt = advance frame()
+    no(dt < max frame duration)
+    delta = max frame duration
