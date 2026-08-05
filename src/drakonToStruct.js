@@ -55,7 +55,9 @@ function drakonToStruct(
       options
     ),
   );
-  rewireShortcircuit(nodes, filename);
+  if (!options.skipShortcuts) {
+    rewireShortcircuit(nodes, filename);
+  }
   branches.forEach((branch) => cutOffBranch(nodes, branch));
   var branchTrees = structFlow(nodes, branches, filename, translate, options);
 

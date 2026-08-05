@@ -1,0 +1,139 @@
+{
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "ctx\nbody\nstart\nscenario",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "5"
+        },
+        "4": {
+            "type": "loopend",
+            "one": "1",
+            "content": ""
+        },
+        "5": {
+            "type": "loopbegin",
+            "one": "26",
+            "content": "i = start; i < body.length; i++"
+        },
+        "7": {
+            "type": "case",
+            "one": "12"
+        },
+        "10": {
+            "type": "select",
+            "one": "16",
+            "content": "step.type"
+        },
+        "12": {
+            "type": "action",
+            "one": "13",
+            "content": "clone = {\n    id: step.id,\n    type: step.type,\n    content: step.content\n}"
+        },
+        "13": {
+            "type": "question",
+            "one": "15",
+            "two": "14",
+            "flag1": 1,
+            "content": "step.secondary === undefined"
+        },
+        "14": {
+            "type": "action",
+            "one": "15",
+            "content": "clone.secondary = step.secondary"
+        },
+        "15": {
+            "type": "action",
+            "one": "4",
+            "content": "scenario.push(clone)"
+        },
+        "16": {
+            "type": "case",
+            "one": "17",
+            "two": "7",
+            "content": "\"question\""
+        },
+        "17": {
+            "type": "question",
+            "one": "22",
+            "two": "18",
+            "flag1": 0,
+            "content": "step.id in ctx.decisions"
+        },
+        "18": {
+            "type": "action",
+            "one": "25",
+            "content": "clone = {\n    id: step.id,\n    type: step.type,\n    content: yesPath(step.content)\n}"
+        },
+        "20": {
+            "type": "action",
+            "one": "29",
+            "content": "cloneYes = {\n    id: step.id,\n    type: step.type,\n    content: yesPath(step.content)\n}"
+        },
+        "21": {
+            "type": "action",
+            "one": "23",
+            "content": "scanBody(ctx, step.yes, 0, scenario)"
+        },
+        "22": {
+            "type": "action",
+            "one": "32",
+            "content": "ctx.decisions[step.id] = true"
+        },
+        "23": {
+            "type": "action",
+            "one": "30",
+            "two": "",
+            "content": "cloneNo = {\n    id: step.id,\n    type: step.type,\n    content: noPath(step.content)\n}"
+        },
+        "24": {
+            "type": "action",
+            "one": "31",
+            "two": "",
+            "content": "scanBody(ctx, step.no, 0, noScenario)"
+        },
+        "25": {
+            "type": "action",
+            "one": "4",
+            "content": "scanBody(ctx, step.yes, 0, scenario)"
+        },
+        "26": {
+            "type": "action",
+            "one": "10",
+            "content": "step = body[i]"
+        },
+        "29": {
+            "type": "action",
+            "one": "21",
+            "content": "scenario.push(cloneYes)"
+        },
+        "30": {
+            "type": "action",
+            "one": "24",
+            "content": "noScenario.push(cloneNo)"
+        },
+        "31": {
+            "type": "action",
+            "one": "4",
+            "two": "",
+            "content": "scanBody(ctx, body, i + 1, noScenario)"
+        },
+        "32": {
+            "type": "action",
+            "one": "20",
+            "content": "noScenario = cloneScenario(ctx, scenario)"
+        }
+    }
+}

@@ -3,6 +3,7 @@ const { htmlToString } = require("./nodeTools");
 const { setUpLanguage, translate } = require("./translate");
 const { drakonToStruct } = require("./drakonToStruct");
 const { freeDiagramToText } = require("./free");
+const { treeToScenarios } = require("./scenarios")
 
 function toPseudocode(drakonJson, name, filename, language, options) {
   setUpLanguage(language);
@@ -41,9 +42,19 @@ function freeToText(mindJson, name, filename, language) {
   return result.text;
 }
 
-function makeScenarios(content, name, filePath, language) {
+function makeScenarios(drakonJson, name, filename, language) {
   setUpLanguage(language);
-  return name + ":\n" + content.length
+  var options = {skipShortcuts: true};
+  var tree = drakonToStruct(
+    drakonJson,
+    name,
+    filename,
+    translate,
+    htmlToString,
+    options,
+  );
+  var result = treeToScenarios(tree, translate, filename);
+  return JSON.stringify(result, null, 4);
 }
 
 function toTree(drakonJson, name, filename, language, options) {

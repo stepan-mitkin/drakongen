@@ -1,0 +1,47 @@
+{
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "7"
+        },
+        "3": {
+            "type": "action",
+            "one": "1",
+            "content": "return ctx.scenarios"
+        },
+        "4": {
+            "type": "action",
+            "one": "6",
+            "content": "indexBranchesByName(ctx, tree.branches)"
+        },
+        "5": {
+            "type": "action",
+            "one": "4",
+            "content": "ctx = createContext()"
+        },
+        "6": {
+            "type": "action",
+            "one": "3",
+            "content": "scanBranches(ctx)"
+        },
+        "7": {
+            "type": "action",
+            "one": "5",
+            "content": "tr = translate"
+        }
+    },
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": true,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "tree\ntranslate\nfilename"
+}
