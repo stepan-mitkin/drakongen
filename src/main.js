@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {toTree, toPseudocode, toMindTree, freeToText, toMindTreeJson} = require("./index")
+const {toTree, toPseudocode, toMindTree, freeToText, toMindTreeJson, makeScenarios} = require("./index")
 const package = require("../package.json")
 
 const fs = require('fs').promises;
@@ -33,6 +33,7 @@ async function main() {
     let options = {
         language: "en",
         project: false,
+        scenarios: false,
         json: false,
         output: null,
         tree: false
@@ -45,6 +46,9 @@ async function main() {
                 break
             case '--language':
                 options.language = args[++i];
+                break;
+            case '--scenarios':
+                options.scenarios = true;
                 break;
             case '--tree':
                 options.tree = true;
@@ -123,7 +127,9 @@ async function generateOne(filePath, options) {
     var output
     if (options.tree) {
         var json = await convertToTree(filePath, options)
-        output = JSON.stringify(json, null, 4)   
+        output = JSON.stringify(json, null, 4)
+    } else if (options.scenarios) {
+        output = await convertToScenarios(filePath, options)
     } else {
         output = await convertToPseudo(filePath, options)
     }
@@ -138,6 +144,14 @@ async function writeOut(content, inputPath, outputFolder) {
     } else {
         console.log(content)
     }
+}
+
+async function convertToScenarios(filePath, options) {
+    // Read the content of the file with UTF-8 encoding
+    const content = await fs.readFile(filePath, 'utf8');
+    var pname = path.parse(filePath)
+    const name = pname.name
+    return makeScenarios(content, name, filePath, options.language);
 }
 
 async function convertToTree(filePath, options) {

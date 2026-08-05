@@ -41,6 +41,11 @@ function freeToText(mindJson, name, filename, language) {
   return result.text;
 }
 
+function makeScenarios(content, name, filePath, language) {
+  setUpLanguage(language);
+  return name + ":\n" + content.length
+}
+
 function toTree(drakonJson, name, filename, language, options) {
   setUpLanguage(language);
   var result = drakonToStruct(
@@ -53,4 +58,4 @@ function toTree(drakonJson, name, filename, language, options) {
   );
   return JSON.stringify(result, null, 4);
 }
-module.exports = { toPseudocode, toTree, toMindTree, freeToText, toMindTreeJson };
+module.exports = { toPseudocode, toTree, toMindTree, freeToText, toMindTreeJson, makeScenarios };
