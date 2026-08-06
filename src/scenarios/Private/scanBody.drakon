@@ -7,7 +7,7 @@
         "algoprop": false,
         "lazy": false
     },
-    "params": "ctx\nbody\nstart\nscenario",
+    "params": "ctx\nbody\nstart\nscenario\ninLoop",
     "type": "drakon",
     "items": {
         "1": {
@@ -20,7 +20,7 @@
         },
         "4": {
             "type": "loopend",
-            "one": "1",
+            "one": "52",
             "content": ""
         },
         "5": {
@@ -30,79 +30,41 @@
         },
         "7": {
             "type": "case",
-            "one": "12"
+            "one": "55"
         },
         "10": {
             "type": "select",
             "one": "16",
             "content": "step.type"
         },
-        "12": {
-            "type": "action",
-            "one": "13",
-            "content": "clone = {\n    id: step.id,\n    type: step.type,\n    content: step.content\n}"
-        },
-        "13": {
-            "type": "question",
-            "one": "15",
-            "two": "14",
-            "flag1": 1,
-            "content": "step.secondary === undefined"
-        },
-        "14": {
-            "type": "action",
-            "one": "15",
-            "content": "clone.secondary = step.secondary"
-        },
-        "15": {
-            "type": "action",
-            "one": "4",
-            "content": "scenario.push(clone)"
-        },
         "16": {
             "type": "case",
             "one": "17",
-            "two": "7",
+            "two": "49",
             "content": "\"question\""
         },
         "17": {
             "type": "question",
-            "one": "22",
-            "two": "18",
+            "one": "32",
+            "two": "54",
             "flag1": 0,
-            "content": "step.id in ctx.decisions"
-        },
-        "18": {
-            "type": "action",
-            "one": "25",
-            "content": "clone = {\n    id: step.id,\n    type: step.type,\n    content: yesPath(step.content)\n}"
+            "content": "visited"
         },
         "20": {
             "type": "action",
-            "one": "29",
-            "content": "cloneYes = {\n    id: step.id,\n    type: step.type,\n    content: yesPath(step.content)\n}"
+            "one": "21",
+            "content": "cloneStep(\n    step,\n    yesPath(step.content),\n    scenario\n)"
         },
         "21": {
             "type": "action",
-            "one": "23",
-            "content": "scanBody(ctx, step.yes, 0, scenario)"
-        },
-        "22": {
-            "type": "action",
-            "one": "32",
-            "content": "ctx.decisions[step.id] = true"
-        },
-        "23": {
-            "type": "action",
-            "one": "30",
-            "two": "",
-            "content": "cloneNo = {\n    id: step.id,\n    type: step.type,\n    content: noPath(step.content)\n}"
+            "one": "56",
+            "content": "breakYes = scanBody(\n    ctx,\n    step.yes,\n    0,\n    scenario,\n    false\n)"
         },
         "24": {
             "type": "action",
-            "one": "31",
+            "one": "57",
             "two": "",
-            "content": "scanBody(ctx, step.no, 0, noScenario)"
+            "content": "breakNo = scanBody(\n    ctx,\n    step.no,\n    0,\n    noScenario,\n    false\n)"
         },
         "25": {
             "type": "action",
@@ -111,29 +73,87 @@
         },
         "26": {
             "type": "action",
-            "one": "10",
+            "one": "53",
             "content": "step = body[i]"
-        },
-        "29": {
-            "type": "action",
-            "one": "21",
-            "content": "scenario.push(cloneYes)"
-        },
-        "30": {
-            "type": "action",
-            "one": "24",
-            "content": "noScenario.push(cloneNo)"
         },
         "31": {
             "type": "action",
             "one": "4",
             "two": "",
-            "content": "scanBody(ctx, body, i + 1, noScenario)"
+            "content": "scanBody(\n    ctx,\n    body,\n    i + 1,\n    noScenario,\n    inLoop\n)"
         },
         "32": {
             "type": "action",
             "one": "20",
-            "content": "noScenario = cloneScenario(ctx, scenario)"
+            "content": "scenarioNo = cloneScenario(ctx, scenario)"
+        },
+        "49": {
+            "one": "4",
+            "type": "case",
+            "two": "50",
+            "content": "\"loop\""
+        },
+        "50": {
+            "one": "51",
+            "type": "case",
+            "two": "7",
+            "content": "\"break\""
+        },
+        "51": {
+            "type": "action",
+            "one": "4",
+            "content": "return true"
+        },
+        "52": {
+            "type": "action",
+            "one": "1",
+            "content": "return false"
+        },
+        "53": {
+            "type": "action",
+            "one": "10",
+            "content": "visited = visit(ctx, step)"
+        },
+        "54": {
+            "type": "action",
+            "one": "25",
+            "content": "cloneYes = cloneStep(\n    step,\n    yesPath(step.content)\n)"
+        },
+        "55": {
+            "type": "action",
+            "one": "4",
+            "content": "cloneStep(step, step.content, scenario)"
+        },
+        "56": {
+            "type": "action",
+            "one": "24",
+            "content": "cloneStep(\n    step,\n    noPath(step.content),\n    scenarioNo\n)"
+        },
+        "57": {
+            "type": "question",
+            "one": "31",
+            "two": "58",
+            "flag1": 0,
+            "content": "breakYes"
+        },
+        "58": {
+            "type": "question",
+            "one": "31",
+            "two": "60",
+            "flag1": 0,
+            "content": "breakNo"
+        },
+        "60": {
+            "type": "question",
+            "one": "31",
+            "two": "61",
+            "flag1": 1,
+            "content": "inLoop"
+        },
+        "61": {
+            "type": "action",
+            "one": "4",
+            "content": "return false"
         }
     }
 }
