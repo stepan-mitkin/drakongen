@@ -14,25 +14,42 @@
             "one": "1",
             "content": "return ctx.scenarios"
         },
-        "4": {
-            "type": "action",
-            "one": "6",
-            "content": "indexBranchesByName(ctx, tree.branches)"
-        },
         "5": {
             "type": "action",
-            "one": "4",
+            "one": "6",
             "content": "ctx = createContext()"
         },
         "6": {
             "type": "action",
             "one": "3",
-            "content": "scanBranches(ctx)"
+            "content": "scanAlgorithm(ctx, dinfo)"
         },
         "7": {
             "type": "action",
+            "one": "9",
+            "content": "tr = translateFunction"
+        },
+        "9": {
+            "type": "action",
+            "one": "10",
+            "content": "options = {skipShortcuts: true}"
+        },
+        "10": {
+            "type": "action",
+            "one": "11",
+            "content": "dinfo = prepareDrakonDiagram(\n    drakonJson,\n    name,\n    filename,\n    translateFunction,\n    htmlToString,\n    options\n)"
+        },
+        "11": {
+            "type": "question",
             "one": "5",
-            "content": "tr = translate"
+            "two": "12",
+            "flag1": 1,
+            "content": "dinfo.firstNodeId"
+        },
+        "12": {
+            "type": "action",
+            "one": "1",
+            "content": "return []"
         }
     },
     "keywords": {
@@ -43,5 +60,5 @@
         "algoprop": false,
         "lazy": false
     },
-    "params": "tree\ntranslate\nfilename"
+    "params": "drakonJson\nname\nfilename\ntranslateFunction\nhtmlToString"
 }
