@@ -1,5 +1,13 @@
 const {prepareDrakonDiagram} = require('./drakonToStruct');
 var tr;
+function addLine(text, depth, lines) {
+    var indent, part, parts;
+    indent = ' '.repeat(4 * depth);
+    parts = text.split('\n');
+    for (part of parts) {
+        lines.push(indent + part);
+    }
+}
 function cloneContext(ctx, firstNodeId, scenarios) {
     return {
         nodes: ctx.nodes,
@@ -61,7 +69,7 @@ function getQuestionExits(step) {
     }
 }
 function handleParallel(ctx, step, scenario) {
-    var _collection_2, clone, ctxClone, next, proc, proc2;
+    var _collection_26, clone, ctxClone, next, proc, proc2;
     next = step.procs[0].next;
     clone = {
         id: step.id,
@@ -69,8 +77,8 @@ function handleParallel(ctx, step, scenario) {
         type: 'parallel'
     };
     scenario.push(clone);
-    _collection_2 = step.procs;
-    for (proc of _collection_2) {
+    _collection_26 = step.procs;
+    for (proc of _collection_26) {
         proc2 = { scenarios: [] };
         clone.procs.push(proc2);
         ctxClone = cloneContext(ctx, proc.start, proc2.scenarios);
@@ -83,6 +91,49 @@ function iteration(content) {
 }
 function noPath(content) {
     return content + ' - ' + tr('No');
+}
+function printParallel(step, baseIndex, depth, lines) {
+    var _collection_24, branch, i;
+    i = 1;
+    _collection_24 = step.procs;
+    for (branch of _collection_24) {
+        addLine(tr('Parallel process') + ' ' + i, depth, lines);
+        i++;
+        printScenariosCore(branch.scenarios, baseIndex, depth + 1, lines);
+    }
+}
+function printScenario(scenario, baseIndex, depth, lines) {
+    var step;
+    for (step of scenario) {
+        if (step.type === 'parallel') {
+            printParallel(step, baseIndex, depth, lines);
+        } else {
+            addLine(step.content, depth, lines);
+        }
+    }
+}
+function printScenarios(scenarios, name, translateFunction) {
+    var baseIndex, depth, lines;
+    tr = translateFunction;
+    lines = [];
+    lines.push('# ' + name + ': ' + tr('scenarios'));
+    baseIndex = '';
+    depth = 0;
+    printScenariosCore(scenarios, baseIndex, depth, lines);
+    return lines.join('\n');
+}
+function printScenariosCore(scenarios, baseIndex, depth, lines) {
+    var i, scenario, subheader;
+    if (baseIndex) {
+        baseIndex = baseIndex + '.';
+    }
+    i = 1;
+    for (scenario of scenarios) {
+        subheader = tr('Scenario') + ' ' + baseIndex + i;
+        addLine(subheader, depth, lines);
+        printScenario(scenario, baseIndex + i, depth + 1, lines);
+        i++;
+    }
 }
 function scanAlgorithm(ctx) {
     var scenario;
@@ -110,12 +161,12 @@ function tooManyLoops(ctx, nodeId) {
     }
 }
 function traverseNode(ctx, nodeId, scenario) {
-    var _selectValue_2, content, exits, scenarioRight, step, visited;
+    var _selectValue_28, content, exits, scenarioRight, step, visited;
     if (nodeId) {
         step = ctx.nodes[nodeId];
         visited = visit(ctx, step);
-        _selectValue_2 = step.type;
-        if (_selectValue_2 === 'question') {
+        _selectValue_28 = step.type;
+        if (_selectValue_28 === 'question') {
             exits = getQuestionExits(step);
             if (visited) {
                 cloneStep(step, exits.contentDown, scenario);
@@ -128,7 +179,7 @@ function traverseNode(ctx, nodeId, scenario) {
                 traverseNode(ctx, step.two, scenarioRight);
             }
         } else {
-            if (_selectValue_2 === 'loopbegin') {
+            if (_selectValue_28 === 'loopbegin') {
                 content = iteration(step.content);
                 if (visited) {
                     traverseNode(ctx, step.one, scenario);
@@ -140,7 +191,7 @@ function traverseNode(ctx, nodeId, scenario) {
                     traverseNode(ctx, step.next, scenarioRight);
                 }
             } else {
-                if (_selectValue_2 === 'branch') {
+                if (_selectValue_28 === 'branch') {
                     if (step.content) {
                         cloneStep(step, step.content, scenario);
                     }
@@ -148,10 +199,10 @@ function traverseNode(ctx, nodeId, scenario) {
                         traverseNode(ctx, step.one, scenario);
                     }
                 } else {
-                    if (_selectValue_2 === 'parbegin') {
+                    if (_selectValue_28 === 'parbegin') {
                         handleParallel(ctx, step, scenario);
                     } else {
-                        if (!(_selectValue_2 === 'parend')) {
+                        if (!(_selectValue_28 === 'parend')) {
                             if (step.content) {
                                 cloneStep(step, step.content, scenario);
                             }
@@ -189,4 +240,7 @@ function visit(ctx, step) {
 function yesPath(content) {
     return content + ' - ' + tr('Yes');
 }
-module.exports = { treeToScenarios };
+module.exports = {
+    printScenarios,
+    treeToScenarios
+};

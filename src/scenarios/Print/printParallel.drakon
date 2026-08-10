@@ -1,0 +1,47 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "step\nbaseIndex\ndepth\nlines",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "8"
+        },
+        "4": {
+            "type": "loopend",
+            "one": "1",
+            "content": ""
+        },
+        "5": {
+            "type": "loopbegin",
+            "one": "9",
+            "content": "branch; step.procs"
+        },
+        "7": {
+            "type": "action",
+            "one": "10",
+            "content": "i++"
+        },
+        "8": {
+            "type": "action",
+            "one": "5",
+            "content": "i = 1"
+        },
+        "9": {
+            "type": "action",
+            "one": "7",
+            "content": "addLine(\n    tr(\"Parallel process\") + \" \" + i,\n    depth,\n    lines\n)"
+        },
+        "10": {
+            "type": "action",
+            "one": "4",
+            "content": "printScenariosCore(\n    branch.scenarios,\n    baseIndex,\n    depth + 1,\n    lines\n)"
+        }
+    }
+}
