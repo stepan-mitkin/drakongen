@@ -1,0 +1,24 @@
+# Workout foreach: scenarios
+Scenario 1
+    Warm up
+    Iteration: For each exercize in the program
+    Iteration: Repeat 10 times
+    Lift the weight
+    Tired? - No
+    Rest
+Scenario 2
+    Warm up
+    Skip loop: For each exercize in the program
+Scenario 3
+    Warm up
+    Iteration: For each exercize in the program
+    Skip loop: Repeat 10 times
+    Rest
+Scenario 4
+    Warm up
+    Iteration: For each exercize in the program
+    Iteration: Repeat 10 times
+    Lift the weight
+    Tired? - Yes
+    Say: huff da
+    Rest

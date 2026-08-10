@@ -1,0 +1,68 @@
+# Complex arrow-parallel: scenarios
+Scenario 1
+    Parallel process 1
+        Scenario 1.1
+    Parallel process 2
+        Scenario 1.1
+            AAAAAA
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - Yes
+            KKKK
+        Scenario 1.2
+            AAAAAA
+            BBBBB
+            CCCCC - No
+            DDDDDD
+            EEEEEE - Yes
+            HHHHH
+            IIIIII - Yes
+            KKKK
+        Scenario 1.3
+            AAAAAA
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - No
+            Iteration: For each GGGGG
+            HHHHH
+            IIIIII - Yes
+            KKKK
+        Scenario 1.4
+            AAAAAA
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - No
+            Skip loop: For each GGGGG
+            KKKK
+        Scenario 1.5
+            AAAAAA
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - No
+            Iteration: For each GGGGG
+            HHHHH
+            IIIIII - No
+            KKKK
+        Scenario 1.6
+            AAAAAA
+            BBBBB
+            CCCCC - No
+            DDDDDD
+            EEEEEE - No
+            JJJJ - Yes
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - Yes
+            KKKK
+        Scenario 1.7
+            AAAAAA
+            BBBBB
+            CCCCC - No
+            DDDDDD
+            EEEEEE - No
+            JJJJ - No
+            JJJJ - Yes
+            BBBBB
+            CCCCC - Yes
+            FFFFFF - Yes
+            KKKK

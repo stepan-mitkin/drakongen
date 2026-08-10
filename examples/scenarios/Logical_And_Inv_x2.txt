@@ -1,0 +1,55 @@
+# Logical_And_Inv_x2: scenarios
+Scenario 1
+    A - No
+    B - No
+    X - No
+    C
+Scenario 2
+    A - Yes
+    X - No
+    E
+Scenario 3
+    A - No
+    B - Yes
+    X - No
+    E
+Scenario 4
+    A - No
+    B - No
+    X - Yes
+    Y - No
+    C
+Scenario 5
+    A - No
+    B - No
+    X - Yes
+    Y - Yes
+    Z - No
+    C
+Scenario 6
+    A - No
+    B - No
+    X - Yes
+    Y - Yes
+    Z - Yes
+    D
+Scenario 7
+    A - No
+    B - Yes
+    X - Yes
+    Y - No
+    E
+Scenario 8
+    A - No
+    B - Yes
+    X - Yes
+    Y - Yes
+    Z - No
+    E
+Scenario 9
+    A - No
+    B - Yes
+    X - Yes
+    Y - Yes
+    Z - Yes
+    F

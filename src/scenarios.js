@@ -33,6 +33,9 @@ function cloneStep(step, content, scenario) {
     if (!(step.secondary === undefined)) {
         clone.secondary = step.secondary;
     }
+    if (!(step.message === undefined)) {
+        clone.message = step.message;
+    }
     scenario.push(clone);
 }
 function createContext(dinfo) {
@@ -108,7 +111,11 @@ function printScenario(scenario, baseIndex, depth, lines) {
         if (step.type === 'parallel') {
             printParallel(step, baseIndex, depth, lines);
         } else {
-            addLine(step.content, depth, lines);
+            if (step.type === 'error') {
+                addLine(step.message + ': ' + step.content, depth, lines);
+            } else {
+                addLine(step.content, depth, lines);
+            }
         }
     }
 }

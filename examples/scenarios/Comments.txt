@@ -1,0 +1,21 @@
+# Comments: scenarios
+Scenario 1
+    Choose color == red - Yes
+    Insertion one
+    Red color chosen
+Scenario 2
+    Choose color == red - No
+    Choose color == green - Yes
+    Insertion two
+    Green color chosen
+Scenario 3
+    Choose color == red - No
+    Choose color == green - No
+    Choose color == blue - Yes
+    Insertion three
+    Blue color chosen
+Scenario 4
+    Choose color == red - No
+    Choose color == green - No
+    Choose color == blue - No
+    Unexpected case value: Choose color

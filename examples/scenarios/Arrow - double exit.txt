@@ -1,0 +1,14 @@
+# Arrow - double exit: scenarios
+Scenario 1
+    CCCCC - Yes
+    KKKK
+Scenario 2
+    CCCCC - No
+    EEEEEE - Yes
+    HHHHH
+    KKKK
+Scenario 3
+    CCCCC - No
+    EEEEEE - No
+    CCCCC - Yes
+    KKKK

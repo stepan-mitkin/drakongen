@@ -1,0 +1,38 @@
+# getToken: scenarios
+Scenario 1
+    Find an existing connection in context.connections by URL
+    Connection found? - Yes
+    Some comment
+    Try to get an access token using the connection in non-interactive mode.
+    Got exception? - No
+    Return the access token
+Scenario 2
+    Find an existing connection in context.connections by URL
+    Connection found? - No
+    Create a new MSAL connection object.
+    Use the following information to initialize the object:
+    - context.config.redirectUri is the redirect URI
+    - context.config.authority is the authority
+    - context.config.clientId is the client id
+    Put the connection in context.connections using the URL as the key.
+    Try to get an access token using the connection in non-interactive mode.
+    Got exception? - No
+    Return the access token
+Scenario 3
+    Find an existing connection in context.connections by URL
+    Connection found? - Yes
+    Some comment
+    Try to get an access token using the connection in non-interactive mode.
+    Got exception? - Yes
+    Get a token in interactive mode.
+    Did the user cancel the logon? - No
+    Return the access token
+Scenario 4
+    Find an existing connection in context.connections by URL
+    Connection found? - Yes
+    Some comment
+    Try to get an access token using the connection in non-interactive mode.
+    Got exception? - Yes
+    Get a token in interactive mode.
+    Did the user cancel the logon? - Yes
+    Return an empty string

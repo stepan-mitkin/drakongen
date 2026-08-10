@@ -1,0 +1,27 @@
+# sil2: scenarios
+Scenario 1
+    Ветка1
+    value >= 0 - Yes
+    value % 10 === 0 - Yes
+    foo = value * 10
+    Ветка2
+    foo += 5
+    Exit
+    return foo
+Scenario 2
+    Ветка1
+    value >= 0 - No
+    foo = value * 10
+    Ветка2
+    foo += 5
+    Exit
+    return foo
+Scenario 3
+    Ветка1
+    value >= 0 - Yes
+    value % 10 === 0 - No
+    foo = value * 10
+    Ветка2
+    foo += 5
+    Exit
+    return foo

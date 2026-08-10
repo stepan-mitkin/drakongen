@@ -16,14 +16,14 @@
         },
         "4": {
             "type": "question",
-            "one": "7",
+            "one": "10",
             "two": "5",
             "flag1": 1,
             "content": "step.secondary === undefined"
         },
         "5": {
             "type": "action",
-            "one": "7",
+            "one": "10",
             "two": "",
             "content": "clone.secondary = step.secondary"
         },
@@ -31,6 +31,19 @@
             "type": "action",
             "one": "1",
             "content": "scenario.push(clone)"
+        },
+        "10": {
+            "type": "question",
+            "one": "7",
+            "two": "11",
+            "flag1": 1,
+            "content": "step.message === undefined"
+        },
+        "11": {
+            "type": "action",
+            "one": "7",
+            "two": "",
+            "content": "clone.message = step.message"
         }
     },
     "keywords": {

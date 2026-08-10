@@ -53,7 +53,9 @@ async function convertDrakon(filePath) {
     var noLoopPossible = await isNoLoopPossible(filePath)
     var final = await hasFinal(filePath)
     if (!final) {
+        var scenariosFolder = path.join(examplesFolder, "scenarios")
         await executeCommand(filePath, ['src/main.js', "--output", examplesFolder, filePath])
+        await executeCommand(filePath, ['src/main.js', "--scenarios", "--output", scenariosFolder, filePath])
     }
     if (noLoopPossible && filePath.endsWith(".drakon")) {
         var noLoopFolder = path.join(examplesFolder, "no-loop")

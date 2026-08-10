@@ -1,0 +1,10 @@
+# badShortCircuit: scenarios
+Scenario 1
+    childName === lowname - No
+Scenario 2
+    childName === lowname - Yes
+    id === widget.folderId - Yes
+Scenario 3
+    childName === lowname - Yes
+    id === widget.folderId - No
+    return tr("Name is not unique")

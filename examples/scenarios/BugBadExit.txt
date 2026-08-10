@@ -1,0 +1,33 @@
+# BugBadExit: scenarios
+Scenario 1
+    Iteration: LaLaLa
+    AAAA - Yes
+    XXXX - Yes
+    BBBB
+Scenario 2
+    Skip loop: LaLaLa
+Scenario 3
+    Iteration: LaLaLa
+    AAAA - No
+    KKKKK - Yes
+    DDDDD - Yes
+    CCCC
+Scenario 4
+    Iteration: LaLaLa
+    AAAA - Yes
+    XXXX - No
+Scenario 5
+    Iteration: LaLaLa
+    AAAA - No
+    KKKKK - No
+    FFFFFF - Yes
+Scenario 6
+    Iteration: LaLaLa
+    AAAA - No
+    KKKKK - Yes
+    DDDDD - No
+Scenario 7
+    Iteration: LaLaLa
+    AAAA - No
+    KKKKK - No
+    FFFFFF - No

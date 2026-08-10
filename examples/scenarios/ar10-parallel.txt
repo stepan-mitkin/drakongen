@@ -1,0 +1,28 @@
+# ar10-parallel: scenarios
+Scenario 1
+    Parallel process 1
+        Scenario 1.1
+            3 == 4 - Yes
+        Scenario 1.2
+            3 == 4 - No
+            3 == 5 - Yes
+            7 - Yes
+            3 == 4 - Yes
+        Scenario 1.3
+            3 == 4 - No
+            3 == 5 - No
+            3 == 6 - Yes
+            3 == 4 - Yes
+        Scenario 1.4
+            3 == 4 - No
+            3 == 5 - Yes
+            7 - No
+            8
+            3 == 4 - Yes
+        Scenario 1.5
+            3 == 4 - No
+            3 == 5 - No
+            3 == 6 - No
+            Unexpected case value: 3
+    Parallel process 2
+        Scenario 1.1

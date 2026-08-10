@@ -1,0 +1,22 @@
+# DoubleArrow: scenarios
+Scenario 1
+    CCCCC - Yes
+    KKKK
+Scenario 2
+    CCCCC - No
+    EEEEEE - Yes
+    qqq
+    KKKK
+Scenario 3
+    CCCCC - No
+    EEEEEE - No
+    JJJJ - Yes
+    CCCCC - Yes
+    KKKK
+Scenario 4
+    CCCCC - No
+    EEEEEE - No
+    JJJJ - No
+    JJJJ - Yes
+    CCCCC - Yes
+    KKKK

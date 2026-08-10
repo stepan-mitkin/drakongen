@@ -1,0 +1,12 @@
+# Logical_Or_Inv: scenarios
+Scenario 1
+    A - No
+    C
+Scenario 2
+    A - Yes
+    B - No
+    C
+Scenario 3
+    A - Yes
+    B - Yes
+    D

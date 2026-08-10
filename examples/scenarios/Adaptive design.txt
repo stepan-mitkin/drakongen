@@ -1,0 +1,37 @@
+# Adaptive design: scenarios
+Scenario 1
+    The device type == Large screen - Yes
+    Use large background image
+    Use grid layout
+    Use small UI elements
+    Put full main menu
+Scenario 2
+    The device type == Large screen - No
+    The device type == Laptop - Yes
+    Use medium background image
+    Use grid layout
+    Use small UI elements
+    Put full main menu
+Scenario 3
+    The device type == Large screen - No
+    The device type == Laptop - No
+    The device type == Tablet - Yes
+    Use medium background image
+    Use plain layout
+    Use large UI elements
+    Put full main menu
+Scenario 4
+    The device type == Large screen - No
+    The device type == Laptop - No
+    The device type == Tablet - No
+    The device type == Phone - Yes
+    Use small background image
+    Use plain layout
+    Use large UI elements
+    Put minimal main menu
+Scenario 5
+    The device type == Large screen - No
+    The device type == Laptop - No
+    The device type == Tablet - No
+    The device type == Phone - No
+    Unexpected case value: The device type

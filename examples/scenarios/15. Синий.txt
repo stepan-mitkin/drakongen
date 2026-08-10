@@ -1,0 +1,21 @@
+# 15. Синий: scenarios
+Scenario 1
+    3 - Yes
+    5
+    7 - Yes
+    8
+Scenario 2
+    3 - No
+    4 - Yes
+    6
+    7 - Yes
+    8
+Scenario 3
+    3 - Yes
+    5
+    7 - No
+    9
+Scenario 4
+    3 - No
+    4 - No
+    9

@@ -1,0 +1,13 @@
+# ar03: scenarios
+Scenario 1
+    3 - Yes
+    5 - Yes
+Scenario 2
+    3 - No
+    3 - Yes
+    5 - Yes
+Scenario 3
+    3 - Yes
+    5 - No
+    3 - Yes
+    5 - Yes

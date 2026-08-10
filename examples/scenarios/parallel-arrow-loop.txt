@@ -1,0 +1,13 @@
+# parallel-arrow-loop: scenarios
+Scenario 1
+    Parallel process 1
+        Scenario 1.1
+    Parallel process 2
+        Scenario 1.1
+            two
+            three - Yes
+        Scenario 1.2
+            two
+            three - No
+            two
+            three - Yes
