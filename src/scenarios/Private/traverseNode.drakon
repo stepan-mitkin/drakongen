@@ -1,0 +1,223 @@
+{
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "ctx\nnodeId\nscenario",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "62"
+        },
+        "7": {
+            "type": "case",
+            "one": "71"
+        },
+        "10": {
+            "type": "select",
+            "one": "16",
+            "content": "step.type"
+        },
+        "16": {
+            "type": "case",
+            "one": "63",
+            "two": "73",
+            "content": "\"question\""
+        },
+        "17": {
+            "type": "question",
+            "one": "32",
+            "two": "70",
+            "flag1": 0,
+            "content": "visited"
+        },
+        "20": {
+            "type": "action",
+            "one": "66",
+            "content": "cloneStep(\n    step,\n    exits.contentDown,\n    scenario\n)"
+        },
+        "25": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "26": {
+            "type": "action",
+            "one": "53",
+            "content": "step = ctx.nodes[nodeId]"
+        },
+        "32": {
+            "type": "action",
+            "one": "20",
+            "content": "scenarioRight = cloneScenario(ctx, scenario)"
+        },
+        "53": {
+            "type": "action",
+            "one": "10",
+            "content": "visited = visit(ctx, step)"
+        },
+        "55": {
+            "type": "action",
+            "one": "72",
+            "content": "cloneStep(step, step.content, scenario)"
+        },
+        "62": {
+            "type": "question",
+            "one": "26",
+            "two": "1",
+            "flag1": 1,
+            "content": "nodeId"
+        },
+        "63": {
+            "type": "action",
+            "one": "17",
+            "content": "exits = getQuestionExits(step)"
+        },
+        "66": {
+            "type": "action",
+            "one": "67",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "67": {
+            "type": "action",
+            "one": "68",
+            "content": "cloneStep(\n    step,\n    exits.contentRight,\n    scenarioRight\n)"
+        },
+        "68": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, step.two, scenarioRight)"
+        },
+        "69": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "70": {
+            "type": "action",
+            "one": "25",
+            "content": "cloneStep(\n    step,\n    exits.contentDown,\n    scenario\n)"
+        },
+        "71": {
+            "type": "question",
+            "one": "55",
+            "two": "72",
+            "flag1": 1,
+            "content": "step.content"
+        },
+        "72": {
+            "type": "question",
+            "one": "69",
+            "two": "1",
+            "flag1": 0,
+            "content": "step.type === \"error\""
+        },
+        "73": {
+            "one": "80",
+            "type": "case",
+            "two": "85",
+            "content": "\"loopbegin\""
+        },
+        "74": {
+            "type": "question",
+            "one": "78",
+            "two": "82",
+            "flag1": 0,
+            "content": "visited"
+        },
+        "77": {
+            "type": "action",
+            "one": "83",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "78": {
+            "type": "action",
+            "one": "84",
+            "content": "scenarioRight = cloneScenario(ctx, scenario)"
+        },
+        "79": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(\n    ctx,\n    step.next,\n    scenarioRight\n)"
+        },
+        "80": {
+            "type": "action",
+            "one": "74",
+            "two": "",
+            "content": "content = iteration(step.content)"
+        },
+        "82": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "83": {
+            "type": "action",
+            "one": "79",
+            "content": "cloneStep(\n    step,\n    skipLoop(step.content),\n    scenarioRight\n)"
+        },
+        "84": {
+            "type": "action",
+            "one": "77",
+            "two": "",
+            "content": "cloneStep(step, content, scenario)"
+        },
+        "85": {
+            "one": "87",
+            "type": "case",
+            "two": "92",
+            "content": "\"branch\""
+        },
+        "86": {
+            "type": "action",
+            "one": "89",
+            "two": "",
+            "content": "cloneStep(step, step.content, scenario)"
+        },
+        "87": {
+            "type": "question",
+            "one": "86",
+            "two": "89",
+            "flag1": 1,
+            "content": "step.content"
+        },
+        "89": {
+            "type": "question",
+            "one": "90",
+            "two": "1",
+            "flag1": 0,
+            "content": "tooManyLoops(ctx, nodeId)"
+        },
+        "90": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, step.one, scenario)"
+        },
+        "91": {
+            "one": "1",
+            "type": "case",
+            "two": "7",
+            "content": "\"parend\""
+        },
+        "92": {
+            "one": "93",
+            "type": "case",
+            "two": "91",
+            "content": "\"parbegin\""
+        },
+        "93": {
+            "type": "action",
+            "one": "1",
+            "content": "handleParallel(ctx, step, scenario)"
+        }
+    }
+}

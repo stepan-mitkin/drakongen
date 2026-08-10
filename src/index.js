@@ -44,14 +44,13 @@ function freeToText(mindJson, name, filename, language) {
 
 function makeScenarios(drakonJson, name, filename, language) {
   setUpLanguage(language);
-  var tree = treeToScenarios(
+  var result = treeToScenarios(
     drakonJson,
     name,
     filename,
     translate,
     htmlToString
   );
-  var result = treeToScenarios(tree, translate, filename);
   return JSON.stringify(result, null, 4);
 }
 

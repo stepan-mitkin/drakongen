@@ -1,8 +1,13 @@
 {
     "keywords": {
-        "function": true
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
     },
-    "params": "ctx",
+    "params": "content",
     "type": "drakon",
     "items": {
         "1": {
@@ -15,13 +20,8 @@
         },
         "4": {
             "type": "action",
-            "one": "5",
-            "content": "scenario = createScenario(ctx)"
-        },
-        "5": {
-            "type": "action",
             "one": "1",
-            "content": "traverseNode(\n    ctx,\n    ctx.firstNodeId,\n    scenario\n)"
+            "content": "return tr(\"Iteration\") + \": \" + content"
         }
     }
 }

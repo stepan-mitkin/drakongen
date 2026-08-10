@@ -17,7 +17,7 @@
         "5": {
             "type": "action",
             "one": "6",
-            "content": "ctx = createContext()"
+            "content": "ctx = createContext(dinfo)"
         },
         "6": {
             "type": "action",

@@ -7,7 +7,7 @@
         "algoprop": false,
         "lazy": false
     },
-    "params": "dinfo",
+    "params": "ctx\nfirstNodeId\nscenarios",
     "type": "drakon",
     "items": {
         "1": {
@@ -16,12 +16,12 @@
         "2": {
             "type": "branch",
             "branchId": 0,
-            "one": "3"
+            "one": "4"
         },
-        "3": {
+        "4": {
             "type": "action",
             "one": "1",
-            "content": "return {\n    nodes: dinfo.nodes,\n    firstNodeId: dinfo.firstNodeId,\n    scenarios: [],\n    decisions: {},\n    branchCount: {}\n}"
+            "content": "return {\n    nodes: ctx.nodes,\n    firstNodeId: firstNodeId,\n    scenarios: scenarios,\n    decisions: {},\n    branchCount: {}\n}"
         }
     }
 }

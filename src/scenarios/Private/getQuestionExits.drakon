@@ -1,0 +1,53 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "step",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "13"
+        },
+        "7": {
+            "type": "action",
+            "one": "1",
+            "two": "",
+            "content": "return {\n    contentDown: yesPath(content),\n    contentRight: noPath(content)\n}"
+        },
+        "8": {
+            "type": "question",
+            "one": "7",
+            "two": "9",
+            "flag1": 1,
+            "content": "step.flag1 == 1"
+        },
+        "9": {
+            "type": "action",
+            "one": "1",
+            "two": "",
+            "content": "return {\n    contentDown: noPath(content),\n    contentRight: yesPath(content)\n}"
+        },
+        "11": {
+            "type": "question",
+            "one": "8",
+            "two": "12",
+            "flag1": 0,
+            "content": "content.operator === \"equal\""
+        },
+        "12": {
+            "type": "action",
+            "one": "8",
+            "content": "content = content.left + \" == \" + content\n.right"
+        },
+        "13": {
+            "type": "action",
+            "one": "11",
+            "content": "content = step.content"
+        }
+    }
+}
