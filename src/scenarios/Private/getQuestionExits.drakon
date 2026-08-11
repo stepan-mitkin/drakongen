@@ -11,13 +11,13 @@
         "2": {
             "type": "branch",
             "branchId": 0,
-            "one": "13"
+            "one": "8"
         },
         "7": {
             "type": "action",
             "one": "1",
             "two": "",
-            "content": "return {\n    contentDown: yesPath(content),\n    contentRight: noPath(content)\n}"
+            "content": "return {\n    down: \"yes\",\n    right: \"no\"\n}"
         },
         "8": {
             "type": "question",
@@ -30,24 +30,7 @@
             "type": "action",
             "one": "1",
             "two": "",
-            "content": "return {\n    contentDown: noPath(content),\n    contentRight: yesPath(content)\n}"
-        },
-        "11": {
-            "type": "question",
-            "one": "8",
-            "two": "12",
-            "flag1": 0,
-            "content": "content.operator === \"equal\""
-        },
-        "12": {
-            "type": "action",
-            "one": "8",
-            "content": "content = content.left + \" == \" + content\n.right"
-        },
-        "13": {
-            "type": "action",
-            "one": "11",
-            "content": "content = step.content"
+            "content": "return {\n    down: \"no\",\n    right: \"yes\"\n}"
         }
     }
 }

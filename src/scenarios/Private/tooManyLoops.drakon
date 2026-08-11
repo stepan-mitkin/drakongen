@@ -40,7 +40,7 @@
         "8": {
             "type": "action",
             "one": "4",
-            "content": "maxBranch = 2"
+            "content": "maxBranch = 1"
         },
         "9": {
             "type": "action",

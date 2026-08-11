@@ -38,7 +38,7 @@
         "7": {
             "type": "action",
             "one": "4",
-            "content": "addLine(step.content, depth, lines)"
+            "content": "addLine(content, depth, lines)"
         },
         "8": {
             "type": "action",
@@ -47,7 +47,7 @@
         },
         "12": {
             "type": "question",
-            "one": "7",
+            "one": "14",
             "two": "13",
             "flag1": 0,
             "content": "step.type === \"error\""
@@ -56,6 +56,11 @@
             "type": "action",
             "one": "4",
             "content": "addLine(\n    step.message + \": \" + step.content,\n    depth,\n    lines\n)"
+        },
+        "14": {
+            "type": "action",
+            "one": "7",
+            "content": "content = buildContent(step)"
         }
     }
 }

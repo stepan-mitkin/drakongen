@@ -109,13 +109,6 @@ Scenario 3
     Do fast oscilations occur? - No
     When P is right, you should get minimum oscillations when doing sharp turns.
     P on Pitch
-    Do a split-S (where you move both the throttle and pitch sticks)
-    Increase throttle to recover, pay attention to the pitch movement
-    Does the quad pitch up more than it should? - No
-    Do fast oscilations occur? - No
-    Are the motors making a twitching sound? - No
-    The quad feels very responsive and nimble
-    TPA
 Scenario 4
     Prepare
     To the motor sound
@@ -212,9 +205,6 @@ Scenario 6
     Are the motors making a twitching sound? - No
     The quad feels very responsive and nimble
     TPA
-    Do a punch out
-    Does the quad get oscillations with high throttle? - No
-    D on Roll and Pitch
 Scenario 7
     Prepare
     To the motor sound
@@ -251,12 +241,6 @@ Scenario 7
     Do a punch out
     Does the quad get oscillations with high throttle? - No
     D on Roll and Pitch
-    Do aggressive maneuvers like flips and rolls
-    Does the quad overshoot at the end of the move then bounce back? - No
-    Does prop wash happen? (oscillation when you descent) - No
-    Do fast oscillation happen at the end of a roll or flip? - No
-    Note that to eliminate bounces at the end of a flip or roll, you can also use Setpoint Transition
-    I on Roll
 Scenario 8
     Prepare
     To the motor sound
@@ -376,13 +360,6 @@ Scenario 10
     Do fast oscillation happen at the end of a roll or flip? - No
     Note that to eliminate bounces at the end of a flip or roll, you can also use Setpoint Transition
     I on Roll
-    Bank your quad to the left and right
-    Release stick
-    Is the quad holding the angle well? - Yes
-    Does the quad have stiff, robotic feeling? - No
-    Does the quad have oscilations? - No
-    You might want to increase I a bit more on a windy day
-    I on Pitch
 Scenario 11
     Prepare
     To the motor sound
@@ -526,9 +503,6 @@ Scenario 13
     Does the quad have oscilations? - No
     You might want to increase I a bit more on a windy day
     I on Pitch
-    Fly forward, do not increase throttle
-    Does the nose keep the same angle? - Yes
-    Anti Gravity Gain
 Scenario 14
     Prepare
     To the motor sound
@@ -581,11 +555,6 @@ Scenario 14
     Fly forward, do not increase throttle
     Does the nose keep the same angle? - Yes
     Anti Gravity Gain
-    Fly in a straight line
-    Do some rapid punchouts
-    Does pitch stay at the same angle? - Yes
-    3 to 5 is a good range
-    P on Yaw
 Scenario 15
     Prepare
     To the motor sound
@@ -640,12 +609,6 @@ Scenario 15
     Does pitch stay at the same angle? - Yes
     3 to 5 is a good range
     P on Yaw
-    Spin quickly on the yaw axis
-    Stop spinning
-    Does the quad dip one side? - No
-    Do you get fast oscilations? - No
-    When Yaw P is right the spin should be clean and snappy
-    I on Yaw
 Scenario 16
     Prepare
     To the motor sound
@@ -768,10 +731,6 @@ Scenario 17
     Do you get fast oscilations? - No
     When Yaw P is right the spin should be clean and snappy
     I on Yaw
-    Fly straight
-    Make a turn
-    Is there drift, does the quad slide out? - No
-    Yaw I should not be higher than just enough to prevent drift.
 Scenario 18
     Prepare
     To the motor sound

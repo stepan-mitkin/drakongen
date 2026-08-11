@@ -36,14 +36,14 @@
         "17": {
             "type": "question",
             "one": "32",
-            "two": "70",
+            "two": "96",
             "flag1": 0,
             "content": "visited"
         },
         "20": {
             "type": "action",
-            "one": "66",
-            "content": "cloneStep(\n    step,\n    exits.contentDown,\n    scenario\n)"
+            "one": "94",
+            "content": "down = cloneStep(step, scenario)"
         },
         "25": {
             "type": "action",
@@ -68,7 +68,7 @@
         "55": {
             "type": "action",
             "one": "72",
-            "content": "cloneStep(step, step.content, scenario)"
+            "content": "cloneStep(step, scenario)"
         },
         "62": {
             "type": "question",
@@ -89,8 +89,8 @@
         },
         "67": {
             "type": "action",
-            "one": "68",
-            "content": "cloneStep(\n    step,\n    exits.contentRight,\n    scenarioRight\n)"
+            "one": "95",
+            "content": "right = cloneStep(step, scenarioRight)"
         },
         "68": {
             "type": "action",
@@ -101,11 +101,6 @@
             "type": "action",
             "one": "1",
             "content": "traverseNode(ctx, step.one, scenario)"
-        },
-        "70": {
-            "type": "action",
-            "one": "25",
-            "content": "cloneStep(\n    step,\n    exits.contentDown,\n    scenario\n)"
         },
         "71": {
             "type": "question",
@@ -122,7 +117,7 @@
             "content": "step.type === \"error\""
         },
         "73": {
-            "one": "80",
+            "one": "74",
             "type": "case",
             "two": "85",
             "content": "\"loopbegin\""
@@ -130,7 +125,7 @@
         "74": {
             "type": "question",
             "one": "78",
-            "two": "82",
+            "two": "102",
             "flag1": 0,
             "content": "visited"
         },
@@ -149,12 +144,6 @@
             "one": "1",
             "content": "traverseNode(\n    ctx,\n    step.next,\n    scenarioRight\n)"
         },
-        "80": {
-            "type": "action",
-            "one": "74",
-            "two": "",
-            "content": "content = iteration(step.content)"
-        },
         "82": {
             "type": "action",
             "one": "1",
@@ -162,14 +151,14 @@
         },
         "83": {
             "type": "action",
-            "one": "79",
-            "content": "cloneStep(\n    step,\n    skipLoop(step.content),\n    scenarioRight\n)"
+            "one": "99",
+            "content": "skip = cloneStep(step, scenarioRight)"
         },
         "84": {
             "type": "action",
-            "one": "77",
+            "one": "98",
             "two": "",
-            "content": "cloneStep(step, content, scenario)"
+            "content": "iteration = cloneStep(step, scenario)"
         },
         "85": {
             "one": "87",
@@ -181,7 +170,7 @@
             "type": "action",
             "one": "89",
             "two": "",
-            "content": "cloneStep(step, step.content, scenario)"
+            "content": "cloneStep(step, scenario)"
         },
         "87": {
             "type": "question",
@@ -218,6 +207,50 @@
             "type": "action",
             "one": "1",
             "content": "handleParallel(ctx, step, scenario)"
+        },
+        "94": {
+            "type": "action",
+            "one": "66",
+            "content": "down.answer = exits.down"
+        },
+        "95": {
+            "type": "action",
+            "one": "68",
+            "content": "right.answer = exits.right"
+        },
+        "96": {
+            "type": "action",
+            "one": "97",
+            "two": "",
+            "content": "down = cloneStep(step, scenario)"
+        },
+        "97": {
+            "type": "action",
+            "one": "25",
+            "two": "",
+            "content": "down.answer = exits.down"
+        },
+        "98": {
+            "type": "action",
+            "one": "77",
+            "content": "iteration.loop = \"iteration\""
+        },
+        "99": {
+            "type": "action",
+            "one": "79",
+            "content": "skip.loop = \"skip\""
+        },
+        "102": {
+            "type": "action",
+            "one": "103",
+            "two": "",
+            "content": "iteration = cloneStep(step, scenario)"
+        },
+        "103": {
+            "type": "action",
+            "one": "82",
+            "two": "",
+            "content": "iteration.loop = \"iteration\""
         }
     }
 }

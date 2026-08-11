@@ -13,9 +13,6 @@ Scenario 2
     value >= 0 - No
     foo = value * 10
     Ветка2
-    foo += 5
-    Exit
-    return foo
 Scenario 3
     Ветка1
     value >= 0 - Yes
