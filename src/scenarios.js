@@ -8,6 +8,15 @@ function addLine(text, depth, lines) {
         lines.push(indent + part);
     }
 }
+function branchContext(ctx) {
+    return {
+        nodes: ctx.nodes,
+        firstNodeId: ctx.firstNodeId,
+        scenarios: ctx.scenarios,
+        decisions: ctx.decisions,
+        branchCount: clone(ctx.branchCount)
+    };
+}
 function buildContent(step) {
     var _selectValue_2, content;
     _selectValue_2 = step.type;
@@ -29,6 +38,12 @@ function buildContent(step) {
             return step.content;
         }
     }
+}
+function clone(obj) {
+    var copy;
+    copy = {};
+    Object.assign(copy, obj);
+    return copy;
 }
 function cloneContext(ctx, firstNodeId, scenarios) {
     return {
@@ -179,24 +194,20 @@ function skipLoop(content) {
     return tr('Skip loop') + ': ' + content;
 }
 function tooManyLoops(ctx, nodeId) {
-    var count, maxBranch;
-    maxBranch = 1;
-    if (nodeId in ctx.branchCount) {
-        count = ctx.branchCount[nodeId];
-        if (count > maxBranch) {
-            return true;
-        } else {
-            count++;
-            ctx.branchCount[nodeId] = count;
-            return false;
-        }
+    var maxBranch;
+    maxBranch = 2;
+    if (!(nodeId in ctx.branchCount)) {
+        ctx.branchCount[nodeId] = 0;
+    }
+    ctx.branchCount[nodeId]++;
+    if (ctx.branchCount[nodeId] > maxBranch) {
+        return true;
     } else {
-        ctx.branchCount[nodeId] = 1;
         return false;
     }
 }
 function traverseNode(ctx, nodeId, scenario) {
-    var _selectValue_2, down, exits, iteration, right, scenarioRight, skip, step, visited;
+    var _selectValue_2, ctx2, down, exits, iteration, right, scenarioRight, skip, step, visited;
     if (nodeId) {
         step = ctx.nodes[nodeId];
         visited = visit(ctx, step);
@@ -208,13 +219,14 @@ function traverseNode(ctx, nodeId, scenario) {
                 down.answer = exits.down;
                 traverseNode(ctx, step.one, scenario);
             } else {
-                scenarioRight = cloneScenario(ctx, scenario);
+                ctx2 = branchContext(ctx);
+                scenarioRight = cloneScenario(ctx2, scenario);
                 down = cloneStep(step, scenario);
                 down.answer = exits.down;
                 traverseNode(ctx, step.one, scenario);
                 right = cloneStep(step, scenarioRight);
                 right.answer = exits.right;
-                traverseNode(ctx, step.two, scenarioRight);
+                traverseNode(ctx2, step.two, scenarioRight);
             }
         } else {
             if (_selectValue_2 === 'loopbegin') {
@@ -223,13 +235,14 @@ function traverseNode(ctx, nodeId, scenario) {
                     iteration.loop = 'iteration';
                     traverseNode(ctx, step.one, scenario);
                 } else {
-                    scenarioRight = cloneScenario(ctx, scenario);
+                    ctx2 = branchContext(ctx);
+                    scenarioRight = cloneScenario(ctx2, scenario);
                     iteration = cloneStep(step, scenario);
                     iteration.loop = 'iteration';
                     traverseNode(ctx, step.one, scenario);
                     skip = cloneStep(step, scenarioRight);
                     skip.loop = 'skip';
-                    traverseNode(ctx, step.next, scenarioRight);
+                    traverseNode(ctx2, step.next, scenarioRight);
                 }
             } else {
                 if (_selectValue_2 === 'branch') {

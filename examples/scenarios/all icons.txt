@@ -39,6 +39,30 @@ Scenario 2
     простой ввод
     простой вывод
     Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 2.1.1
+            Мотор
+    Parallel process 2
+        Scenario 2.2.1
+            ввод внизу
+    Parallel process 3
+        Scenario 2.3.1
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang
 Scenario 3
     Gren1
     question - Yes
@@ -174,3 +198,27 @@ Scenario 7
     выбор == вариант 2 - No
     комментарий
     Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 7.1.1
+            Мотор
+    Parallel process 2
+        Scenario 7.2.1
+            ввод внизу
+    Parallel process 3
+        Scenario 7.3.1
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang

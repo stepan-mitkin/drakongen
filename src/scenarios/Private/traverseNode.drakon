@@ -35,7 +35,7 @@
         },
         "17": {
             "type": "question",
-            "one": "32",
+            "one": "104",
             "two": "96",
             "flag1": 0,
             "content": "visited"
@@ -58,7 +58,7 @@
         "32": {
             "type": "action",
             "one": "20",
-            "content": "scenarioRight = cloneScenario(ctx, scenario)"
+            "content": "scenarioRight = cloneScenario(\n    ctx2,\n    scenario\n)"
         },
         "53": {
             "type": "action",
@@ -95,7 +95,7 @@
         "68": {
             "type": "action",
             "one": "1",
-            "content": "traverseNode(ctx, step.two, scenarioRight)"
+            "content": "traverseNode(\n    ctx2,\n    step.two,\n    scenarioRight\n)"
         },
         "69": {
             "type": "action",
@@ -124,7 +124,7 @@
         },
         "74": {
             "type": "question",
-            "one": "78",
+            "one": "105",
             "two": "102",
             "flag1": 0,
             "content": "visited"
@@ -137,12 +137,12 @@
         "78": {
             "type": "action",
             "one": "84",
-            "content": "scenarioRight = cloneScenario(ctx, scenario)"
+            "content": "scenarioRight = cloneScenario(\n    ctx2,\n    scenario\n)"
         },
         "79": {
             "type": "action",
             "one": "1",
-            "content": "traverseNode(\n    ctx,\n    step.next,\n    scenarioRight\n)"
+            "content": "traverseNode(\n    ctx2,\n    step.next,\n    scenarioRight\n)"
         },
         "82": {
             "type": "action",
@@ -251,6 +251,16 @@
             "one": "82",
             "two": "",
             "content": "iteration.loop = \"iteration\""
+        },
+        "104": {
+            "type": "action",
+            "one": "32",
+            "content": "ctx2 = branchContext(ctx)"
+        },
+        "105": {
+            "type": "action",
+            "one": "78",
+            "content": "ctx2 = branchContext(ctx)"
         }
     }
 }

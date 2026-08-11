@@ -15,57 +15,42 @@
         },
         "4": {
             "type": "question",
-            "one": "6",
+            "one": "15",
             "two": "5",
             "flag1": 1,
             "content": "nodeId in ctx.branchCount"
         },
         "5": {
             "type": "action",
-            "one": "10",
-            "content": "ctx.branchCount[nodeId] = 1"
-        },
-        "6": {
-            "type": "action",
-            "one": "7",
-            "content": "count = ctx.branchCount[nodeId]"
+            "one": "15",
+            "content": "ctx.branchCount[nodeId] = 0"
         },
         "7": {
             "type": "question",
-            "one": "13",
+            "one": "11",
             "two": "9",
             "flag1": 0,
-            "content": "count > maxBranch"
+            "content": "ctx.branchCount[nodeId] > maxBranch"
         },
         "8": {
             "type": "action",
             "one": "4",
-            "content": "maxBranch = 1"
+            "content": "maxBranch = 2"
         },
         "9": {
             "type": "action",
             "one": "1",
             "content": "return true"
         },
-        "10": {
-            "type": "action",
-            "one": "1",
-            "content": "return false"
-        },
         "11": {
             "type": "action",
             "one": "1",
             "content": "return false"
         },
-        "12": {
+        "15": {
             "type": "action",
-            "one": "11",
-            "content": "ctx.branchCount[nodeId] = count"
-        },
-        "13": {
-            "type": "action",
-            "one": "12",
-            "content": "count++"
+            "one": "7",
+            "content": "ctx.branchCount[nodeId]++"
         }
     }
 }
