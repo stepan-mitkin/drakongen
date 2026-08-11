@@ -1,4 +1,11 @@
 var translationsRu = {
+    "Parallel process": "Параллельный процесс",
+    "Scenario": "Сценарий",
+    "scenarios": "сценарии",
+    "Iteration": "Итерация",
+    "No": "Нет",
+    "Yes": "Да",
+    "Skip loop": "Пропустить цикл",    
     "error": "ОШИБКА",
     "not": "не",
     break: 'выход из цикла',
@@ -36,6 +43,13 @@ var translationsRu = {
 }
 
 var translationsEn = {
+    "Parallel process":"Parallel process",
+    "Scenario":"Scenario",
+    "scenarios":"scenarios",
+    "Iteration":"Iteration",
+    "No":"No",
+    "Yes":"Yes",
+    "Skip loop":"Skip loop",    
     error: 'Error',
     not: 'not',
     break: 'break',
@@ -73,6 +87,13 @@ var translationsEn = {
 }
 
 var translationsNo = {
+    "Parallel process": "Parallell prosess",
+    "Scenario": "Scenario",
+    "scenarios": "scenarioer",
+    "Iteration": "Iterasjon",
+    "No": "Nei",
+    "Yes": "Ja",
+    "Skip loop": "Hopp over løkke",    
     error: 'Feil',
     not: 'ikke',
     break: 'avslutt løkken',
@@ -110,6 +131,13 @@ var translationsNo = {
 };
 
 var translationsFr = {
+    "Parallel process": "Processus parallèle",
+    "Scenario": "Scénario",
+    "scenarios": "scénarios",
+    "Iteration": "Itération",
+    "No": "Non",
+    "Yes": "Oui",
+    "Skip loop": "Ignorer la boucle",    
     error: 'Erreur',
     not: 'non',
     break: 'quitter la boucle',
@@ -147,6 +175,13 @@ var translationsFr = {
 };
 
 var translationsDe = {
+    "Parallel process": "Paralleler Prozess",
+    "Scenario": "Szenario",
+    "scenarios": "Szenarien",
+    "Iteration": "Iteration",
+    "No": "Nein",
+    "Yes": "Ja",
+    "Skip loop": "Schleife überspringen",    
     error: 'Fehler',
     not: 'nicht',
     break: 'Schleife beenden',
@@ -184,6 +219,13 @@ var translationsDe = {
 };
 
 var translationsEs = {
+    "Parallel process": "Proceso paralelo",
+    "Scenario": "Escenario",
+    "scenarios": "escenarios",
+    "Iteration": "Iteración",
+    "No": "No",
+    "Yes": "Sí",
+    "Skip loop": "Omitir bucle",    
     error: 'Error',
     not: 'no',
     break: 'salir del bucle',
@@ -221,6 +263,13 @@ var translationsEs = {
 };
 
 var translationsLt = {
+    "Parallel process": "Lygiagretus procesas",
+    "Scenario": "Scenarijus",
+    "scenarios": "scenarijai",
+    "Iteration": "Iteracija",
+    "No": "Ne",
+    "Yes": "Taip",
+    "Skip loop": "Praleisti ciklą",    
     error: 'Klaida',
     not: 'ne',
     break: 'nutraukti ciklą',

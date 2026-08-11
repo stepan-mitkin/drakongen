@@ -23,11 +23,6 @@
             "one": "9",
             "content": "branch; step.procs"
         },
-        "7": {
-            "type": "action",
-            "one": "10",
-            "content": "i++"
-        },
         "8": {
             "type": "action",
             "one": "5",
@@ -35,13 +30,18 @@
         },
         "9": {
             "type": "action",
-            "one": "7",
+            "one": "10",
             "content": "addLine(\n    tr(\"Parallel process\") + \" \" + i,\n    depth,\n    lines\n)"
         },
         "10": {
             "type": "action",
+            "one": "11",
+            "content": "printScenariosCore(\n    branch.scenarios,\n    baseIndex + \".\" + i,\n    depth + 1,\n    lines\n)"
+        },
+        "11": {
+            "type": "action",
             "one": "4",
-            "content": "printScenariosCore(\n    branch.scenarios,\n    baseIndex,\n    depth + 1,\n    lines\n)"
+            "content": "i++"
         }
     }
 }

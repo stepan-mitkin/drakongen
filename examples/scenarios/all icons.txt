@@ -9,13 +9,13 @@ Scenario 1
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 1.1
+        Scenario 1.1.1
             Мотор
     Parallel process 2
-        Scenario 1.1
+        Scenario 1.2.1
             ввод внизу
     Parallel process 3
-        Scenario 1.1
+        Scenario 1.3.1
             вывод внизу
     начало блока
     конец блока
@@ -49,13 +49,13 @@ Scenario 3
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 3.1
+        Scenario 3.1.1
             Мотор
     Parallel process 2
-        Scenario 3.1
+        Scenario 3.2.1
             ввод внизу
     Parallel process 3
-        Scenario 3.1
+        Scenario 3.3.1
             вывод внизу
     начало блока
     конец блока
@@ -80,13 +80,13 @@ Scenario 4
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 4.1
+        Scenario 4.1.1
             Мотор
     Parallel process 2
-        Scenario 4.1
+        Scenario 4.2.1
             ввод внизу
     Parallel process 3
-        Scenario 4.1
+        Scenario 4.3.1
             вывод внизу
     начало блока
     конец блока
@@ -113,13 +113,13 @@ Scenario 5
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 5.1
+        Scenario 5.1.1
             Мотор
     Parallel process 2
-        Scenario 5.1
+        Scenario 5.2.1
             ввод внизу
     Parallel process 3
-        Scenario 5.1
+        Scenario 5.3.1
             вывод внизу
     начало блока
     конец блока
@@ -143,13 +143,13 @@ Scenario 6
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 6.1
+        Scenario 6.1.1
             Мотор
     Parallel process 2
-        Scenario 6.1
+        Scenario 6.2.1
             ввод внизу
     Parallel process 3
-        Scenario 6.1
+        Scenario 6.3.1
             вывод внизу
     начало блока
     конец блока
@@ -174,13 +174,13 @@ Scenario 7
     Gren2
     10 секунд
     Parallel process 1
-        Scenario 7.1
+        Scenario 7.1.1
             Мотор
     Parallel process 2
-        Scenario 7.1
+        Scenario 7.2.1
             ввод внизу
     Parallel process 3
-        Scenario 7.1
+        Scenario 7.3.1
             вывод внизу
     начало блока
     конец блока

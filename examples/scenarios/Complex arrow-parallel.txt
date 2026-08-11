@@ -1,15 +1,15 @@
 # Complex arrow-parallel: scenarios
 Scenario 1
     Parallel process 1
-        Scenario 1.1
+        Scenario 1.1.1
     Parallel process 2
-        Scenario 1.1
+        Scenario 1.2.1
             AAAAAA
             BBBBB
             CCCCC - Yes
             FFFFFF - Yes
             KKKK
-        Scenario 1.2
+        Scenario 1.2.2
             AAAAAA
             BBBBB
             CCCCC - No
@@ -18,7 +18,7 @@ Scenario 1
             HHHHH
             IIIIII - Yes
             KKKK
-        Scenario 1.3
+        Scenario 1.2.3
             AAAAAA
             BBBBB
             CCCCC - Yes
@@ -27,14 +27,14 @@ Scenario 1
             HHHHH
             IIIIII - Yes
             KKKK
-        Scenario 1.4
+        Scenario 1.2.4
             AAAAAA
             BBBBB
             CCCCC - Yes
             FFFFFF - No
             Skip loop: For each GGGGG
             KKKK
-        Scenario 1.5
+        Scenario 1.2.5
             AAAAAA
             BBBBB
             CCCCC - Yes
@@ -43,7 +43,7 @@ Scenario 1
             HHHHH
             IIIIII - No
             KKKK
-        Scenario 1.6
+        Scenario 1.2.6
             AAAAAA
             BBBBB
             CCCCC - No
@@ -54,7 +54,7 @@ Scenario 1
             CCCCC - Yes
             FFFFFF - Yes
             KKKK
-        Scenario 1.7
+        Scenario 1.2.7
             AAAAAA
             BBBBB
             CCCCC - No

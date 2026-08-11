@@ -1,6 +1,6 @@
 # parallel-empty: scenarios
 Scenario 1
     Parallel process 1
-        Scenario 1.1
+        Scenario 1.1.1
     Parallel process 2
-        Scenario 1.1
+        Scenario 1.2.1
