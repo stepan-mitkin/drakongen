@@ -1348,6 +1348,32 @@ module.exports = {printPseudo, printWithIndent, makeIndent}
 },{"./tools":11}],8:[function(require,module,exports){
 const {prepareDrakonDiagram} = require('./drakonToStruct');
 var tr;
+function addContent(step, depth, lines) {
+    var _selectValue_2, content;
+    if (step.secondary) {
+        addLine(step.secondary, depth, lines);
+    }
+    _selectValue_2 = step.type;
+    if (_selectValue_2 === 'question') {
+        content = normalizeContent(step);
+        if (step.answer === 'yes') {
+            content = yesPath(content);
+        } else {
+            content = noPath(content);
+        }
+    } else {
+        if (_selectValue_2 === 'loopbegin') {
+            if (step.loop === 'iteration') {
+                content = iteration(step.content);
+            } else {
+                content = skipLoop(step.content);
+            }
+        } else {
+            content = step.content;
+        }
+    }
+    addLine(content, depth, lines);
+}
 function addLine(text, depth, lines) {
     var indent, part, parts;
     indent = ' '.repeat(4 * depth);
@@ -1496,7 +1522,7 @@ function printParallel(step, baseIndex, depth, lines) {
     }
 }
 function printScenario(scenario, baseIndex, depth, lines) {
-    var content, step;
+    var step;
     for (step of scenario) {
         if (step.type === 'parallel') {
             printParallel(step, baseIndex, depth, lines);
@@ -1504,8 +1530,7 @@ function printScenario(scenario, baseIndex, depth, lines) {
             if (step.type === 'error') {
                 addLine(step.message + ': ' + step.content, depth, lines);
             } else {
-                content = buildContent(step);
-                addLine(content, depth, lines);
+                addContent(step, depth, lines);
             }
         }
     }
