@@ -1,6 +1,7 @@
 # How to tune PID on a quadcopter: scenarios
 Scenario 1
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -62,6 +63,7 @@ Scenario 1
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 2
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -127,6 +129,7 @@ Scenario 2
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 3
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -193,6 +196,7 @@ Scenario 3
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 4
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -260,6 +264,7 @@ Scenario 4
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 5
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -325,6 +330,7 @@ Scenario 5
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 6
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -391,6 +397,7 @@ Scenario 6
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 7
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -458,6 +465,7 @@ Scenario 7
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 8
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -523,6 +531,7 @@ Scenario 8
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 9
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -587,6 +596,7 @@ Scenario 9
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 10
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -652,6 +662,7 @@ Scenario 10
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 11
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -718,6 +729,7 @@ Scenario 11
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 12
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -783,6 +795,7 @@ Scenario 12
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 13
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -849,6 +862,7 @@ Scenario 13
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 14
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -916,6 +930,7 @@ Scenario 14
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 15
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -980,6 +995,7 @@ Scenario 15
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 16
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -1045,6 +1061,7 @@ Scenario 16
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 17
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -1110,6 +1127,7 @@ Scenario 17
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 18
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values
@@ -1176,6 +1194,7 @@ Scenario 18
     Yaw I should not be higher than just enough to prevent drift.
 Scenario 19
     Prepare
+    Listen
     To the motor sound
     Remember, PID tuning is subjective!
     Backup your current PID values

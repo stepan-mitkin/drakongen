@@ -1,0 +1,122 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "step\ndepth\nlines",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 1,
+            "one": "32",
+            "content": "Secondary"
+        },
+        "17": {
+            "type": "branch",
+            "one": "1",
+            "branchId": 3,
+            "content": "Exit"
+        },
+        "18": {
+            "type": "branch",
+            "one": "24",
+            "branchId": 2,
+            "content": "Primary"
+        },
+        "19": {
+            "type": "action",
+            "one": "17",
+            "two": "",
+            "content": "addLine(content, depth, lines)"
+        },
+        "20": {
+            "type": "action",
+            "one": "25",
+            "two": "",
+            "content": "content = normalizeContent(step)"
+        },
+        "21": {
+            "type": "case",
+            "one": "27",
+            "two": ""
+        },
+        "22": {
+            "type": "case",
+            "one": "29",
+            "two": "21",
+            "content": "\"loopbegin\""
+        },
+        "23": {
+            "type": "case",
+            "one": "20",
+            "two": "22",
+            "content": "\"question\""
+        },
+        "24": {
+            "type": "select",
+            "one": "23",
+            "two": "",
+            "content": "step.type"
+        },
+        "25": {
+            "type": "question",
+            "one": "26",
+            "two": "28",
+            "flag1": 1,
+            "content": "step.answer === \"yes\""
+        },
+        "26": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "content": "content = yesPath(content)"
+        },
+        "27": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "content": "content = step.content"
+        },
+        "28": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "content": "content = noPath(content)"
+        },
+        "29": {
+            "type": "question",
+            "one": "30",
+            "two": "31",
+            "flag1": 1,
+            "content": "step.loop === \"iteration\""
+        },
+        "30": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "content": "content = iteration(step.content)"
+        },
+        "31": {
+            "type": "action",
+            "one": "19",
+            "two": "",
+            "content": "content = skipLoop(step.content)"
+        },
+        "32": {
+            "type": "question",
+            "one": "33",
+            "two": "18",
+            "flag1": 1,
+            "content": "step.secondary"
+        },
+        "33": {
+            "type": "action",
+            "one": "18",
+            "two": "",
+            "content": "addLine(step.secondary, depth, lines)"
+        }
+    }
+}

@@ -35,11 +35,6 @@
             "flag1": 0,
             "content": "step.type === \"parallel\""
         },
-        "7": {
-            "type": "action",
-            "one": "4",
-            "content": "addLine(content, depth, lines)"
-        },
         "8": {
             "type": "action",
             "one": "4",
@@ -59,8 +54,8 @@
         },
         "14": {
             "type": "action",
-            "one": "7",
-            "content": "content = buildContent(step)"
+            "one": "4",
+            "content": "addContent(step, depth, lines)"
         }
     }
 }
