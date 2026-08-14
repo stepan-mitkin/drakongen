@@ -1,0 +1,9 @@
+# Work out action-check: scenarios
+Scenario 1
+    Lift weight
+    Tired? - Yes
+Scenario 2
+    Lift weight
+    Tired? - No
+    Lift weight
+    Tired? - Yes

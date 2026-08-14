@@ -1,0 +1,22 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "ctx",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "4"
+        },
+        "4": {
+            "type": "action",
+            "one": "1",
+            "content": "return {\n    nodes: ctx.nodes,\n    firstNodeId: ctx.firstNodeId,\n    scenarios: ctx.scenarios,\n    decisions: ctx.decisions,\n    branchCount: clone(ctx.branchCount)\n}"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+# ar01-action: scenarios
+Scenario 1
+    act
+    3 - Yes
+Scenario 2
+    act
+    3 - No
+    act
+    3 - Yes

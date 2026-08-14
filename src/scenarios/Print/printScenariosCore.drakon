@@ -1,0 +1,64 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "scenarios\nbaseIndex\ndepth\nlines",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "7"
+        },
+        "4": {
+            "type": "loopend",
+            "one": "1",
+            "content": ""
+        },
+        "5": {
+            "type": "loopbegin",
+            "one": "6",
+            "content": "scenario; scenarios"
+        },
+        "6": {
+            "type": "action",
+            "one": "19",
+            "content": "subheader = tr(\"Scenario\") + \" \" + baseIndex\n+ i"
+        },
+        "7": {
+            "type": "question",
+            "one": "14",
+            "two": "18",
+            "flag1": 0,
+            "content": "baseIndex"
+        },
+        "14": {
+            "type": "action",
+            "one": "5",
+            "content": "i = 1"
+        },
+        "18": {
+            "type": "action",
+            "one": "14",
+            "content": "baseIndex = baseIndex + \".\""
+        },
+        "19": {
+            "type": "action",
+            "one": "21",
+            "content": "addLine(subheader, depth, lines)"
+        },
+        "21": {
+            "type": "action",
+            "one": "22",
+            "content": "printScenario(\n    scenario,\n    baseIndex + i,\n    depth + 1,\n    lines\n)"
+        },
+        "22": {
+            "type": "action",
+            "one": "4",
+            "content": "i++"
+        }
+    }
+}

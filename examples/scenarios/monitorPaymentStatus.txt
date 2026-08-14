@@ -1,0 +1,25 @@
+# monitorPaymentStatus: scenarios
+Scenario 1
+    Check payment on server
+    res.status == 200 - Yes
+    data.status == "completed" - Yes
+    Exit
+Scenario 2
+    Check payment on server
+    res.status == 200 - No
+    Exit
+Scenario 3
+    Check payment on server
+    res.status == 200 - Yes
+    data.status == "completed" - No
+    data.status == "waiting" - Yes
+    Check payment on server
+    res.status == 200 - Yes
+    data.status == "completed" - Yes
+    Exit
+Scenario 4
+    Check payment on server
+    res.status == 200 - Yes
+    data.status == "completed" - No
+    data.status == "waiting" - No
+    Exit

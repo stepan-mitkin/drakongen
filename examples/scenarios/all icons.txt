@@ -1,0 +1,246 @@
+# all icons: scenarios
+Scenario 1
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - Yes
+    простой ввод
+    простой вывод
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 1.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 1.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 1.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang
+Scenario 2
+    Gren1
+    question - No
+    insertion
+    выбор == вариант 1 - Yes
+    простой ввод
+    простой вывод
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 2.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 2.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 2.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang
+Scenario 3
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - No
+    выбор == вариант 2 - Yes
+    Верхняя полка
+    Нижняя полка
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 3.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 3.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 3.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang
+Scenario 4
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - Yes
+    простой ввод
+    простой вывод
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 4.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 4.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 4.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - No
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang
+Scenario 5
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - Yes
+    простой ввод
+    простой вывод
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 5.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 5.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 5.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Skip loop: цикл ДЛЯ
+    Utgang
+Scenario 6
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - Yes
+    простой ввод
+    простой вывод
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 6.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 6.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 6.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - Yes
+    Utgang
+Scenario 7
+    Gren1
+    question - Yes
+    action
+    выбор == вариант 1 - No
+    выбор == вариант 2 - No
+    комментарий
+    Gren2
+    10 секунд
+    Parallel process 1
+        Scenario 7.1.1
+            Запустить
+            Мотор
+    Parallel process 2
+        Scenario 7.2.1
+            ввод наверху
+            ввод внизу
+    Parallel process 3
+        Scenario 7.3.1
+            вывод наверху
+            вывод внизу
+    начало блока
+    конец блока
+    Gren4
+    T=0
+    первое
+    второе
+    третье
+    Gren3
+    подними
+    устал - Yes
+    Iteration: цикл ДЛЯ
+    можно? - No
+    работай
+    Utgang

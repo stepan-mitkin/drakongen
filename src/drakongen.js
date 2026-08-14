@@ -1,6 +1,7 @@
 const { drakonToPseudocode, mindToTree } = require("./drakonToPromptStruct");
 const { htmlToString } = require("./browserTools");
 const { setUpLanguage, translate } = require("./translate");
+const { treeToScenarios, printScenarios } = require("./scenarios");
 const { drakonToStruct } = require("./drakonToStruct");
 const { freeDiagramToText } = require("./free");
 
@@ -52,4 +53,31 @@ window.drakongen = {
     );
     return JSON.stringify(result, null, 4);
   },
+
+  makeScenarios: function (drakonJson, name, filename, language) {
+    setUpLanguage(language);
+    var scenarios = treeToScenarios(
+      drakonJson,
+      name,
+      filename,
+      translate,
+      htmlToString
+    );
+    return printScenarios(
+      scenarios,
+      name,
+      translate
+    );
+  },
+  makeScenariosJson: function (drakonJson, name, filename, language) {
+    setUpLanguage(language);
+    var result = treeToScenarios(
+      drakonJson,
+      name,
+      filename,
+      translate,
+      htmlToString
+    );
+    return JSON.stringify(result, null, 4);
+  },   
 };

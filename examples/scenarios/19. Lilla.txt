@@ -1,0 +1,15 @@
+# 19. Lilla: scenarios
+Scenario 1
+    3 - Yes
+    4 - Yes
+    5 - Yes
+Scenario 2
+    3 - No
+Scenario 3
+    3 - Yes
+    4 - No
+    6
+Scenario 4
+    3 - Yes
+    4 - Yes
+    5 - No

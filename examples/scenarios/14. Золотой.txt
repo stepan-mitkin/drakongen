@@ -1,0 +1,21 @@
+# 14. Золотой: scenarios
+Scenario 1
+    3 - Yes
+    8 - Yes
+    5
+    10
+Scenario 2
+    3 - No
+    4 - Yes
+    6
+    11
+Scenario 3
+    3 - Yes
+    8 - No
+    9
+    10
+Scenario 4
+    3 - No
+    4 - No
+    7
+    11

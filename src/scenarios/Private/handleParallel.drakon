@@ -1,0 +1,67 @@
+{
+    "keywords": {
+        "function": true
+    },
+    "params": "ctx\nstep\nscenario",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "4"
+        },
+        "4": {
+            "type": "action",
+            "one": "8",
+            "content": "next = step.procs[0].next"
+        },
+        "5": {
+            "type": "loopend",
+            "one": "7",
+            "content": ""
+        },
+        "6": {
+            "type": "loopbegin",
+            "one": "16",
+            "content": "proc; step.procs"
+        },
+        "7": {
+            "type": "action",
+            "one": "1",
+            "content": "traverseNode(ctx, next, scenario)"
+        },
+        "8": {
+            "type": "action",
+            "one": "14",
+            "content": "clone = {\n    id: step.id,\n    procs: [],\n    type: \"parallel\"\n}"
+        },
+        "9": {
+            "type": "action",
+            "one": "15",
+            "content": "ctxClone = cloneContext(\n    ctx,\n    proc.start,\n    proc2.scenarios\n)"
+        },
+        "14": {
+            "type": "action",
+            "one": "6",
+            "content": "scenario.push(clone)"
+        },
+        "15": {
+            "type": "action",
+            "one": "5",
+            "content": "scanAlgorithm(ctxClone)"
+        },
+        "16": {
+            "type": "action",
+            "one": "17",
+            "content": "proc2 = {scenarios: []}"
+        },
+        "17": {
+            "type": "action",
+            "one": "9",
+            "content": "clone.procs.push(proc2)"
+        }
+    }
+}

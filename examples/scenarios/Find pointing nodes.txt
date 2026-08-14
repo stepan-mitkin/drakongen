@@ -1,0 +1,87 @@
+# Find pointing nodes: scenarios
+Scenario 1
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - No
+    Return the list
+Scenario 2
+    Start with an empty list
+    node.prev - No
+    Return the list
+Scenario 3
+    Start with an empty list
+    node.prev - Yes
+    Skip loop: For each id in node.prev
+    Return the list
+Scenario 4
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - Yes
+    Return the list
+Scenario 5
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - Yes
+    add prev node to list
+    list length > 10 - No
+    Return the list
+Scenario 6
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - Yes
+    add prev node to list
+    list length > 10 - Yes
+    extra check - Yes
+    fine
+    Return the list
+Scenario 7
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - Yes
+    add prev node to list
+    list length > 10 - Yes
+    extra check - No
+    Iteration: for each hair
+    raise the hair
+    raised? - Yes
+    Return the list
+Scenario 8
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - Yes
+    add prev node to list
+    list length > 10 - Yes
+    extra check - No
+    Skip loop: for each hair
+    Return the list
+Scenario 9
+    Start with an empty list
+    node.prev - Yes
+    Iteration: For each id in node.prev
+    get the prev node by id
+    prev node is poisoned - No
+    The parent loop of prev node == parent loop - Yes
+    add prev node to list
+    list length > 10 - Yes
+    extra check - No
+    Iteration: for each hair
+    raise the hair
+    raised? - No
+    Return the list

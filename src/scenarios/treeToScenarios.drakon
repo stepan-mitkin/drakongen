@@ -1,0 +1,64 @@
+{
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "7"
+        },
+        "3": {
+            "type": "action",
+            "one": "1",
+            "content": "return ctx.scenarios"
+        },
+        "5": {
+            "type": "action",
+            "one": "6",
+            "content": "ctx = createContext(dinfo)"
+        },
+        "6": {
+            "type": "action",
+            "one": "3",
+            "content": "scanAlgorithm(ctx, dinfo)"
+        },
+        "7": {
+            "type": "action",
+            "one": "9",
+            "content": "tr = translateFunction"
+        },
+        "9": {
+            "type": "action",
+            "one": "10",
+            "content": "options = {skipShortcuts: true}"
+        },
+        "10": {
+            "type": "action",
+            "one": "11",
+            "content": "dinfo = prepareDrakonDiagram(\n    drakonJson,\n    name,\n    filename,\n    translateFunction,\n    htmlToString,\n    options\n)"
+        },
+        "11": {
+            "type": "question",
+            "one": "5",
+            "two": "12",
+            "flag1": 1,
+            "content": "dinfo.firstNodeId"
+        },
+        "12": {
+            "type": "action",
+            "one": "1",
+            "content": "return []"
+        }
+    },
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": true,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "drakonJson\nname\nfilename\ntranslateFunction\nhtmlToString"
+}

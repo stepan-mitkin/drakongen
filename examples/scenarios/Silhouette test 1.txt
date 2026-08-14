@@ -1,0 +1,39 @@
+# Silhouette test 1: scenarios
+Scenario 1
+    Branch1
+    AAAAAAA - Yes
+    Branch2
+    CCCCC - Yes
+    BBBB - Yes
+    CCCC
+    Exit
+Scenario 2
+    Branch1
+    AAAAAAA - No
+    CCCCC - Yes
+    Exit
+Scenario 3
+    Branch1
+    AAAAAAA - Yes
+    Branch2
+    CCCCC - No
+    фыфыфы
+    Exit
+Scenario 4
+    Branch1
+    AAAAAAA - Yes
+    Branch2
+    CCCCC - Yes
+    BBBB - No
+    CCCC
+    Exit
+Scenario 5
+    Branch1
+    AAAAAAA - No
+    CCCCC - No
+    фыфыфы
+    Branch2
+    CCCCC - Yes
+    BBBB - Yes
+    CCCC
+    Exit

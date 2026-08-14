@@ -1,0 +1,7 @@
+# 06. Багровый: scenarios
+Scenario 1
+    3 - Yes
+    4
+Scenario 2
+    3 - No
+    5

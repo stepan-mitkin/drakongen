@@ -1,0 +1,18 @@
+# tmp: scenarios
+Scenario 1
+    Branch1
+    AAAAAAA - Yes
+    Branch2
+    BBBB - Yes
+    CCCC
+    Exit
+Scenario 2
+    Branch1
+    AAAAAAA - No
+    Exit
+Scenario 3
+    Branch1
+    AAAAAAA - Yes
+    Branch2
+    BBBB - No
+    Exit

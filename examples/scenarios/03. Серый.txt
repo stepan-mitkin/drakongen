@@ -1,0 +1,5 @@
+# 03. Серый: scenarios
+Scenario 1
+    3 - Yes
+Scenario 2
+    3 - No

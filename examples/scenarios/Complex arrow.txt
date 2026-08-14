@@ -1,0 +1,65 @@
+# Complex arrow: scenarios
+Scenario 1
+    AAAAAA
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - Yes
+    KKKK
+Scenario 2
+    AAAAAA
+    BBBBB
+    CCCCC - No
+    DDDDDD
+    EEEEEE - Yes
+    Iteration: For each GGGGG
+    HHHHH
+    IIIIII - Yes
+    KKKK
+Scenario 3
+    AAAAAA
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - No
+    Iteration: For each GGGGG
+    HHHHH
+    IIIIII - Yes
+    KKKK
+Scenario 4
+    AAAAAA
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - No
+    Skip loop: For each GGGGG
+    KKKK
+Scenario 5
+    AAAAAA
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - No
+    Iteration: For each GGGGG
+    HHHHH
+    IIIIII - No
+    KKKK
+Scenario 6
+    AAAAAA
+    BBBBB
+    CCCCC - No
+    DDDDDD
+    EEEEEE - No
+    JJJJ - Yes
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - Yes
+    KKKK
+Scenario 7
+    AAAAAA
+    BBBBB
+    CCCCC - No
+    DDDDDD
+    EEEEEE - No
+    JJJJ - No
+    JJJJ - Yes
+    BBBBB
+    CCCCC - Yes
+    FFFFFF - Yes
+    KKKK

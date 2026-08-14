@@ -1,0 +1,12 @@
+# 07. Фиолетовый: scenarios
+Scenario 1
+    3 - Yes
+    5
+Scenario 2
+    3 - No
+    4 - Yes
+    6
+Scenario 3
+    3 - No
+    4 - No
+    7

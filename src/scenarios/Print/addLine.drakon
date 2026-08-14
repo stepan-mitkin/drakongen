@@ -1,0 +1,47 @@
+{
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "text\ndepth\nlines",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "3"
+        },
+        "3": {
+            "type": "action",
+            "one": "5",
+            "content": "indent = \" \".repeat(4 * depth)"
+        },
+        "5": {
+            "type": "action",
+            "one": "7",
+            "content": "parts = text.split(\"\\n\")"
+        },
+        "6": {
+            "type": "loopend",
+            "one": "1",
+            "content": ""
+        },
+        "7": {
+            "type": "loopbegin",
+            "one": "8",
+            "content": "part; parts"
+        },
+        "8": {
+            "type": "action",
+            "one": "6",
+            "content": "lines.push(indent + part)"
+        }
+    }
+}

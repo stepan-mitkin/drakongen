@@ -1,0 +1,12 @@
+# NestedArrowLoop: scenarios
+Scenario 1
+    Are you hungry? - No
+Scenario 2
+    Are you hungry? - Yes
+    Are you hungry? - No
+    Are you hungry? - No
+Scenario 3
+    Are you hungry? - Yes
+    Are you hungry? - Yes
+    Are you hungry? - No
+    Are you hungry? - No

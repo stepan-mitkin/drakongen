@@ -1,0 +1,18 @@
+# And test: scenarios
+Scenario 1
+    One - Yes
+    Two - No
+    Three - Yes
+    Do it!
+Scenario 2
+    One - No
+    Do not do it
+Scenario 3
+    One - Yes
+    Two - Yes
+    Do not do it
+Scenario 4
+    One - Yes
+    Two - No
+    Three - No
+    Do not do it

@@ -1,0 +1,12 @@
+# 16. Голубой: scenarios
+Scenario 1
+    3 - Yes
+    4 - Yes
+Scenario 2
+    3 - No
+    6
+Scenario 3
+    3 - Yes
+    4 - No
+    5
+    6

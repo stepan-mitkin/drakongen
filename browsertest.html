@@ -29,6 +29,8 @@
         <div><select id="format">
             <option value="pseudo">DRAKON-human</option>
             <option value="tree">DRAKON-machine</option>
+            <option value="scen-text">Scenarios-human</option>
+            <option value="scen-json">Scenarios-machine</option>
             <option value="graf">Graf-human</option>
             <option value="graf-json">Graf-machine</option>
         </select></div>
@@ -80,12 +82,17 @@
                     content = drakongen.toMindTree(input.value, "Drakongen browser test", "Drakongen browser test.graf")
                 } else if (format.value === "graf-json") {
                     content = drakongen.toMindTreeJson(input.value, "Drakongen browser test", "Drakongen browser test.graf")
-                } else {
+                } else if (format.value === "tree") {
                     var no_loop = document.getElementById("no-loop").checked;
                     var options = {
                         noLoop: no_loop
                     }
                     content = drakongen.toTree(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value, options)
+                } else if (format.value === "tree") {
+                } else if (format.value === "scen-json") {
+                    content = drakongen.makeScenariosJson(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
+                } else if (format.value === "scen-text") {
+                    content = drakongen.makeScenarios(input.value, "Drakongen browser test", "Drakongen browser test.drakon", language.value)
                 }
                 setText(output, content)
             } catch (ex) {

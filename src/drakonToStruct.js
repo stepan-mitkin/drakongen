@@ -12,6 +12,31 @@ function drakonToStruct(
   options,
 ) {
   options = options || {};
+  var dinfo = prepareDrakonDiagram(
+    drakonJson,
+    name,
+    filename,
+    translateFunction,
+    htmlToString,
+    options
+  )    
+
+  var diagram = dinfo.diagram;
+
+  if (dinfo.firstNodeId) {
+    var branches = dinfo.branches;
+
+    branches.forEach((branch) => cutOffBranch(dinfo.nodes, branch));
+    var branchTrees = structFlow(dinfo.nodes, branches, filename, translate, options);
+
+    diagram.branches = branchTrees
+    diagram.secondary = findSecondary(branchTrees, options)
+  }
+  return diagram
+}
+
+function prepareDrakonDiagram(drakonJson, name, filename, translateFunction, htmlToString, options) {
+  options = options || {};
   translate = translateFunction;
   let drakonGraph;
   try {
@@ -31,13 +56,20 @@ function drakonToStruct(
   var params = decodeContent(drakonGraph.params, htmlToString);
   var description = decodeContent(drakonGraph.description, htmlToString);
 
-  var result = {
+  var diagram = {
     name: name,
     type: "drakon",
     params:  params,
     description: description,
     branches: []
   };
+
+  var result = {
+    diagram: diagram,
+    nodes: nodes,
+    branches: branches,
+    firstNodeId: firstNodeId
+  }
 
   if (!firstNodeId) {
     return result
@@ -55,12 +87,10 @@ function drakonToStruct(
       options
     ),
   );
-  rewireShortcircuit(nodes, filename);
-  branches.forEach((branch) => cutOffBranch(nodes, branch));
-  var branchTrees = structFlow(nodes, branches, filename, translate, options);
+  if (!options.skipShortcuts) {
+    rewireShortcircuit(nodes, filename);
+  }
 
-  result.branches = branchTrees
-  result.secondary = findSecondary(branchTrees, options)
   return result
 }
 
@@ -655,4 +685,4 @@ function markLoopBody(nodes, start, filename) {
   throw createError(translate("Loop end expected here"), filename, start.one);
 }
 
-module.exports = { drakonToStruct, drakonToGraph };
+module.exports = { drakonToStruct, drakonToGraph, prepareDrakonDiagram };

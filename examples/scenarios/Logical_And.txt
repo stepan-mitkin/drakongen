@@ -1,0 +1,12 @@
+# Logical_And: scenarios
+Scenario 1
+    A - Yes
+    B - Yes
+    C
+Scenario 2
+    A - No
+    D
+Scenario 3
+    A - Yes
+    B - No
+    D

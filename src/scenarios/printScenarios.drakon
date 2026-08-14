@@ -1,0 +1,52 @@
+{
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "2": {
+            "type": "branch",
+            "branchId": 0,
+            "one": "4"
+        },
+        "3": {
+            "type": "action",
+            "one": "6",
+            "content": "lines = []"
+        },
+        "4": {
+            "type": "action",
+            "one": "3",
+            "content": "tr = translateFunction"
+        },
+        "5": {
+            "type": "action",
+            "one": "1",
+            "content": "return lines.join(\"\\n\")"
+        },
+        "6": {
+            "type": "action",
+            "one": "7",
+            "content": "lines.push(\n    \"# \" + name + \": \" + tr(\"scenarios\")\n)"
+        },
+        "7": {
+            "type": "action",
+            "one": "8",
+            "content": "baseIndex = \"\"\ndepth = 0"
+        },
+        "8": {
+            "type": "action",
+            "one": "5",
+            "content": "printScenariosCore(\n    scenarios,\n    baseIndex,\n    depth,\n    lines\n)"
+        }
+    },
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": false,
+        "export": true,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "scenarios\nname\ntranslateFunction"
+}
