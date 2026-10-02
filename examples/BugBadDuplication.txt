@@ -1,0 +1,16 @@
+## Procedure "BugBadDuplication"
+
+Parameters:
+context
+
+Algorithm:
+If a = b
+    If one
+        Pass
+    I AM THE ONLY ONE!!!
+Else
+    If a = c
+        If two
+            Pass
+
+End of procedure

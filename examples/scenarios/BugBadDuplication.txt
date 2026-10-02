@@ -1,0 +1,22 @@
+# BugBadDuplication: scenarios
+Scenario 1
+    a = b - Yes
+    one - Yes
+    I AM THE ONLY ONE!!!
+Scenario 2
+    a = b - No
+    a = c - Yes
+    two - Yes
+    I AM THE ONLY ONE!!!
+Scenario 3
+    a = b - Yes
+    one - No
+    I AM THE ONLY ONE!!!
+Scenario 4
+    a = b - No
+    a = c - No
+Scenario 5
+    a = b - No
+    a = c - Yes
+    two - No
+    I AM THE ONLY ONE!!!

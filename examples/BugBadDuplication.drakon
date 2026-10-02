@@ -1,0 +1,56 @@
+{
+    "keywords": {
+        "function": false,
+        "machine": false,
+        "async": true,
+        "export": false,
+        "algoprop": false,
+        "lazy": false
+    },
+    "params": "context",
+    "type": "drakon",
+    "items": {
+        "1": {
+            "type": "end"
+        },
+        "31": {
+            "type": "branch",
+            "one": "84",
+            "branchId": 0,
+            "content": ""
+        },
+        "83": {
+            "type": "action",
+            "one": "1",
+            "content": "<p>I AM THE ONLY ONE!!!</p>"
+        },
+        "84": {
+            "type": "question",
+            "one": "85",
+            "two": "86",
+            "flag1": 1,
+            "content": "<p>a = b</p>"
+        },
+        "85": {
+            "type": "question",
+            "one": "83",
+            "two": "83",
+            "flag1": 1,
+            "content": "<p>one</p>"
+        },
+        "86": {
+            "type": "question",
+            "one": "87",
+            "two": "1",
+            "flag1": 1,
+            "content": "<p>a = c</p>"
+        },
+        "87": {
+            "type": "question",
+            "one": "83",
+            "two": "83",
+            "flag1": 1,
+            "content": "<p>two</p>"
+        }
+    }
+}
