@@ -1,4 +1,10 @@
-function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
+function append(array, item) {
+    var copy = array.slice();
+    copy.push(item);
+    return copy;
+}
+
+function buildTree(nodes, nodeId, body, stopId, afterLoop, onError, qstack) {
     while (nodeId) {
         if (nodeId === afterLoop) {
             body.push({type: "break"}) 
@@ -12,7 +18,8 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
         let next;
 
         if (node.type === "question") {
-            next = reserveNext(nodes, node)
+            var myStack = append(qstack, nodeId);
+            next = reserveNext(nodes, node, myStack);
             
             transformed = {
                 id: node.id,
@@ -25,8 +32,8 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
             const yesNodeId = node.flag1 === 1 ? node.one : node.two;
             const noNodeId = node.flag1 === 1 ? node.two : node.one;
 
-            buildTree(nodes, yesNodeId, transformed.yes, node.next, afterLoop, onError);
-            buildTree(nodes, noNodeId, transformed.no, node.next, afterLoop, onError);
+            buildTree(nodes, yesNodeId, transformed.yes, node.next, afterLoop, onError, myStack);
+            buildTree(nodes, noNodeId, transformed.no, node.next, afterLoop, onError, myStack);
             if (next === afterLoop) {
                 next = undefined
             }
@@ -39,7 +46,7 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
                 body: []
             };
             var end = nodes[node.end]
-            buildTree(nodes, node.one, transformed.body, node.end, end.one, onError)
+            buildTree(nodes, node.one, transformed.body, node.end, end.one, onError, qstack)
             next = node.next;   
         } else if (node.type == "loopend") {
             if (stopId !== afterLoop) {
@@ -58,7 +65,7 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
                 body: []
             };
             var end = nodes[node.stub]
-            buildTree(nodes, node.one, transformed.body, node.stub, end.one, onError)
+            buildTree(nodes, node.one, transformed.body, node.stub, end.one, onError, qstack)
             next = node.next;  
         } else if (node.type === "arrow-stub") {
             return
@@ -74,7 +81,7 @@ function buildTree(nodes, nodeId, body, stopId, afterLoop, onError) {
                     body: []
                 }
                 transformed.procs.push(childProc)
-                buildTree(nodes, proc.start, childProc.body, undefined, undefined, buildTree)
+                buildTree(nodes, proc.start, childProc.body, undefined, undefined, onError, [])
             }
             next = node.one;
         } else {
@@ -115,17 +122,21 @@ function copyFields(dst, src, fields) {
     }
 }
 
-function reserveNext(nodes, node) {
+function reserveNext(nodes, node, qstack) {
     if (!node.next) {
         return undefined
     }
     const target = nodes[node.next];
-    if (target.targetTaken) {
-        return undefined;
-    } else {
-        target.targetTaken = true;
-        return node.next;
-    }    
+    if (!target.ifs) {
+        target.ifs = {}
+    }
+    for (var qid of qstack) {
+        if (target.ifs[qid]) {
+            return undefined;
+        }
+    }
+    target.ifs[node.id] = true;
+    return node.next   
 }
 
 module.exports = {buildTree}

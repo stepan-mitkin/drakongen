@@ -4,9 +4,8 @@ function decrement_arrow_count(context, node) {
     algonode.branching--;
 }
 function decrement_if_count(context, node) {
-    var _collection_12, if_id, if_node;
-    _collection_12 = node.stack;
-    for (if_id of _collection_12) {
+    var if_id, if_node;
+    for (if_id of node.stack) {
         if_node = context.nodes[if_id];
         if_node.branching--;
     }
@@ -30,9 +29,8 @@ function group_stack_by_id(stack) {
     return counts_by_id;
 }
 function increment_if_count(context, node) {
-    var _collection_14, if_id, if_node;
-    _collection_14 = node.stack;
-    for (if_id of _collection_14) {
+    var if_id, if_node;
+    for (if_id of node.stack) {
         if_node = context.nodes[if_id];
         if_node.branching++;
     }
@@ -81,9 +79,9 @@ function merge_converging_branches(context, node_id, node, stack) {
     node.stack = processed_stack;
 }
 function recurse_traversal(context, node_id, node) {
-    var _collection_20, _selectValue_18, proc, stack1, stack2;
-    _selectValue_18 = node.type;
-    if (_selectValue_18 === 'question') {
+    var _selectValue_2, proc, stack1, stack2;
+    _selectValue_2 = node.type;
+    if (_selectValue_2 === 'question') {
         increment_if_count(context, node);
         stack1 = node.stack.slice();
         stack1.push(node_id);
@@ -92,17 +90,16 @@ function recurse_traversal(context, node_id, node) {
         traverse_node(context, node.two, stack2);
         traverse_node(context, node.one, stack1);
     } else {
-        if (_selectValue_18 === 'arrow-loop') {
+        if (_selectValue_2 === 'arrow-loop') {
             stack1 = node.stack.slice();
             stack1.push(node_id);
             traverse_node(context, node.one, stack1);
         } else {
-            if (_selectValue_18 === 'arrow-stub') {
+            if (_selectValue_2 === 'arrow-stub') {
                 decrement_arrow_count(context, node);
             } else {
-                if (_selectValue_18 === 'parbegin') {
-                    _collection_20 = node.procs;
-                    for (proc of _collection_20) {
+                if (_selectValue_2 === 'parbegin') {
+                    for (proc of node.procs) {
                         flow_no_loop(context.nodes, proc.start);
                     }
                 } else {

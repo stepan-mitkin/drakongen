@@ -131,7 +131,7 @@ function getQuestionExits(step) {
     }
 }
 function handleParallel(ctx, step, scenario) {
-    var _collection_2, clone, ctxClone, next, proc, proc2;
+    var clone, ctxClone, next, proc, proc2;
     next = step.procs[0].next;
     clone = {
         id: step.id,
@@ -139,8 +139,7 @@ function handleParallel(ctx, step, scenario) {
         type: 'parallel'
     };
     scenario.push(clone);
-    _collection_2 = step.procs;
-    for (proc of _collection_2) {
+    for (proc of step.procs) {
         proc2 = { scenarios: [] };
         clone.procs.push(proc2);
         ctxClone = cloneContext(ctx, proc.start, proc2.scenarios);
@@ -164,10 +163,9 @@ function normalizeContent(step) {
     }
 }
 function printParallel(step, baseIndex, depth, lines) {
-    var _collection_2, branch, i;
+    var branch, i;
     i = 1;
-    _collection_2 = step.procs;
-    for (branch of _collection_2) {
+    for (branch of step.procs) {
         addLine(tr('Parallel process') + ' ' + i, depth, lines);
         printScenariosCore(branch.scenarios, baseIndex + '.' + i, depth + 1, lines);
         i++;

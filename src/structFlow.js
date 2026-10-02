@@ -142,7 +142,7 @@ function structFlow(nodes, branches, filename, translate, options) {
 
     for (var branch of branches) {
       var body = [];
-      buildTree(nodes, branch.next, body, "<dummy id>", undefined, onError);
+      buildTree(nodes, branch.next, body, "<dummy id>", undefined, onError, []);
 
       result.push({
         name: branch.content,
